@@ -2,7 +2,11 @@
 namespace App\Services\Api;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthService
 {
@@ -28,5 +32,31 @@ class AuthService
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return ['user' => $user, 'token' => $token];
+    }
+
+    public function handleCallback(string $provider, $token)
+    {
+        if (empty($token)) {
+            throw new Exception('Token not provided.');
+        }
+
+        $providerUser = Socialite::driver($provider)->stateless()->userFromToken($token);
+
+        $user = User::where('email', $providerUser->getEmail())->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name'     => $providerUser->getName(),
+                'email'    => $providerUser->getEmail(),
+                'password' => Hash::make(Str::random(16)),
+            ]);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return [
+            'user'  => $user,
+            'token' => $token,
+        ];
     }
 }

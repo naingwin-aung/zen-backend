@@ -68,4 +68,18 @@ class AuthController extends Controller
             return error($e->getMessage());
         }
     }
+
+    public function handleProviderCallback(string $provider, Request $request)
+    {
+        try {
+            ['user' => $user, 'token' => $token] = $this->service->handleCallback($provider, $request->token);
+
+            return success([
+                'user'  => $user,
+                'token' => $token,
+            ], 'Login successful.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
 }
