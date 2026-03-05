@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Api;
 
+use App\Exceptions\MyException;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class AuthService
             return ['user' => $user, 'token' => $token];
         }
 
-        return error('Invalid credentials.', 401);
+        throw new MyException('Invalid email or password.');
     }
 
     public function register($name, $email, $password)

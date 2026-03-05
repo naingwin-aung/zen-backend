@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\MyException;
 use Exception;
 use App\Http\Controllers\Controller;
 use App\Services\Api\AuthService;
@@ -25,7 +26,13 @@ class AuthController extends Controller
             ['user' => $user, 'token' => $token] = $this->service->login($request->email, $request->password);
 
             return success(['user' => $user, 'token' => $token], 'Login successful.');
-        } catch (Exception $e) {
+        } catch(MyException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 200);
+        }
+         catch (Exception $e) {
             return error($e->getMessage());
         }
     }
