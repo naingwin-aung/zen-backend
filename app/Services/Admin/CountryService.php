@@ -16,6 +16,7 @@ class CountryService
         }
 
         $data = $query
+            ->orderBy('id', 'desc')
             ->paginate($limit)
             ->withQueryString();
 
