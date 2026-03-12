@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\ServiceTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:api')->group(function () {
@@ -12,5 +14,6 @@ Route::middleware('throttle:api')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
         Route::apiResource('countries', CountryController::class);
+        Route::apiResource('categories', CategoryController::class);
     });
 });

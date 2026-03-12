@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\Admin\CountryService;
 use Exception;
 use Illuminate\Http\Request;
+use App\Services\Admin\CategoryService;
 
-class CountryController extends Controller
+class CategoryController extends Controller
 {
-    public function __construct(public CountryService $service)
+    public function __construct(public CategoryService $service)
     {
         //
     }
@@ -23,13 +23,13 @@ class CountryController extends Controller
         ]);
 
         try {
-            $countries = $this->service->listing($request->limit, $request->search);
+            $categories = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $countries->total(),
-                'is_load_more' => $countries->hasMorePages(),
-                'countries'    => $countries->getCollection(),
-            ], 'Countries retrieved successfully.');
+                'total'        => $categories->total(),
+                'is_load_more' => $categories->hasMorePages(),
+                'categories'    => $categories->getCollection(),
+            ], 'Categories retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
@@ -38,11 +38,11 @@ class CountryController extends Controller
     public function show($id)
     {
         try {
-            $country = $this->service->find($id);
+            $category = $this->service->find($id);
 
             return success([
-                'country' => $country,
-            ], 'Country retrieved successfully.');
+                'category' => $category,
+            ], 'Category retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
@@ -52,15 +52,14 @@ class CountryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'dial_code' => 'required|string|max:10',
         ]);
 
         try {
-            $country = $this->service->create($request->name, $request->dial_code);
+            $category = $this->service->create($request->name);
 
             return success([
-                'country' => $country,
-            ], 'Country created successfully.');
+                'category' => $category,
+            ], 'Category created successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
@@ -70,15 +69,14 @@ class CountryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'dial_code' => 'required|string|max:10',
         ]);
 
         try {
-            $country = $this->service->update($request->name, $request->dial_code, $id);
+            $category = $this->service->update($request->name, $id);
 
             return success([
-                'country' => $country,
-            ], 'Country updated successfully.');
+                'category' => $category,
+            ], 'Category updated successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
@@ -89,7 +87,7 @@ class CountryController extends Controller
         try {
             $this->service->delete($id);
 
-            return success([], 'Country deleted successfully.');
+            return success([], 'Category deleted successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
