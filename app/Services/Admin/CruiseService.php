@@ -103,6 +103,17 @@ class CruiseService
         return $cruise;
     }
 
+    public function delete($id)
+    {
+        $cruise = Product::where('service', ServiceEnum::CRUISE->value)->find($id);
+
+        if (!$cruise) {
+            throw new Exception('Cruise not found.');
+        }
+
+        $cruise->delete();
+    }
+
     private function _createImages($product, $files)
     {
         $imageArray = [];

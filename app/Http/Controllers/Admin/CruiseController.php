@@ -102,4 +102,15 @@ class CruiseController extends Controller
             return error($e->getMessage());
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            $this->service->delete($id);
+
+            return success(null, 'Cruise deleted successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
 }
