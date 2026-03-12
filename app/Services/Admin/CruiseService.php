@@ -14,7 +14,10 @@ class CruiseService
         $query = Product::query();
 
         if ($search) {
-            $query->where('name', 'like', "%$search%");
+            $query = $query->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('search_keywords', 'LIKE', "%{$search}%");
+            });
         }
 
         $data = $query
@@ -47,8 +50,12 @@ class CruiseService
             'service'    => ServiceEnum::CRUISE->value,
         ]);
 
+        $noSpaceName             = str_replace(' ', '', strtolower($cruise->name));
+        $cruise->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
+
         $cruise->update([
-            'slug' => $cruise->id . '-' . Str::slug($cruise->name),
+            'slug'            => $cruise->id . '-' . Str::slug($cruise->name),
+            'search_keywords' => $cruise->search_keywords,
         ]);
 
         if (isset($data['categories'])) {
@@ -66,10 +73,14 @@ class CruiseService
     {
         $cruise = $this->find($id);
 
+        $noSpaceName             = str_replace(' ', '', strtolower($data['name']));
+        $cruise->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
+
         $cruise->update([
-            'name'       => $data['name'] ?? $cruise->name,
-            'slug'       => $cruise->id . '-' . Str::slug($data['name']),
-            'country_id' => $data['country_id'] ?? $cruise->country_id,
+            'name'            => $data['name'],
+            'slug'            => $cruise->id . '-' . Str::slug($data['name']),
+            'country_id'      => $data['country_id'],
+            'search_keywords' => $cruise->search_keywords,
         ]);
 
         if (isset($data['categories'])) {

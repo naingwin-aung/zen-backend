@@ -54,17 +54,18 @@ class CruiseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'         => 'required|string|max:255',
-            'country_id'   => 'required|integer|exists:countries,id',
-            'images'       => 'required|array',
-            'images.*'     => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'categories'   => 'required|array',
-            'categories.*' => 'required|integer|exists:categories,id',
+            'name'            => 'required|string|max:255',
+            'country_id'      => 'required|integer|exists:countries,id',
+            'images'          => 'required|array',
+            'images.*'        => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'categories'      => 'required|array',
+            'categories.*'    => 'required|integer|exists:categories,id',
+            'search_keywords' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
         try {
-            $cruise = $this->service->create($request->only('name', 'country_id', 'images', 'categories'));
+            $cruise = $this->service->create($request->only('name', 'country_id', 'images', 'categories', 'search_keywords'));
 
             DB::commit();
             return success([
@@ -79,19 +80,20 @@ class CruiseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'         => 'required|string|max:255',
-            'country_id'   => 'required|integer|exists:countries,id',
-            'images'       => 'nullable|array',
-            'images.*'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'old_images'   => 'nullable|array',
-            'old_images.*' => 'nullable|integer|exists:images,id',
-            'categories'   => 'required|array',
-            'categories.*' => 'required|integer|exists:categories,id',
+            'name'            => 'required|string|max:255',
+            'country_id'      => 'required|integer|exists:countries,id',
+            'images'          => 'nullable|array',
+            'images.*'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'old_images'      => 'nullable|array',
+            'old_images.*'    => 'nullable|integer|exists:images,id',
+            'categories'      => 'required|array',
+            'categories.*'    => 'required|integer|exists:categories,id',
+            'search_keywords' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
         try {
-            $cruise = $this->service->update($id, $request->only('name', 'country_id', 'images', 'old_images', 'categories'));
+            $cruise = $this->service->update($id, $request->only('name', 'country_id', 'images', 'old_images', 'categories', 'search_keywords'));
 
             DB::commit();
             return success([

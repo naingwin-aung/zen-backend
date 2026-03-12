@@ -15,7 +15,8 @@ class Product extends Model
         'name',
         'slug',
         'country_id',
-        'service'
+        'service',
+        'search_keywords',
     ];
 
     public function categories()

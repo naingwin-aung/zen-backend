@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name')->index()->nullable();
             $table->string('slug')->nullable();
             $table->foreignId('country_id')->nullable()->constrained()->nullOnDelete();
             $table->string('service')->index()->nullable();
+            $table->text('search_keywords')->nullable();
+            $table->fullText('search_keywords');
             $table->softDeletes();
             $table->timestamps();
         });
