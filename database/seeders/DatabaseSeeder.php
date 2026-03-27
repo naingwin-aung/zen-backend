@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -29,6 +30,13 @@ class DatabaseSeeder extends Seeder
             [
                 'name'     => 'Admin',
                 'password' => bcrypt('password'),
+            ]
+        );
+
+        Category::updateOrCreate(
+            ['name' => 'Cruises'],
+            [
+                'slug' => '1-cruises',
             ]
         );
 
