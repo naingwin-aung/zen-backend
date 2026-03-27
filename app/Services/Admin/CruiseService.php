@@ -31,7 +31,7 @@ class CruiseService
 
     public function find($id)
     {
-        $cruise = Product::with('images', 'categories')
+        $cruise = Product::with('images', 'categories', 'countries')
             ->where('service', ServiceEnum::CRUISE->value)
             ->find($id);
 
@@ -46,7 +46,6 @@ class CruiseService
     {
         $cruise = Product::create([
             'name'       => $data['name'],
-            'country_id' => $data['country_id'] ?? null,
             'service'    => ServiceEnum::CRUISE->value,
         ]);
 
@@ -57,6 +56,10 @@ class CruiseService
             'slug'            => $cruise->id . '-' . Str::slug($cruise->name),
             'search_keywords' => $cruise->search_keywords,
         ]);
+
+        if(isset($data['countries'])) {
+            $cruise->countries()->sync($data['countries']);
+        }
 
         if (isset($data['categories'])) {
             $cruise->categories()->sync($data['categories']);
@@ -79,9 +82,12 @@ class CruiseService
         $cruise->update([
             'name'            => $data['name'],
             'slug'            => $cruise->id . '-' . Str::slug($data['name']),
-            'country_id'      => $data['country_id'],
             'search_keywords' => $cruise->search_keywords,
         ]);
+
+        if(isset($data['countries'])) {
+            $cruise->countries()->sync($data['countries']);
+        }
 
         if (isset($data['categories'])) {
             $cruise->categories()->sync($data['categories']);

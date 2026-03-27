@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->index()->nullable();
             $table->string('slug')->nullable();
-            $table->foreignId('country_id')->nullable()->constrained()->nullOnDelete();
             $table->string('service')->index()->nullable();
             $table->text('search_keywords')->nullable();
             $table->fullText('search_keywords');

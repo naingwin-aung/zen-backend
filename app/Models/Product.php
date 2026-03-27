@@ -14,7 +14,6 @@ class Product extends Model
     protected $fillable = [
         'name',
         'slug',
-        'country_id',
         'service',
         'search_keywords',
     ];
@@ -27,5 +26,10 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function countries()
+    {
+        return $this->belongsToMany(Country::class, 'product_countries');
     }
 }
