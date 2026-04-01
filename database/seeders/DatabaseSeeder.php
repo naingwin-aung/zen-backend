@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run() : void
+    public function run(): void
     {
         User::updateOrCreate(
             ['email' => 'naingwinaung1710@gmail.com'],
             [
-                'name'     => 'naing win aung',
+                'name' => 'naing win aung',
                 'password' => bcrypt('password'),
             ]
         );
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         Admin::updateOrCreate(
             ['email' => 'zen.admin@gmail.com'],
             [
-                'name'     => 'Admin',
+                'name' => 'Admin',
                 'password' => bcrypt('password'),
             ]
         );
@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CountrySeeder::class,
+            CitySeeder::class,
         ]);
     }
 }
