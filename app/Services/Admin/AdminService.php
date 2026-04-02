@@ -59,9 +59,11 @@ class AdminService
             throw new Exception('Admin not found.');
         }
 
-        $image = $admin->profile;
+        $image = $admin->getRawOriginal('profile');
         if ($profile) {
-            Storage::delete($admin->profile);
+            if ($image) {
+                Storage::delete($image);
+            }
             $image = storeImage('admins', $profile);
         }
 
@@ -84,7 +86,10 @@ class AdminService
         }
 
         if ($admin->profile) {
-            Storage::delete($admin->profile);
+            $image = $admin->getRawOriginal('profile');
+            if ($image) {
+                Storage::delete($image);
+            }
         }
 
         $admin->delete();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Country extends Model
 {
@@ -13,4 +14,15 @@ class Country extends Model
         'slug',
         'dial_code',
     ];
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            Cache::forget('countries_list');
+        });
+
+        static::deleted(function () {
+            Cache::forget('countries_list');
+        });
+    }
 }

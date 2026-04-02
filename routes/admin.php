@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CruiseController;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +18,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('admins', AdminController::class);
     Route::apiResource('countries', CountryController::class);
+    Route::apiResource('cities', CityController::class);
     Route::apiResource('categories', CategoryController::class);
 
     Route::apiResource('cruises', CruiseController::class);
+    Route::apiResource('attractions', AttractionController::class);
 });
 // });
+
+Route::get('all-countries', [CountryController::class, 'all']);

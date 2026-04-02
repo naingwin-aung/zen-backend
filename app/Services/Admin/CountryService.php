@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Services\Admin;
 
 use App\Models\Country;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CountryService
@@ -27,7 +29,7 @@ class CountryService
     {
         $country = Country::find($id);
 
-        if (!$country) {
+        if (! $country) {
             throw new Exception('Country not found.');
         }
 
@@ -37,12 +39,12 @@ class CountryService
     public function create($name, $dial_code)
     {
         $country = Country::create([
-            'name'      => $name,
+            'name' => $name,
             'dial_code' => $dial_code,
         ]);
 
         $country->update([
-            'slug' => 'co' . $country->id . '-' . Str::slug($name),
+            'slug' => 'co'.$country->id.'-'.Str::slug($name),
         ]);
 
         return $country;
@@ -52,13 +54,13 @@ class CountryService
     {
         $country = Country::find($id);
 
-        if (!$country) {
+        if (! $country) {
             throw new Exception('Country not found.');
         }
 
         $country->update([
-            'name'      => $name,
-            'slug'      => 'co' . $country->id . '-' . Str::slug($name),
+            'name' => $name,
+            'slug' => 'co'.$country->id.'-'.Str::slug($name),
             'dial_code' => $dial_code,
         ]);
 
@@ -69,12 +71,21 @@ class CountryService
     {
         $country = Country::find($id);
 
-        if (!$country) {
+        if (! $country) {
             throw new Exception('Country not found.');
         }
 
         $country->delete();
 
         return true;
+    }
+
+    public function all()
+    {
+        $countries = Cache::rememberForever('countries_list', function () {
+            return Country::orderBy('name')->get()->toArray();
+        });
+
+        return $countries;
     }
 }

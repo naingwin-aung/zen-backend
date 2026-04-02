@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Services\Admin\AttractionService;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class AttractionController extends Controller
+{
+    public function __construct(public AttractionService $service)
+    {
+        //
+    }
+
+    public function index(Request $request)
+    {
+        $request->validate([
+            'page'   => 'required|integer|min:1',
+            'limit'  => 'required|integer|min:1|max:100',
+            'search' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            $attractions = $this->service->listing($request->limit, $request->search);
+
+            return success([
+                'total'        => $attractions->total(),
+                'is_load_more' => $attractions->hasMorePages(),
+                'attractions'  => $attractions->getCollection(),
+            ], 'Attractions retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $attraction = $this->service->find($id);
+
+            return success([
+                'attraction' => $attraction,
+            ], 'Attraction retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'            => 'required|string|max:255',
+            'countries'       => 'required|array',
+            'countries.*'     => 'required|integer',
+            'images'          => 'required|array',
+            'images.*'        => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'categories'      => 'required|array',
+            'categories.*'    => 'required|integer|exists:categories,id',
+            'search_keywords' => 'nullable|string',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords'));
+
+            DB::commit();
+            return success([
+                'attraction' => $attraction,
+            ], 'Attraction created successfully.');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return error($e->getMessage());
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name'            => 'required|string|max:255',
+            'countries'       => 'required|array',
+            'countries.*'     => 'required|integer',
+            'images'          => 'nullable|array',
+            'images.*'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'old_images'      => 'nullable|array',
+            'old_images.*'    => 'nullable|integer',
+            'categories'      => 'required|array',
+            'categories.*'    => 'required|integer|exists:categories,id',
+            'search_keywords' => 'nullable|string',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords'));
+
+            DB::commit();
+            return success([
+                'attraction' => $attraction,
+            ], 'Attraction updated successfully.');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return error($e->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $this->service->delete($id);
+
+            return success(null, 'Attraction deleted successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+}

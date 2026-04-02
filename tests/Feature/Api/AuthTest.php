@@ -127,7 +127,10 @@ describe('login', function () {
             'password' => 'wrong-password',
         ]);
 
-        $response->assertServerError();
+        $response->assertOk()
+            ->assertJson([
+                'success' => false,
+            ]);
     });
 
     it('fails when required fields are missing', function () {

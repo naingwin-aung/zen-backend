@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\AllCountryResource;
 use App\Services\Admin\CountryService;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,8 +18,8 @@ class CountryController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
 
@@ -26,9 +27,9 @@ class CountryController extends Controller
             $countries = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $countries->total(),
+                'total' => $countries->total(),
                 'is_load_more' => $countries->hasMorePages(),
-                'countries'    => $countries->getCollection(),
+                'countries' => $countries->getCollection(),
             ], 'Countries retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -90,6 +91,19 @@ class CountryController extends Controller
             $this->service->delete($id);
 
             return success([], 'Country deleted successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
+    public function all()
+    {
+        try {
+            $countries = $this->service->all();
+
+            return success([
+                'countries' => AllCountryResource::collection(collect($countries)),
+            ], 'Countries retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
