@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AgeGroupController;
 use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -23,7 +24,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('cruises', CruiseController::class);
     Route::apiResource('attractions', AttractionController::class);
+
+    Route::apiResource('age-groups', AgeGroupController::class);
+
+    // General routes
+    Route::get('all-countries', [CountryController::class, 'all']);
 });
 // });
 
-Route::get('all-countries', [CountryController::class, 'all']);
