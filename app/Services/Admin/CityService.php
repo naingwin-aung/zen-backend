@@ -8,12 +8,21 @@ use Illuminate\Support\Str;
 
 class CityService
 {
-    public function listing($limit = 10, $search = null)
+    public function listing($limit = 10, $search = null, $countryId = null)
     {
         $query = City::with('country');
 
-        if ($search) {
-            $query->where('name', 'like', "%$search%");
+        if (isset($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%')
+                    ->orWhereHas('country', function ($q2) use ($search) {
+                        $q2->where('name', 'like', '%'.$search.'%');
+                    });
+            });
+        }
+
+        if(isset($countryId)) {
+            $query->where('country_id', $countryId);
         }
 
         $data = $query

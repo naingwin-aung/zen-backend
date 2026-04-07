@@ -20,10 +20,11 @@ class CityController extends Controller
             'page' => 'required|integer|min:1',
             'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
+            'country_id' => 'nullable|integer',
         ]);
 
         try {
-            $cities = $this->service->listing($request->limit, $request->search);
+            $cities = $this->service->listing($request->limit, $request->search, $request->country_id);
 
             return success([
                 'total' => $cities->total(),
