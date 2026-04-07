@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class AgeGroup extends Model
 {
@@ -18,4 +19,15 @@ class AgeGroup extends Model
         'min_age' => 'integer',
         'max_age' => 'integer',
     ];
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            Cache::forget('age_groups_list');
+        });
+
+        static::deleted(function () {
+            Cache::forget('age_groups_list');
+        });
+    }
 }

@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // General routes
     Route::get('all-countries', [CountryController::class, 'all']);
+    Route::get('all-age-groups', [AgeGroupController::class, 'all']);
 });
 // });
 

@@ -3,6 +3,7 @@ namespace App\Services\Admin;
 
 use App\Models\AgeGroup;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 
 class AgeGroupService
 {
@@ -72,5 +73,14 @@ class AgeGroupService
         $ageGroup->delete();
 
         return true;
+    }
+
+    public function all()
+    {
+        $ageGroups = Cache::rememberForever('age_groups_list', function () {
+            return AgeGroup::select('id', 'name', 'min_age', 'max_age')->orderBy('name')->get()->toArray();
+        });
+
+        return $ageGroups;
     }
 }

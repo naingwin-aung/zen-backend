@@ -96,4 +96,17 @@ class AgeGroupController extends Controller
             return error($e->getMessage());
         }
     }
+
+    public function all()
+    {
+        try {
+            $age_groups = $this->service->all();
+
+            return success([
+                'age_groups' => $age_groups,
+            ], 'Age groups retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
 }
