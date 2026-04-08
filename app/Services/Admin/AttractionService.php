@@ -31,7 +31,7 @@ class AttractionService
 
     public function find($id)
     {
-        $attraction = Product::with('images', 'categories', 'countries')
+        $attraction = Product::with('images', 'categories', 'countries', 'attractionPackages.prices')
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
@@ -67,6 +67,27 @@ class AttractionService
 
         if (isset($data['images'])) {
             $this->_createImages($attraction, $data['images']);
+        }
+
+        // handle package option
+        if(isset($data['packages']) && is_array($data['packages'])) {
+            foreach ($data['packages'] as $package) {
+                $attractionPackage = $attraction->attractionPackages()->create([
+                    'name' => $package['name'],
+                    'description' => $package['description'] ?? null,
+                    'start_date' => $package['start_date'],
+                    'end_date' => $package['end_date'],
+                ]);
+
+                if (isset($package['prices']) && is_array($package['prices'])) {
+                    foreach ($package['prices'] as $price) {
+                        $attractionPackage->prices()->create([
+                            'age_group_id' => $price['age_group_id'],
+                            'price' => $price['price'],
+                        ]);
+                    }
+                }
+            }
         }
 
         return $attraction;

@@ -52,19 +52,27 @@ class AttractionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'            => 'required|string|max:255',
-            'countries'       => 'required|array',
-            'countries.*'     => 'required|integer',
-            'images'          => 'required|array',
-            'images.*'        => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'categories'      => 'required|array',
-            'categories.*'    => 'required|integer|exists:categories,id',
-            'search_keywords' => 'nullable|string',
+            'name'                             => 'required|string|max:255',
+            'countries'                        => 'required|array',
+            'countries.*'                      => 'required|integer',
+            'images'                           => 'required|array',
+            'images.*'                         => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'categories'                       => 'required|array',
+            'categories.*'                     => 'required|integer|exists:categories,id',
+            'search_keywords'                  => 'nullable|string',
+            'packages'                         => 'nullable|array',
+            'packages.*.name'                  => 'required_with:packages|string|max:255',
+            'packages.*.description'           => 'nullable|string',
+            'packages.*.start_date'            => 'required_with:packages|date',
+            'packages.*.end_date'              => 'required_with:packages|date|after_or_equal:packages.*.start_date',
+            'packages.*.prices'                => 'required_with:packages|array',
+            'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',
+            'packages.*.prices.*.price'        => 'required_with:packages.*.prices|numeric|min:0',
         ]);
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords'));
+            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords', 'packages'));
 
             DB::commit();
             return success([
