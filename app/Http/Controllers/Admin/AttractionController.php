@@ -60,7 +60,7 @@ class AttractionController extends Controller
             'categories'                       => 'required|array',
             'categories.*'                     => 'required|integer|exists:categories,id',
             'search_keywords'                  => 'nullable|string',
-            'packages'                         => 'nullable|array',
+            'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
             'packages.*.description'           => 'nullable|string',
             'packages.*.start_date'            => 'required_with:packages|date',
@@ -75,11 +75,13 @@ class AttractionController extends Controller
             $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords', 'packages'));
 
             DB::commit();
+
             return success([
                 'attraction' => $attraction,
             ], 'Attraction created successfully.');
         } catch (Exception $e) {
             DB::rollBack();
+
             return error($e->getMessage());
         }
     }
@@ -87,28 +89,38 @@ class AttractionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'            => 'required|string|max:255',
-            'countries'       => 'required|array',
-            'countries.*'     => 'required|integer',
-            'images'          => 'nullable|array',
-            'images.*'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'old_images'      => 'nullable|array',
-            'old_images.*'    => 'nullable|integer',
-            'categories'      => 'required|array',
-            'categories.*'    => 'required|integer|exists:categories,id',
-            'search_keywords' => 'nullable|string',
+            'name'                             => 'required|string|max:255',
+            'countries'                        => 'required|array',
+            'countries.*'                      => 'required|integer',
+            'images'                           => 'nullable|array',
+            'images.*'                         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'old_images'                       => 'nullable|array',
+            'old_images.*'                     => 'nullable|integer',
+            'categories'                       => 'required|array',
+            'categories.*'                     => 'required|integer|exists:categories,id',
+            'search_keywords'                  => 'nullable|string',
+            'packages'                         => 'required|array',
+            'packages.*.name'                  => 'required_with:packages|string|max:255',
+            'packages.*.description'           => 'nullable|string',
+            'packages.*.start_date'            => 'required_with:packages|date',
+            'packages.*.end_date'              => 'required_with:packages|date|after_or_equal:packages.*.start_date',
+            'packages.*.prices'                => 'required_with:packages|array',
+            'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',
+            'packages.*.prices.*.price'        => 'required_with:packages.*.prices|numeric|min:0',
         ]);
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords'));
+            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords', 'packages'));
 
             DB::commit();
+
             return success([
                 'attraction' => $attraction,
             ], 'Attraction updated successfully.');
         } catch (Exception $e) {
             DB::rollBack();
+
             return error($e->getMessage());
         }
     }
