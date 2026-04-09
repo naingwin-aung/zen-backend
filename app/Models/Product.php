@@ -37,4 +37,9 @@ class Product extends Model
     {
         return $this->hasMany(AttractionPackage::class, 'product_id');
     }
+
+    public function detail()
+    {
+        return $this->hasOne(ProductDetail::class, 'product_id');
+    }
 }

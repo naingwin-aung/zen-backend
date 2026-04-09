@@ -36,7 +36,7 @@ class AttractionService
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
-        if (! $attraction) {
+        if (!$attraction) {
             throw new Exception('Attraction not found.');
         }
 
@@ -46,16 +46,23 @@ class AttractionService
     public function create(array $data)
     {
         $attraction = Product::create([
-            'name' => $data['name'],
+            'name'    => $data['name'],
             'service' => ServiceEnum::ATTRACTION->value,
         ]);
 
-        $noSpaceName = str_replace(' ', '', strtolower($attraction->name));
-        $attraction->search_keywords = "{$noSpaceName}, ".($data['search_keywords'] ?? '');
+        $noSpaceName                 = str_replace(' ', '', strtolower($attraction->name));
+        $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
 
         $attraction->update([
-            'slug' => $attraction->id.'-'.Str::slug($attraction->name),
+            'slug'            => $attraction->id . '-' . Str::slug($attraction->name),
             'search_keywords' => $attraction->search_keywords,
+        ]);
+
+        // create product detail
+        $attraction->detail()->create([
+            'what_to_expect' => $data['what_to_expect'] ?? null,
+            'good_to_know'   => $data['good_to_know'] ?? null,
+            'highlights'     => $data['highlights'] ?? null,
         ]);
 
         if (isset($data['countries'])) {
@@ -74,17 +81,17 @@ class AttractionService
         if (isset($data['packages']) && is_array($data['packages'])) {
             foreach ($data['packages'] as $package) {
                 $attractionPackage = $attraction->attractionPackages()->create([
-                    'name' => $package['name'],
+                    'name'        => $package['name'],
                     'description' => $package['description'] ?? null,
-                    'start_date' => $package['start_date'],
-                    'end_date' => $package['end_date'],
+                    'start_date'  => $package['start_date'],
+                    'end_date'    => $package['end_date'],
                 ]);
 
                 if (isset($package['prices']) && is_array($package['prices'])) {
                     foreach ($package['prices'] as $price) {
                         $attractionPackage->prices()->create([
                             'age_group_id' => $price['age_group_id'],
-                            'price' => $price['price'],
+                            'price'        => $price['price'],
                         ]);
                     }
                 }
@@ -98,13 +105,20 @@ class AttractionService
     {
         $attraction = $this->find($id);
 
-        $noSpaceName = str_replace(' ', '', strtolower($data['name']));
-        $attraction->search_keywords = "{$noSpaceName}, ".($data['search_keywords'] ?? '');
+        $noSpaceName                 = str_replace(' ', '', strtolower($data['name']));
+        $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
 
         $attraction->update([
-            'name' => $data['name'],
-            'slug' => $attraction->id.'-'.Str::slug($data['name']),
+            'name'            => $data['name'],
+            'slug'            => $attraction->id . '-' . Str::slug($data['name']),
             'search_keywords' => $attraction->search_keywords,
+        ]);
+
+        // update product detail
+        $attraction->detail->update([
+            'what_to_expect' => $data['what_to_expect'] ?? null,
+            'good_to_know'   => $data['good_to_know'] ?? null,
+            'highlights'     => $data['highlights'] ?? null,
         ]);
 
         if (isset($data['countries'])) {
@@ -116,7 +130,7 @@ class AttractionService
         }
 
         // start handle product images
-        if (! empty($data['old_images'])) {
+        if (!empty($data['old_images'])) {
             if ($attraction->images->count() <= 1 && empty($data['images'])) {
                 throw new Exception('At least one image is required for the attraction.');
             }
@@ -159,10 +173,10 @@ class AttractionService
 
                     if ($currentPackage) {
                         $currentPackage->update([
-                            'name' => $package['name'],
+                            'name'        => $package['name'],
                             'description' => $package['description'] ?? null,
-                            'start_date' => $package['start_date'],
-                            'end_date' => $package['end_date'],
+                            'start_date'  => $package['start_date'],
+                            'end_date'    => $package['end_date'],
                         ]);
 
                         // prices handling
@@ -185,13 +199,13 @@ class AttractionService
                                 if ($currentPrice) {
                                     $currentPrice->update([
                                         'age_group_id' => $price['age_group_id'],
-                                        'price' => $price['price'],
+                                        'price'        => $price['price'],
                                     ]);
                                 }
                             } else {
                                 $currentPackage->prices()->create([
                                     'age_group_id' => $price['age_group_id'],
-                                    'price' => $price['price'],
+                                    'price'        => $price['price'],
                                 ]);
                             }
                         }
@@ -199,10 +213,10 @@ class AttractionService
                 } else {
                     // create new package
                     $currentPackage = $attraction->attractionPackages()->create([
-                        'name' => $package['name'],
+                        'name'        => $package['name'],
                         'description' => $package['description'] ?? null,
-                        'start_date' => $package['start_date'],
-                        'end_date' => $package['end_date'],
+                        'start_date'  => $package['start_date'],
+                        'end_date'    => $package['end_date'],
                     ]);
 
                     // create new prices
@@ -210,7 +224,7 @@ class AttractionService
                         foreach ($package['prices'] as $price) {
                             $currentPackage->prices()->create([
                                 'age_group_id' => $price['age_group_id'],
-                                'price' => $price['price'],
+                                'price'        => $price['price'],
                             ]);
                         }
                     }
@@ -225,7 +239,7 @@ class AttractionService
     {
         $attraction = Product::where('service', ServiceEnum::ATTRACTION->value)->find($id);
 
-        if (! $attraction) {
+        if (!$attraction) {
             throw new Exception('Attraction not found.');
         }
 
@@ -239,7 +253,7 @@ class AttractionService
         foreach ($files as $image) {
             $imageArray[] = [
                 'product_id' => $product->id,
-                'url' => storeImage('attraction_images', $image),
+                'url'        => storeImage('attraction_images', $image),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

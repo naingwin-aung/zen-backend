@@ -59,6 +59,9 @@ class AttractionController extends Controller
             'images.*'                         => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
             'categories'                       => 'required|array',
             'categories.*'                     => 'required|integer|exists:categories,id',
+            'what_to_expect'                   => 'required|string',
+            'good_to_know'                     => 'nullable|string',
+            'highlights'                       => 'nullable|string',
             'search_keywords'                  => 'nullable|string',
             'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
@@ -72,7 +75,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords', 'packages'));
+            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
 
             DB::commit();
 
@@ -99,6 +102,9 @@ class AttractionController extends Controller
             'categories'                       => 'required|array',
             'categories.*'                     => 'required|integer|exists:categories,id',
             'search_keywords'                  => 'nullable|string',
+            'what_to_expect'                   => 'required|string',
+            'good_to_know'                     => 'nullable|string',
+            'highlights'                       => 'nullable|string',
             'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
             'packages.*.description'           => 'nullable|string',
@@ -111,7 +117,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords', 'packages'));
+            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
 
             DB::commit();
 
