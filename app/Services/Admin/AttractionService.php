@@ -32,7 +32,7 @@ class AttractionService
 
     public function find($id)
     {
-        $attraction = Product::with('images', 'categories', 'countries', 'attractionPackages.prices')
+        $attraction = Product::with('images', 'categories', 'countries', 'attractionPackages.prices', 'detail')
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
