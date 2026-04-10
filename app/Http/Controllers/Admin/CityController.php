@@ -17,9 +17,9 @@ class CityController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page' => 'required|integer|min:1',
-            'limit' => 'required|integer|min:1|max:100',
-            'search' => 'nullable|string|max:255',
+            'page'       => 'required|integer|min:1',
+            'limit'      => 'required|integer|min:1|max:100',
+            'search'     => 'nullable|string|max:255',
             'country_id' => 'nullable|integer',
         ]);
 
@@ -27,9 +27,9 @@ class CityController extends Controller
             $cities = $this->service->listing($request->limit, $request->search, $request->country_id);
 
             return success([
-                'total' => $cities->total(),
+                'total'        => $cities->total(),
                 'is_load_more' => $cities->hasMorePages(),
-                'cities' => $cities->getCollection(),
+                'cities'       => $cities->getCollection(),
             ], 'Cities retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -52,7 +52,7 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'       => 'required|string|max:255',
             'country_id' => 'required|integer|exists:countries,id',
         ]);
 
@@ -70,7 +70,7 @@ class CityController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'       => 'required|string|max:255',
             'country_id' => 'required|integer|exists:countries,id',
         ]);
 

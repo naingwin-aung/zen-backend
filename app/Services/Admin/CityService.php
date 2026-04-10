@@ -14,14 +14,14 @@ class CityService
 
         if (isset($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%'.$search.'%')
+                $q->where('name', 'like', '%' . $search . '%')
                     ->orWhereHas('country', function ($q2) use ($search) {
-                        $q2->where('name', 'like', '%'.$search.'%');
+                        $q2->where('name', 'like', '%' . $search . '%');
                     });
             });
         }
 
-        if(isset($countryId)) {
+        if (isset($countryId)) {
             $query->where('country_id', $countryId);
         }
 
@@ -37,7 +37,7 @@ class CityService
     {
         $city = City::with('country')->find($id);
 
-        if (! $city) {
+        if (!$city) {
             throw new Exception('City not found.');
         }
 
@@ -47,12 +47,12 @@ class CityService
     public function create($name, $countryId)
     {
         $city = City::create([
-            'name' => $name,
+            'name'       => $name,
             'country_id' => $countryId,
         ]);
 
         $city->update([
-            'slug' => 'c'.$city->id.'-'.Str::slug($name),
+            'slug' => 'c' . $city->id . '-' . Str::slug($name),
         ]);
 
         return $city->load('country');
@@ -62,13 +62,13 @@ class CityService
     {
         $city = City::find($id);
 
-        if (! $city) {
+        if (!$city) {
             throw new Exception('City not found.');
         }
 
         $city->update([
-            'name' => $name,
-            'slug' => 'c'.$city->id.'-'.Str::slug($name),
+            'name'       => $name,
+            'slug'       => 'c' . $city->id . '-' . Str::slug($name),
             'country_id' => $countryId,
         ]);
 
@@ -79,7 +79,7 @@ class CityService
     {
         $city = City::find($id);
 
-        if (! $city) {
+        if (!$city) {
             throw new Exception('City not found.');
         }
 

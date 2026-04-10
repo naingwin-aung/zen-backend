@@ -32,7 +32,7 @@ class AttractionService
 
     public function find($id)
     {
-        $attraction = Product::with('images', 'categories', 'countries', 'attractionPackages.prices', 'detail')
+        $attraction = Product::with('images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail')
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
@@ -67,6 +67,10 @@ class AttractionService
 
         if (isset($data['countries'])) {
             $attraction->countries()->sync($data['countries']);
+        }
+
+        if (isset($data['cities'])) {
+            $attraction->cities()->sync($data['cities']);
         }
 
         if (isset($data['categories'])) {
@@ -123,6 +127,10 @@ class AttractionService
 
         if (isset($data['countries'])) {
             $attraction->countries()->sync($data['countries']);
+        }
+
+        if (isset($data['cities'])) {
+            $attraction->cities()->sync($data['cities']);
         }
 
         if (isset($data['categories'])) {

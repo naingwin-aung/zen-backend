@@ -33,6 +33,10 @@ class Product extends Model
         return $this->belongsToMany(Country::class, 'product_countries');
     }
 
+    public function cities() {
+        return $this->belongsToMany(City::class, 'product_cities');
+    }
+
     public function attractionPackages()
     {
         return $this->hasMany(AttractionPackage::class, 'product_id');

@@ -55,6 +55,8 @@ class AttractionController extends Controller
             'name'                             => 'required|string|max:255',
             'countries'                        => 'required|array',
             'countries.*'                      => 'required|integer',
+            'cities'                           => 'required|array',
+            'cities.*'                         => 'required|integer',
             'images'                           => 'required|array',
             'images.*'                         => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
             'categories'                       => 'required|array',
@@ -75,7 +77,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
+            $attraction = $this->service->create($request->only('name', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
 
             DB::commit();
 
@@ -95,6 +97,8 @@ class AttractionController extends Controller
             'name'                             => 'required|string|max:255',
             'countries'                        => 'required|array',
             'countries.*'                      => 'required|integer',
+            'cities'                           => 'required|array',
+            'cities.*'                         => 'required|integer',
             'images'                           => 'nullable|array',
             'images.*'                         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
             'old_images'                       => 'nullable|array',
@@ -117,7 +121,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
+            $attraction = $this->service->update($id, $request->only('name', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
 
             DB::commit();
 
