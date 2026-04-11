@@ -46,4 +46,9 @@ class Product extends Model
     {
         return $this->hasOne(ProductDetail::class, 'product_id');
     }
+
+    public function schedule()
+    {
+        return $this->hasOne(ProductSchedule::class, 'product_id');
+    }
 }

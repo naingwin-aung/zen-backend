@@ -65,11 +65,11 @@ class AttractionController extends Controller
             'good_to_know'                     => 'nullable|string',
             'highlights'                       => 'nullable|string',
             'search_keywords'                  => 'nullable|string',
+            'start_date'                       => 'required|date',
+            'end_date'                         => 'required|date|after_or_equal:start_date',
             'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
             'packages.*.description'           => 'nullable|string',
-            'packages.*.start_date'            => 'required_with:packages|date',
-            'packages.*.end_date'              => 'required_with:packages|date|after_or_equal:packages.*.start_date',
             'packages.*.prices'                => 'required_with:packages|array',
             'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',
             'packages.*.prices.*.price'        => 'required_with:packages.*.prices|numeric|min:0',
@@ -77,7 +77,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
+            $attraction = $this->service->create($request->only('name', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date'));
 
             DB::commit();
 
@@ -109,11 +109,11 @@ class AttractionController extends Controller
             'what_to_expect'                   => 'required|string',
             'good_to_know'                     => 'nullable|string',
             'highlights'                       => 'nullable|string',
+            'start_date'                       => 'required|date',
+            'end_date'                         => 'required|date|after_or_equal:start_date',
             'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
             'packages.*.description'           => 'nullable|string',
-            'packages.*.start_date'            => 'required_with:packages|date',
-            'packages.*.end_date'              => 'required_with:packages|date|after_or_equal:packages.*.start_date',
             'packages.*.prices'                => 'required_with:packages|array',
             'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',
             'packages.*.prices.*.price'        => 'required_with:packages.*.prices|numeric|min:0',
@@ -121,7 +121,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights'));
+            $attraction = $this->service->update($id, $request->only('name', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date'));
 
             DB::commit();
 

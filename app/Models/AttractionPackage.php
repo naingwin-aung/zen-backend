@@ -12,13 +12,6 @@ class AttractionPackage extends Model
         'product_id',
         'name',
         'description',
-        'start_date',
-        'end_date',
-    ];
-
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date'   => 'date',
     ];
 
     public function prices()

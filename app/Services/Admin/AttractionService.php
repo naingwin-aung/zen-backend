@@ -32,7 +32,7 @@ class AttractionService
 
     public function find($id)
     {
-        $attraction = Product::with('images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail')
+        $attraction = Product::with('images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail', 'schedule')
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
@@ -65,6 +65,12 @@ class AttractionService
             'highlights'     => $data['highlights'] ?? null,
         ]);
 
+        // create product schedule
+        $attraction->schedule()->create([
+            'start_date' => $data['start_date'] ?? null,
+            'end_date'   => $data['end_date'] ?? null,
+        ]);
+
         if (isset($data['countries'])) {
             $attraction->countries()->sync($data['countries']);
         }
@@ -87,8 +93,6 @@ class AttractionService
                 $attractionPackage = $attraction->attractionPackages()->create([
                     'name'        => $package['name'],
                     'description' => $package['description'] ?? null,
-                    'start_date'  => $package['start_date'],
-                    'end_date'    => $package['end_date'],
                 ]);
 
                 if (isset($package['prices']) && is_array($package['prices'])) {
@@ -123,6 +127,12 @@ class AttractionService
             'what_to_expect' => $data['what_to_expect'] ?? null,
             'good_to_know'   => $data['good_to_know'] ?? null,
             'highlights'     => $data['highlights'] ?? null,
+        ]);
+
+        // update product schedule
+        $attraction->schedule->update([
+            'start_date' => $data['start_date'] ?? null,
+            'end_date'   => $data['end_date'] ?? null,
         ]);
 
         if (isset($data['countries'])) {
@@ -183,8 +193,6 @@ class AttractionService
                         $currentPackage->update([
                             'name'        => $package['name'],
                             'description' => $package['description'] ?? null,
-                            'start_date'  => $package['start_date'],
-                            'end_date'    => $package['end_date'],
                         ]);
 
                         // prices handling
@@ -223,8 +231,6 @@ class AttractionService
                     $currentPackage = $attraction->attractionPackages()->create([
                         'name'        => $package['name'],
                         'description' => $package['description'] ?? null,
-                        'start_date'  => $package['start_date'],
-                        'end_date'    => $package['end_date'],
                     ]);
 
                     // create new prices
