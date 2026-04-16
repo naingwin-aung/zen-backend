@@ -67,6 +67,9 @@ class AttractionController extends Controller
             'search_keywords'                  => 'nullable|string',
             'start_date'                       => 'required|date',
             'end_date'                         => 'required|date|after_or_equal:start_date',
+            'closing_type'                     => 'nullable|string|in:closing_days,closing_dates',
+            'closing_dates'                    => 'required_if:closing_type,closing_dates|array',
+            'closing_days'                     => 'required_if:closing_type,closing_days|array',
             'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
             'packages.*.description'           => 'nullable|string',
@@ -77,7 +80,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date'));
+            $attraction = $this->service->create($request->only('name', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
 
             DB::commit();
 
@@ -111,6 +114,9 @@ class AttractionController extends Controller
             'highlights'                       => 'nullable|string',
             'start_date'                       => 'required|date',
             'end_date'                         => 'required|date|after_or_equal:start_date',
+            'closing_type'                     => 'nullable|string|in:closing_days,closing_dates',
+            'closing_dates'                    => 'required_if:closing_type,closing_dates|array',
+            'closing_days'                     => 'required_if:closing_type,closing_days|array',
             'packages'                         => 'required|array',
             'packages.*.name'                  => 'required_with:packages|string|max:255',
             'packages.*.description'           => 'nullable|string',
@@ -121,7 +127,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date'));
+            $attraction = $this->service->update($id, $request->only('name', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
 
             DB::commit();
 

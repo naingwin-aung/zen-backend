@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Enums\ClosingTypeEnum;
 use App\Enums\ServiceEnum;
 use App\Models\Product;
 use Exception;
@@ -67,8 +68,11 @@ class AttractionService
 
         // create product schedule
         $attraction->schedule()->create([
-            'start_date' => $data['start_date'] ?? null,
-            'end_date'   => $data['end_date'] ?? null,
+            'start_date'    => $data['start_date'] ?? null,
+            'end_date'      => $data['end_date'] ?? null,
+            'closing_type'  => $data['closing_type'] ?? null,
+            'closing_dates' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DATES->value ? $data['closing_dates'] : [],
+            'closing_days'  => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
         ]);
 
         if (isset($data['countries'])) {
@@ -131,8 +135,11 @@ class AttractionService
 
         // update product schedule
         $attraction->schedule->update([
-            'start_date' => $data['start_date'] ?? null,
-            'end_date'   => $data['end_date'] ?? null,
+            'start_date'    => $data['start_date'] ?? null,
+            'end_date'      => $data['end_date'] ?? null,
+            'closing_type'  => $data['closing_type'] ?? null,
+            'closing_dates' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DATES->value ? $data['closing_dates'] : [],
+            'closing_days'  => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
         ]);
 
         if (isset($data['countries'])) {
