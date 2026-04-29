@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class AttractionService
 {
-    public function listing($limit = 10, $search = null)
+    public function listing(int $limit = 10, ?string $search = null)
     {
         $query = Product::query();
 
@@ -31,7 +31,7 @@ class AttractionService
         return $data;
     }
 
-    public function find($id)
+    public function find(int $id)
     {
         $attraction = Product::with('images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail', 'schedule')
             ->where('service', ServiceEnum::ATTRACTION->value)
@@ -114,7 +114,7 @@ class AttractionService
         return $attraction;
     }
 
-    public function update($id, array $data)
+    public function update(int $id, array $data)
     {
         $attraction = $this->find($id);
 
@@ -259,7 +259,7 @@ class AttractionService
         return $attraction;
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $attraction = Product::where('service', ServiceEnum::ATTRACTION->value)->find($id);
 
@@ -270,7 +270,7 @@ class AttractionService
         $attraction->delete();
     }
 
-    private function _createImages($product, $files)
+    private function _createImages(Product $product, array $files)
     {
         $imageArray = [];
 

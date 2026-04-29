@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:api')->group(function () {
@@ -24,6 +25,9 @@ Route::middleware('throttle:api')->group(function () {
         Route::apiResource('attractions', AttractionController::class);
 
         Route::apiResource('age-groups', AgeGroupController::class);
+
+        // all products routes
+        Route::get('products', [ProductController::class, 'index']);
 
         // General routes
         Route::get('all-countries', [CountryController::class, 'all']);
