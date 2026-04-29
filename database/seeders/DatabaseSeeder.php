@@ -21,8 +21,11 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'naingwinaung1710@gmail.com'],
             [
-                'name' => 'naing win aung',
+                'first_name' => 'naing win',
+                'last_name' => 'aung',
                 'password' => bcrypt('password'),
+                'country_id' => 116,
+                'phone_number' => '09777777777',
             ]
         );
 
