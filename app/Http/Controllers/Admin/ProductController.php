@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\ProductListingResource;
 use App\Services\Admin\ProductService;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ProductController extends Controller
             return success([
                 'total'        => $products->total(),
                 'is_load_more' => $products->hasMorePages(),
-                'products'     => $products->getCollection(),
+                'products'     => ProductListingResource::collection($products->getCollection()),
             ], 'Products retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
