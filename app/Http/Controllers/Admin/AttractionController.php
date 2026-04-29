@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Attraction\StoreRequest;
+use App\Http\Requests\Admin\Attraction\UpdateRequest;
 use App\Services\Admin\AttractionService;
 use Exception;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class AttractionController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $attraction = $this->service->find($id);
@@ -49,39 +51,11 @@ class AttractionController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'name'                             => 'required|string|max:255',
-            'star_rating'                      => 'nullable|numeric|min:0|max:5',
-            'countries'                        => 'required|array',
-            'countries.*'                      => 'required|integer',
-            'cities'                           => 'required|array',
-            'cities.*'                         => 'required|integer',
-            'images'                           => 'required|array',
-            'images.*'                         => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'categories'                       => 'required|array',
-            'categories.*'                     => 'required|integer|exists:categories,id',
-            'what_to_expect'                   => 'required|string',
-            'good_to_know'                     => 'nullable|string',
-            'highlights'                       => 'nullable|string',
-            'search_keywords'                  => 'nullable|string',
-            'start_date'                       => 'required|date',
-            'end_date'                         => 'required|date|after_or_equal:start_date',
-            'closing_type'                     => 'nullable|string|in:closing_days,closing_dates',
-            'closing_dates'                    => 'required_if:closing_type,closing_dates|array',
-            'closing_days'                     => 'required_if:closing_type,closing_days|array',
-            'packages'                         => 'required|array',
-            'packages.*.name'                  => 'required_with:packages|string|max:255',
-            'packages.*.description'           => 'nullable|string',
-            'packages.*.prices'                => 'required_with:packages|array',
-            'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',
-            'packages.*.prices.*.price'        => 'required_with:packages.*.prices|numeric|min:0',
-        ]);
-
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'star_rating', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
+            $attraction = $this->service->create($request->validated());
 
             DB::commit();
 
@@ -95,41 +69,11 @@ class AttractionController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, int $id)
     {
-        $request->validate([
-            'name'                             => 'required|string|max:255',
-            'star_rating'                      => 'nullable|numeric|min:0|max:5',
-            'countries'                        => 'required|array',
-            'countries.*'                      => 'required|integer',
-            'cities'                           => 'required|array',
-            'cities.*'                         => 'required|integer',
-            'images'                           => 'nullable|array',
-            'images.*'                         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'old_images'                       => 'nullable|array',
-            'old_images.*'                     => 'nullable|integer',
-            'categories'                       => 'required|array',
-            'categories.*'                     => 'required|integer|exists:categories,id',
-            'search_keywords'                  => 'nullable|string',
-            'what_to_expect'                   => 'required|string',
-            'good_to_know'                     => 'nullable|string',
-            'highlights'                       => 'nullable|string',
-            'start_date'                       => 'required|date',
-            'end_date'                         => 'required|date|after_or_equal:start_date',
-            'closing_type'                     => 'nullable|string|in:closing_days,closing_dates',
-            'closing_dates'                    => 'required_if:closing_type,closing_dates|array',
-            'closing_days'                     => 'required_if:closing_type,closing_days|array',
-            'packages'                         => 'required|array',
-            'packages.*.name'                  => 'required_with:packages|string|max:255',
-            'packages.*.description'           => 'nullable|string',
-            'packages.*.prices'                => 'required_with:packages|array',
-            'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',
-            'packages.*.prices.*.price'        => 'required_with:packages.*.prices|numeric|min:0',
-        ]);
-
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'star_rating', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
+            $attraction = $this->service->update($id, $request->validated());
 
             DB::commit();
 
@@ -143,7 +87,7 @@ class AttractionController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         try {
             $this->service->delete($id);

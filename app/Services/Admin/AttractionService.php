@@ -194,9 +194,10 @@ class AttractionService
 
             foreach ($data['packages'] as $package) {
                 $currentPackage = null;
+                $packageId      = $package['id'] ?? null;
 
-                if ($package['id'] && is_numeric($package['id'])) {
-                    $currentPackage = $attraction->attractionPackages()->where('id', $package['id'])->first();
+                if (is_numeric($packageId)) {
+                    $currentPackage = $attraction->attractionPackages()->where('id', $packageId)->first();
 
                     if ($currentPackage) {
                         $currentPackage->update([
