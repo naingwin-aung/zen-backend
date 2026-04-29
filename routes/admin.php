@@ -9,25 +9,25 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use Illuminate\Support\Facades\Route;
 
-// Route::middleware('throttle:api')->group(function () {
-Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('throttle:api')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', [AuthController::class, 'user']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', [AuthController::class, 'user']);
+        Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('admins', AdminController::class);
-    Route::apiResource('countries', CountryController::class);
-    Route::apiResource('cities', CityController::class);
-    Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('admins', AdminController::class);
+        Route::apiResource('countries', CountryController::class);
+        Route::apiResource('cities', CityController::class);
+        Route::apiResource('categories', CategoryController::class);
 
-    Route::apiResource('attractions', AttractionController::class);
+        Route::apiResource('attractions', AttractionController::class);
 
-    Route::apiResource('age-groups', AgeGroupController::class);
+        Route::apiResource('age-groups', AgeGroupController::class);
 
-    // General routes
-    Route::get('all-countries', [CountryController::class, 'all']);
-    Route::get('all-age-groups', [AgeGroupController::class, 'all']);
+        // General routes
+        Route::get('all-countries', [CountryController::class, 'all']);
+        Route::get('all-age-groups', [AgeGroupController::class, 'all']);
+    });
 });
-// });
 
