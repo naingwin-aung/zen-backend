@@ -16,6 +16,11 @@ class Product extends Model
         'slug',
         'service',
         'search_keywords',
+        'star_rating',
+    ];
+
+    protected $casts = [
+        'star_rating' => 'float',
     ];
 
     public function categories()

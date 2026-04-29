@@ -53,6 +53,7 @@ class AttractionController extends Controller
     {
         $request->validate([
             'name'                             => 'required|string|max:255',
+            'star_rating'                      => 'nullable|numeric|min:0|max:5',
             'countries'                        => 'required|array',
             'countries.*'                      => 'required|integer',
             'cities'                           => 'required|array',
@@ -80,7 +81,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
+            $attraction = $this->service->create($request->only('name', 'star_rating', 'countries', 'cities', 'images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
 
             DB::commit();
 
@@ -98,6 +99,7 @@ class AttractionController extends Controller
     {
         $request->validate([
             'name'                             => 'required|string|max:255',
+            'star_rating'                      => 'nullable|numeric|min:0|max:5',
             'countries'                        => 'required|array',
             'countries.*'                      => 'required|integer',
             'cities'                           => 'required|array',
@@ -127,7 +129,7 @@ class AttractionController extends Controller
 
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
+            $attraction = $this->service->update($id, $request->only('name', 'star_rating', 'countries', 'cities', 'images', 'old_images', 'categories', 'search_keywords', 'packages', 'what_to_expect', 'good_to_know', 'highlights', 'start_date', 'end_date', 'closing_type', 'closing_dates', 'closing_days'));
 
             DB::commit();
 

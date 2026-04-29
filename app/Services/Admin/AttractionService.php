@@ -47,8 +47,9 @@ class AttractionService
     public function create(array $data)
     {
         $attraction = Product::create([
-            'name'    => $data['name'],
-            'service' => ServiceEnum::ATTRACTION->value,
+            'name'        => $data['name'],
+            'service'     => ServiceEnum::ATTRACTION->value,
+            'star_rating' => $data['star_rating'] ?? 0,
         ]);
 
         $noSpaceName                 = str_replace(' ', '', strtolower($attraction->name));
@@ -124,6 +125,7 @@ class AttractionService
             'name'            => $data['name'],
             'slug'            => $attraction->id . '-' . Str::slug($data['name']),
             'search_keywords' => $attraction->search_keywords,
+            'star_rating'     => $data['star_rating'] ?? 0,
         ]);
 
         // update product detail
