@@ -118,13 +118,10 @@ class AttractionService
     {
         $attraction = $this->find($id);
 
-        $noSpaceName                 = str_replace(' ', '', strtolower($data['name']));
-        $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
-
         $attraction->update([
             'name'            => $data['name'],
             'slug'            => $attraction->id . '-' . Str::slug($data['name']),
-            'search_keywords' => $attraction->search_keywords,
+            'search_keywords' => $data['search_keywords'] ?? $attraction->search_keywords,
             'star_rating'     => $data['star_rating'] ?? 0,
         ]);
 

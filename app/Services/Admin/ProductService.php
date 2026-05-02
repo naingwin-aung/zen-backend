@@ -16,8 +16,8 @@ class ProductService
 
         if ($search) {
             $query = $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('search_keywords', 'like', "%{$search}%");
+                $query->whereRaw('LOWER(name) LIKE ?', ["%".strtolower($search)."%"])
+                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%".strtolower($search)."%"]);
             });
         }
 
