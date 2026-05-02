@@ -3,6 +3,5 @@ namespace App\Enums;
 
 enum ServiceEnum: string
 {
-    case CRUISE = 'cruise';
     case ATTRACTION = 'attraction';
 }

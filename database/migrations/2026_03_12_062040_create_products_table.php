@@ -18,11 +18,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('service')->index()->nullable();
             $table->text('search_keywords')->nullable();
-
-            if (DB::getDriverName() !== 'sqlite') {
-                $table->fullText('search_keywords');
-            }
-
+            $table->decimal('star_rating', 3, 2)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

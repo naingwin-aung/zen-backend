@@ -16,6 +16,11 @@ class Product extends Model
         'slug',
         'service',
         'search_keywords',
+        'star_rating',
+    ];
+
+    protected $casts = [
+        'star_rating' => 'float',
     ];
 
     public function categories()
@@ -31,5 +36,24 @@ class Product extends Model
     public function countries()
     {
         return $this->belongsToMany(Country::class, 'product_countries');
+    }
+
+    public function cities() {
+        return $this->belongsToMany(City::class, 'product_cities');
+    }
+
+    public function attractionPackages()
+    {
+        return $this->hasMany(AttractionPackage::class, 'product_id');
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(ProductDetail::class, 'product_id');
+    }
+
+    public function schedule()
+    {
+        return $this->hasOne(ProductSchedule::class, 'product_id');
     }
 }

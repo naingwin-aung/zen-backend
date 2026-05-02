@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Services\Admin;
 
+use App\Enums\ClosingTypeEnum;
 use App\Enums\ServiceEnum;
 use App\Models\Product;
 use Exception;
@@ -9,7 +11,7 @@ use Illuminate\Support\Str;
 
 class AttractionService
 {
-    public function listing($limit = 10, $search = null)
+    public function listing(int $limit = 10, ?string $search = null)
     {
         $query = Product::query();
 
@@ -29,9 +31,9 @@ class AttractionService
         return $data;
     }
 
-    public function find($id)
+    public function find(int $id)
     {
-        $attraction = Product::with('images', 'categories', 'countries')
+        $attraction = Product::with('images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail', 'schedule')
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
@@ -45,11 +47,12 @@ class AttractionService
     public function create(array $data)
     {
         $attraction = Product::create([
-            'name'       => $data['name'],
-            'service'    => ServiceEnum::ATTRACTION->value,
+            'name'        => $data['name'],
+            'service'     => ServiceEnum::ATTRACTION->value,
+            'star_rating' => $data['star_rating'] ?? 0,
         ]);
 
-        $noSpaceName             = str_replace(' ', '', strtolower($attraction->name));
+        $noSpaceName                 = str_replace(' ', '', strtolower($attraction->name));
         $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
 
         $attraction->update([
@@ -57,8 +60,28 @@ class AttractionService
             'search_keywords' => $attraction->search_keywords,
         ]);
 
-        if(isset($data['countries'])) {
+        // create product detail
+        $attraction->detail()->create([
+            'what_to_expect' => $data['what_to_expect'] ?? null,
+            'good_to_know'   => $data['good_to_know'] ?? null,
+            'highlights'     => $data['highlights'] ?? null,
+        ]);
+
+        // create product schedule
+        $attraction->schedule()->create([
+            'start_date'    => $data['start_date'] ?? null,
+            'end_date'      => $data['end_date'] ?? null,
+            'closing_type'  => $data['closing_type'] ?? null,
+            'closing_dates' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DATES->value ? $data['closing_dates'] : [],
+            'closing_days'  => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
+        ]);
+
+        if (isset($data['countries'])) {
             $attraction->countries()->sync($data['countries']);
+        }
+
+        if (isset($data['cities'])) {
+            $attraction->cities()->sync($data['cities']);
         }
 
         if (isset($data['categories'])) {
@@ -69,24 +92,61 @@ class AttractionService
             $this->_createImages($attraction, $data['images']);
         }
 
+        // handle package option
+        if (isset($data['packages']) && is_array($data['packages'])) {
+            foreach ($data['packages'] as $package) {
+                $attractionPackage = $attraction->attractionPackages()->create([
+                    'name'        => $package['name'],
+                    'description' => $package['description'] ?? null,
+                ]);
+
+                if (isset($package['prices']) && is_array($package['prices'])) {
+                    foreach ($package['prices'] as $price) {
+                        $attractionPackage->prices()->create([
+                            'age_group_id' => $price['age_group_id'],
+                            'price'        => $price['price'],
+                        ]);
+                    }
+                }
+            }
+        }
+
         return $attraction;
     }
 
-    public function update($id, array $data)
+    public function update(int $id, array $data)
     {
         $attraction = $this->find($id);
-
-        $noSpaceName             = str_replace(' ', '', strtolower($data['name']));
-        $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
 
         $attraction->update([
             'name'            => $data['name'],
             'slug'            => $attraction->id . '-' . Str::slug($data['name']),
-            'search_keywords' => $attraction->search_keywords,
+            'search_keywords' => $data['search_keywords'] ?? $attraction->search_keywords,
+            'star_rating'     => $data['star_rating'] ?? 0,
         ]);
 
-        if(isset($data['countries'])) {
+        // update product detail
+        $attraction->detail->update([
+            'what_to_expect' => $data['what_to_expect'] ?? null,
+            'good_to_know'   => $data['good_to_know'] ?? null,
+            'highlights'     => $data['highlights'] ?? null,
+        ]);
+
+        // update product schedule
+        $attraction->schedule->update([
+            'start_date'    => $data['start_date'] ?? null,
+            'end_date'      => $data['end_date'] ?? null,
+            'closing_type'  => $data['closing_type'] ?? null,
+            'closing_dates' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DATES->value ? $data['closing_dates'] : [],
+            'closing_days'  => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
+        ]);
+
+        if (isset($data['countries'])) {
             $attraction->countries()->sync($data['countries']);
+        }
+
+        if (isset($data['cities'])) {
+            $attraction->cities()->sync($data['cities']);
         }
 
         if (isset($data['categories'])) {
@@ -117,10 +177,86 @@ class AttractionService
             $this->_createImages($attraction, $data['images']);
         }
 
+        // handle package option
+        if (isset($data['packages']) && is_array($data['packages'])) {
+            $requestPackageIds = collect($data['packages'])->pluck('id')->filter(function ($id) {
+                return is_numeric($id);
+            });
+
+            if ($requestPackageIds->isNotEmpty()) {
+                $attraction->attractionPackages()->whereNotIn('id', $requestPackageIds)->delete();
+            } else {
+                $attraction->attractionPackages()->delete();
+            }
+
+            foreach ($data['packages'] as $package) {
+                $currentPackage = null;
+                $packageId      = $package['id'] ?? null;
+
+                if (is_numeric($packageId)) {
+                    $currentPackage = $attraction->attractionPackages()->where('id', $packageId)->first();
+
+                    if ($currentPackage) {
+                        $currentPackage->update([
+                            'name'        => $package['name'],
+                            'description' => $package['description'] ?? null,
+                        ]);
+
+                        // prices handling
+                        $requestPriceIds = collect($package['prices'])->pluck('id')->filter(function ($id) {
+                            return is_numeric($id);
+                        });
+
+                        if ($requestPriceIds->isNotEmpty()) {
+                            $currentPackage->prices()->whereNotIn('id', $requestPriceIds)->delete();
+                        } else {
+                            $currentPackage->prices()->delete();
+                        }
+
+                        foreach ($package['prices'] as $price) {
+                            $currentPrice = null;
+
+                            if (isset($price['id']) && is_numeric($price['id'])) {
+                                $currentPrice = $currentPackage->prices()->where('id', $price['id'])->first();
+
+                                if ($currentPrice) {
+                                    $currentPrice->update([
+                                        'age_group_id' => $price['age_group_id'],
+                                        'price'        => $price['price'],
+                                    ]);
+                                }
+                            } else {
+                                $currentPackage->prices()->create([
+                                    'age_group_id' => $price['age_group_id'],
+                                    'price'        => $price['price'],
+                                ]);
+                            }
+                        }
+                    }
+                } else {
+                    // create new package
+                    $currentPackage = $attraction->attractionPackages()->create([
+                        'name'        => $package['name'],
+                        'description' => $package['description'] ?? null,
+                    ]);
+
+                    // create new prices
+                    if (isset($package['prices']) && is_array($package['prices'])) {
+                        foreach ($package['prices'] as $price) {
+                            $currentPackage->prices()->create([
+                                'age_group_id' => $price['age_group_id'],
+                                'price'        => $price['price'],
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
         return $attraction;
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $attraction = Product::where('service', ServiceEnum::ATTRACTION->value)->find($id);
 
@@ -131,7 +267,7 @@ class AttractionService
         $attraction->delete();
     }
 
-    private function _createImages($product, $files)
+    private function _createImages(Product $product, array $files)
     {
         $imageArray = [];
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Attraction\StoreRequest;
+use App\Http\Requests\Admin\Attraction\UpdateRequest;
 use App\Services\Admin\AttractionService;
 use Exception;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class AttractionController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $attraction = $this->service->find($id);
@@ -49,63 +51,43 @@ class AttractionController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'name'            => 'required|string|max:255',
-            'countries'       => 'required|array',
-            'countries.*'     => 'required|integer',
-            'images'          => 'required|array',
-            'images.*'        => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'categories'      => 'required|array',
-            'categories.*'    => 'required|integer|exists:categories,id',
-            'search_keywords' => 'nullable|string',
-        ]);
-
         DB::beginTransaction();
         try {
-            $attraction = $this->service->create($request->only('name', 'countries', 'images', 'categories', 'search_keywords'));
+            $attraction = $this->service->create($request->validated());
 
             DB::commit();
+
             return success([
                 'attraction' => $attraction,
             ], 'Attraction created successfully.');
         } catch (Exception $e) {
             DB::rollBack();
+
             return error($e->getMessage());
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, int $id)
     {
-        $request->validate([
-            'name'            => 'required|string|max:255',
-            'countries'       => 'required|array',
-            'countries.*'     => 'required|integer',
-            'images'          => 'nullable|array',
-            'images.*'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
-            'old_images'      => 'nullable|array',
-            'old_images.*'    => 'nullable|integer',
-            'categories'      => 'required|array',
-            'categories.*'    => 'required|integer|exists:categories,id',
-            'search_keywords' => 'nullable|string',
-        ]);
-
         DB::beginTransaction();
         try {
-            $attraction = $this->service->update($id, $request->only('name', 'countries', 'images', 'old_images', 'categories', 'search_keywords'));
+            $attraction = $this->service->update($id, $request->validated());
 
             DB::commit();
+
             return success([
                 'attraction' => $attraction,
             ], 'Attraction updated successfully.');
         } catch (Exception $e) {
             DB::rollBack();
+
             return error($e->getMessage());
         }
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         try {
             $this->service->delete($id);

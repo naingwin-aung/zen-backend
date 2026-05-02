@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\AgeGroup;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,8 +21,11 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'naingwinaung1710@gmail.com'],
             [
-                'name' => 'naing win aung',
+                'first_name' => 'naing win',
+                'last_name' => 'aung',
                 'password' => bcrypt('password'),
+                'country_id' => 116,
+                'phone_number' => '09777777777',
             ]
         );
 
@@ -34,9 +38,24 @@ class DatabaseSeeder extends Seeder
         );
 
         Category::updateOrCreate(
-            ['name' => 'Cruises'],
+            ['name' => 'Activities'],
             [
-                'slug' => '1-cruises',
+                'slug' => '1-activities',
+            ]
+        );
+
+        AgeGroup::updateOrCreate(
+            ['name' => 'Adult'],
+            [
+                'min_age' => 12,
+            ]
+        );
+
+        AgeGroup::updateOrCreate(
+            ['name' => 'Child'],
+            [
+                'min_age' => 2,
+                'max_age' => 11,
             ]
         );
 
