@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\AuthService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -21,9 +22,13 @@ class AuthController extends Controller
         ]);
 
         try {
-            ['user' => $user, 'token' => $token] = $this->service->login($request->email, $request->password);
+            ['user' => $user] = $this->service->login($request->email, $request->password);
 
-            return success(['user' => $user, 'token' => $token], 'Login successful.');
+            if ($request->hasSession()) {
+                $request->session()->regenerate();
+            }
+
+            return success(['user' => $user], 'Login successful.');
         } catch(MyException $e) {
             return response()->json([
                 'success' => false,
@@ -49,7 +54,12 @@ class AuthController extends Controller
     public function logout()
     {
         try {
-            auth()->user()->currentAccessToken()->delete();
+            Auth::guard('admin')->logout();
+
+            if (request()->hasSession()) {
+                request()->session()->invalidate();
+                request()->session()->regenerateToken();
+            }
 
             return success(message: 'Logged out successfully.');
         } catch (Exception $e) {
