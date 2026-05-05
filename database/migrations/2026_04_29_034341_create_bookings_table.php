@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('booking_reference')->nullable();
+            $table->string('payment_reference')->nullable();
             $table->string('payment_status')->nullable();
             $table->decimal('sub_total', 10, 2)->default(0);
             $table->decimal('grand_total', 10, 2)->default(0);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->json('request_payload')->nullable();
+            $table->jsonb('request_payload')->nullable();
             $table->timestamps();
         });
     }

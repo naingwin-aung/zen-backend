@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AgeGroupController;
 use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
@@ -28,6 +29,9 @@ Route::middleware('throttle:api')->group(function () {
 
         // all products routes
         Route::get('products', [ProductController::class, 'index']);
+
+        // Booking
+        Route::get('bookings', [BookingController::class, 'index']);
 
         // General routes
         Route::get('all-countries', [CountryController::class, 'all']);

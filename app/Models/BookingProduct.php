@@ -11,9 +11,14 @@ class BookingProduct extends Model
         'booking_id',
         'productable_id',
         'productable_type',
-        'payment_status',
+        'booking_number',
         'booking_status',
         'sub_total',
         'grand_total',
+    ];
+
+    protected $casts = [
+        'sub_total'   => 'float',
+        'grand_total' => 'float',
     ];
 }

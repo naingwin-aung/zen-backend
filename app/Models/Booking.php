@@ -8,11 +8,17 @@ class Booking extends Model
 {
     protected $table = 'bookings';
     protected $fillable = [
-        'booking_reference',
+        'payment_reference',
         'payment_status',
         'sub_total',
         'grand_total',
         'user_id',
         'request_payload',
+    ];
+
+    protected $casts = [
+        'request_payload' => 'json',
+        'sub_total'       => 'float',
+        'grand_total'     => 'float',
     ];
 }
