@@ -19,11 +19,13 @@ class Product extends Model
         'search_keywords',
         'star_rating',
         'price',
+        'is_active',
     ];
 
     protected $casts = [
         'star_rating' => 'float',
-        'price' => 'float',
+        'price'       => 'float',
+        'is_active'   => 'boolean',
     ];
 
     public function categories()

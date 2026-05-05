@@ -1285,6 +1285,7 @@ class ProductSeeder extends Seeder
                 'service' => ServiceEnum::ATTRACTION->value,
                 'star_rating' => $data['star_rating'],
                 'price' => $lowestPackagePrice,
+                'is_active' => true,
             ]);
 
             $noSpaceName = str_replace(' ', '', strtolower($product->name));

@@ -22,6 +22,7 @@ class ProductService
         }
 
         $data = $query
+            ->where('is_active', true)
             ->orderBy('id', 'desc')
             ->paginate($limit)
             ->withQueryString();

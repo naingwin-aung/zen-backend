@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('search_keywords')->nullable();
             $table->decimal('star_rating', 3, 2)->default(0);
             $table->decimal('price', 10, 2)->nullable();
+            $table->boolean('is_active')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
