@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountrySeeder::class,
             CitySeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

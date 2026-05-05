@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     public $table = 'products';
 
@@ -38,7 +39,8 @@ class Product extends Model
         return $this->belongsToMany(Country::class, 'product_countries');
     }
 
-    public function cities() {
+    public function cities()
+    {
         return $this->belongsToMany(City::class, 'product_cities');
     }
 
