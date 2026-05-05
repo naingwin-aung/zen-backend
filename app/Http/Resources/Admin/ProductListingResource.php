@@ -20,6 +20,7 @@ class ProductListingResource extends JsonResource
             'slug'        => $this->slug,
             'service'     => $this->service,
             'star_rating' => $this->star_rating,
+            'price'       => $this->price,
             'categories'  => $this->categories->map(fn($category) => [
                 'id'   => $category->id,
                 'name' => $category->name,

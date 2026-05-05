@@ -37,7 +37,7 @@ class AttractionService
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
-        if (!$attraction) {
+        if (! $attraction) {
             throw new Exception('Attraction not found.');
         }
 
@@ -47,33 +47,34 @@ class AttractionService
     public function create(array $data)
     {
         $attraction = Product::create([
-            'name'        => $data['name'],
-            'service'     => ServiceEnum::ATTRACTION->value,
+            'name' => $data['name'],
+            'price' => $this->getLowestPackagePrice($data['packages'] ?? []),
+            'service' => ServiceEnum::ATTRACTION->value,
             'star_rating' => $data['star_rating'] ?? 0,
         ]);
 
-        $noSpaceName                 = str_replace(' ', '', strtolower($attraction->name));
-        $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
+        $noSpaceName = str_replace(' ', '', strtolower($attraction->name));
+        $attraction->search_keywords = "{$noSpaceName}, ".($data['search_keywords'] ?? '');
 
         $attraction->update([
-            'slug'            => $attraction->id . '-' . Str::slug($attraction->name),
+            'slug' => $attraction->id.'-'.Str::slug($attraction->name),
             'search_keywords' => $attraction->search_keywords,
         ]);
 
         // create product detail
         $attraction->detail()->create([
             'what_to_expect' => $data['what_to_expect'] ?? null,
-            'good_to_know'   => $data['good_to_know'] ?? null,
-            'highlights'     => $data['highlights'] ?? null,
+            'good_to_know' => $data['good_to_know'] ?? null,
+            'highlights' => $data['highlights'] ?? null,
         ]);
 
         // create product schedule
         $attraction->schedule()->create([
-            'start_date'    => $data['start_date'] ?? null,
-            'end_date'      => $data['end_date'] ?? null,
-            'closing_type'  => $data['closing_type'] ?? null,
+            'start_date' => $data['start_date'] ?? null,
+            'end_date' => $data['end_date'] ?? null,
+            'closing_type' => $data['closing_type'] ?? null,
             'closing_dates' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DATES->value ? $data['closing_dates'] : [],
-            'closing_days'  => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
+            'closing_days' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
         ]);
 
         if (isset($data['countries'])) {
@@ -96,7 +97,7 @@ class AttractionService
         if (isset($data['packages']) && is_array($data['packages'])) {
             foreach ($data['packages'] as $package) {
                 $attractionPackage = $attraction->attractionPackages()->create([
-                    'name'        => $package['name'],
+                    'name' => $package['name'],
                     'description' => $package['description'] ?? null,
                 ]);
 
@@ -104,11 +105,13 @@ class AttractionService
                     foreach ($package['prices'] as $price) {
                         $attractionPackage->prices()->create([
                             'age_group_id' => $price['age_group_id'],
-                            'price'        => $price['price'],
+                            'price' => $price['price'],
                         ]);
                     }
                 }
             }
+
+            $this->syncLowestPackagePrice($attraction);
         }
 
         return $attraction;
@@ -119,26 +122,26 @@ class AttractionService
         $attraction = $this->find($id);
 
         $attraction->update([
-            'name'            => $data['name'],
-            'slug'            => $attraction->id . '-' . Str::slug($data['name']),
+            'name' => $data['name'],
+            'slug' => $attraction->id.'-'.Str::slug($data['name']),
             'search_keywords' => $data['search_keywords'] ?? $attraction->search_keywords,
-            'star_rating'     => $data['star_rating'] ?? 0,
+            'star_rating' => $data['star_rating'] ?? 0,
         ]);
 
         // update product detail
         $attraction->detail->update([
             'what_to_expect' => $data['what_to_expect'] ?? null,
-            'good_to_know'   => $data['good_to_know'] ?? null,
-            'highlights'     => $data['highlights'] ?? null,
+            'good_to_know' => $data['good_to_know'] ?? null,
+            'highlights' => $data['highlights'] ?? null,
         ]);
 
         // update product schedule
         $attraction->schedule->update([
-            'start_date'    => $data['start_date'] ?? null,
-            'end_date'      => $data['end_date'] ?? null,
-            'closing_type'  => $data['closing_type'] ?? null,
+            'start_date' => $data['start_date'] ?? null,
+            'end_date' => $data['end_date'] ?? null,
+            'closing_type' => $data['closing_type'] ?? null,
             'closing_dates' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DATES->value ? $data['closing_dates'] : [],
-            'closing_days'  => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
+            'closing_days' => isset($data['closing_type']) && $data['closing_type'] === ClosingTypeEnum::CLOSING_DAYS->value ? $data['closing_days'] : [],
         ]);
 
         if (isset($data['countries'])) {
@@ -154,7 +157,7 @@ class AttractionService
         }
 
         // start handle product images
-        if (!empty($data['old_images'])) {
+        if (! empty($data['old_images'])) {
             if ($attraction->images->count() <= 1 && empty($data['images'])) {
                 throw new Exception('At least one image is required for the attraction.');
             }
@@ -191,14 +194,14 @@ class AttractionService
 
             foreach ($data['packages'] as $package) {
                 $currentPackage = null;
-                $packageId      = $package['id'] ?? null;
+                $packageId = $package['id'] ?? null;
 
                 if (is_numeric($packageId)) {
                     $currentPackage = $attraction->attractionPackages()->where('id', $packageId)->first();
 
                     if ($currentPackage) {
                         $currentPackage->update([
-                            'name'        => $package['name'],
+                            'name' => $package['name'],
                             'description' => $package['description'] ?? null,
                         ]);
 
@@ -222,13 +225,13 @@ class AttractionService
                                 if ($currentPrice) {
                                     $currentPrice->update([
                                         'age_group_id' => $price['age_group_id'],
-                                        'price'        => $price['price'],
+                                        'price' => $price['price'],
                                     ]);
                                 }
                             } else {
                                 $currentPackage->prices()->create([
                                     'age_group_id' => $price['age_group_id'],
-                                    'price'        => $price['price'],
+                                    'price' => $price['price'],
                                 ]);
                             }
                         }
@@ -236,7 +239,7 @@ class AttractionService
                 } else {
                     // create new package
                     $currentPackage = $attraction->attractionPackages()->create([
-                        'name'        => $package['name'],
+                        'name' => $package['name'],
                         'description' => $package['description'] ?? null,
                     ]);
 
@@ -245,22 +248,48 @@ class AttractionService
                         foreach ($package['prices'] as $price) {
                             $currentPackage->prices()->create([
                                 'age_group_id' => $price['age_group_id'],
-                                'price'        => $price['price'],
+                                'price' => $price['price'],
                             ]);
                         }
                     }
                 }
             }
+
+            $this->syncLowestPackagePrice($attraction);
         }
 
         return $attraction;
+    }
+
+    private function getLowestPackagePrice(array $packages): ?float
+    {
+        return collect($packages)
+            ->flatMap(function (array $package) {
+                return collect($package['prices'] ?? []);
+            })
+            ->pluck('price')
+            ->filter(fn ($price) => is_numeric($price))
+            ->min();
+    }
+
+    private function syncLowestPackagePrice(Product $attraction): void
+    {
+        $lowestPrice = $attraction->attractionPackages()
+            ->with('prices:id,attraction_package_id,price')
+            ->get()
+            ->flatMap->prices
+            ->min('price');
+
+        $attraction->update([
+            'price' => $lowestPrice,
+        ]);
     }
 
     public function delete(int $id)
     {
         $attraction = Product::where('service', ServiceEnum::ATTRACTION->value)->find($id);
 
-        if (!$attraction) {
+        if (! $attraction) {
             throw new Exception('Attraction not found.');
         }
 
@@ -274,7 +303,7 @@ class AttractionService
         foreach ($files as $image) {
             $imageArray[] = [
                 'product_id' => $product->id,
-                'url'        => storeImage('attraction_images', $image),
+                'url' => storeImage('attraction_images', $image),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

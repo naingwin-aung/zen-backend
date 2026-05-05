@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Product;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
     $this->admin = Admin::create([
@@ -19,6 +21,83 @@ beforeEach(function () {
 });
 
 describe('update', function () {
+    it('stores the lowest package price on create', function () {
+        Storage::fake('public');
+
+        $country = Country::create([
+            'name' => 'Egypt',
+            'slug' => 'egypt',
+            'dial_code' => '+20',
+        ]);
+
+        $city = City::create([
+            'country_id' => $country->id,
+            'name' => 'Cairo',
+            'slug' => 'cairo',
+        ]);
+
+        $category = Category::create([
+            'name' => 'Adventure',
+            'slug' => 'adventure',
+        ]);
+
+        $adultAgeGroup = AgeGroup::create([
+            'name' => 'Adult',
+            'min_age' => 18,
+            'max_age' => 65,
+        ]);
+
+        $childAgeGroup = AgeGroup::create([
+            'name' => 'Child',
+            'min_age' => 5,
+            'max_age' => 17,
+        ]);
+
+        $response = $this->actingAs($this->admin, 'sanctum')
+            ->postJson('/admin/attractions', [
+                'name' => 'Created Attraction',
+                'star_rating' => 4.5,
+                'countries' => [$country->id],
+                'cities' => [$city->id],
+                'categories' => [$category->id],
+                'search_keywords' => 'created attraction',
+                'what_to_expect' => 'Created expectation',
+                'good_to_know' => 'Created good to know',
+                'highlights' => 'Created highlight',
+                'start_date' => '2026-04-10',
+                'end_date' => '2026-05-10',
+                'images' => [UploadedFile::fake()->image('attraction.jpg')],
+                'packages' => [
+                    [
+                        'name' => 'Premium Package',
+                        'description' => 'Premium package',
+                        'prices' => [
+                            [
+                                'age_group_id' => $adultAgeGroup->id,
+                                'price' => 120,
+                            ],
+                        ],
+                    ],
+                    [
+                        'name' => 'Budget Package',
+                        'description' => 'Budget package',
+                        'prices' => [
+                            [
+                                'age_group_id' => $childAgeGroup->id,
+                                'price' => 80,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        $response->assertSuccessful();
+
+        $attraction = Product::query()->where('name', 'Created Attraction')->firstOrFail();
+
+        expect((float) $attraction->price)->toBe(80.0);
+    });
+
     it('updates attraction when payload contains new package without id', function () {
         $country = Country::create([
             'name' => 'Egypt',
@@ -134,6 +213,10 @@ describe('update', function () {
         $this->assertDatabaseHas('attraction_prices', [
             'attraction_package_id' => $existingPackage->id,
             'price' => 60,
+        ]);
+        $this->assertDatabaseHas('products', [
+            'id' => $attraction->id,
+            'price' => 30,
         ]);
     });
 });
