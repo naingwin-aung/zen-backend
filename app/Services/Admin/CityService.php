@@ -14,9 +14,9 @@ class CityService
 
         if (isset($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
+                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
                     ->orWhereHas('country', function ($q2) use ($search) {
-                        $q2->where('name', 'like', '%' . $search . '%');
+                        $q2->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"]);
                     });
             });
         }

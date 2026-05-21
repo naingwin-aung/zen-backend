@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Admin;
 
 use App\Models\Product;
@@ -16,8 +17,8 @@ class ProductService
 
         if ($search) {
             $query = $query->where(function ($query) use ($search) {
-                $query->whereRaw('LOWER(name) LIKE ?', ["%".strtolower($search)."%"])
-                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%".strtolower($search)."%"]);
+                $query->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
+                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%" . strtolower($search) . "%"]);
             });
         }
 

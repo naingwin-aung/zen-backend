@@ -16,9 +16,9 @@ class AttractionService
         $query = Product::query();
 
         if ($search) {
-            $query = $query->where(function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('search_keywords', 'LIKE', "%{$search}%");
+            $query = $query->where(function ($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
+                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%" . strtolower($search) . "%"]);
             });
         }
 
@@ -263,7 +263,7 @@ class AttractionService
         return $attraction;
     }
 
-    private function getLowestPackagePrice(array $packages) : ?float
+    private function getLowestPackagePrice(array $packages): ?float
     {
         return collect($packages)
             ->flatMap(function (array $package) {
@@ -274,7 +274,7 @@ class AttractionService
             ->min();
     }
 
-    private function syncLowestPackagePrice(Product $attraction) : void
+    private function syncLowestPackagePrice(Product $attraction): void
     {
         $lowestPrice = $attraction->attractionPackages()
             ->with('prices:id,attraction_package_id,price')

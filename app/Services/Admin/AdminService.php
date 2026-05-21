@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Admin;
 
 use App\Models\Admin;
@@ -12,7 +13,10 @@ class AdminService
         $query = Admin::query();
 
         if ($search) {
-            $query->where('name', 'like', "%$search%");
+            $query = $query->where(function ($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
+                    ->orWhereRaw('LOWER(email) LIKE ?', ["%" . strtolower($search) . "%"]);
+            });
         }
 
         $data = $query

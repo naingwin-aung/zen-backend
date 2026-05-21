@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Admin;
 
 use App\Models\Category;
@@ -12,7 +13,9 @@ class CategoryService
         $query = Category::query();
 
         if ($search) {
-            $query->where('name', 'like', "%$search%");
+            $query = $query->where(function ($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"]);
+            });
         }
 
         $data = $query
