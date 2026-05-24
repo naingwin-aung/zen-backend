@@ -2,7 +2,9 @@
 
 namespace App\Services\Admin;
 
+use App\Exceptions\MyException;
 use App\Models\Product;
+use Carbon\Carbon;
 
 class ProductService
 {
@@ -27,6 +29,31 @@ class ProductService
             ->orderBy('id', 'desc')
             ->paginate($limit)
             ->withQueryString();
+
+        return $data;
+    }
+
+    public function show(string $slug)
+    {
+        $query = Product::with([
+            'categories',
+            'images',
+            'countries',
+            'cities',
+            'detail',
+            'schedule' => function ($query) {
+                $query->where('end_date', '>=', Carbon::now()->startOfDay());
+            },
+            'attractionPackages.prices'
+        ]);
+
+        $data = $query->where('slug', $slug)
+            ->where('is_active', true)
+            ->first();
+
+        if (!$data) {
+            throw new MyException('Product not found.');
+        }
 
         return $data;
     }

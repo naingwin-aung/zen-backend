@@ -24,8 +24,8 @@ class Product extends Model
 
     protected $casts = [
         'star_rating' => 'float',
-        'price'       => 'float',
-        'is_active'   => 'boolean',
+        'price' => 'float',
+        'is_active' => 'boolean',
     ];
 
     public function categories()

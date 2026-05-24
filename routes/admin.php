@@ -29,6 +29,7 @@ Route::middleware('throttle:api')->group(function () {
 
         // all products routes
         Route::get('products', [ProductController::class, 'index']);
+        Route::get('/products/{slug}', [ProductController::class, 'show']);
 
         // Booking
         Route::get('bookings', [BookingController::class, 'index']);

@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -26,13 +26,9 @@ class AuthController extends Controller
             ['user' => $user, 'token' => $token] = $this->service->login($request->email, $request->password);
 
             return success(['user' => $user, 'token' => $token], 'Login successful.');
-        } catch(MyException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 200);
-        }
-         catch (Exception $e) {
+        } catch (MyException $e) {
+            return custom($e->getMessage());
+        } catch (Exception $e) {
             return error($e->getMessage());
         }
     }
@@ -40,8 +36,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -82,7 +78,7 @@ class AuthController extends Controller
             ['user' => $user, 'token' => $token] = $this->service->handleCallback($provider, $request->token);
 
             return success([
-                'user'  => $user,
+                'user' => $user,
                 'token' => $token,
             ], 'Login successful.');
         } catch (Exception $e) {

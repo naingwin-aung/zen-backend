@@ -5,7 +5,7 @@ function success(array|null $data = null, string $message = 'Request was success
     return response()->json([
         'success' => true,
         'message' => $message,
-        'data'    => $data,
+        'data' => $data,
     ], $statusCode);
 }
 
@@ -14,5 +14,13 @@ function error(string $message = 'Something happened please try again later.', i
     return response()->json([
         'success' => false,
         'message' => config('app.env') !== 'production' ? $message : 'Something happened please try again later.',
+    ], $statusCode);
+}
+
+function custom(string $message, int $statusCode = 200)
+{
+    return response()->json([
+        'success' => false,
+        'message' => $message,
     ], $statusCode);
 }

@@ -18,4 +18,13 @@ class AttractionPackage extends Model
     {
         return $this->hasMany(AttractionPrice::class, 'attraction_package_id');
     }
+
+    public function getMinPriceAttribute()
+    {
+        if (!$this->relationLoaded('prices')) {
+            return null;
+        }
+
+        return $this->prices->min('price');
+    }
 }

@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -24,13 +24,9 @@ class AuthController extends Controller
             ['user' => $user, 'token' => $token] = $this->service->login($request->email, $request->password);
 
             return success(['user' => $user, 'token' => $token], 'Login successful.');
-        } catch(MyException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 200);
-        }
-         catch (Exception $e) {
+        } catch (MyException $e) {
+            return custom($e->getMessage());
+        } catch (Exception $e) {
             return error($e->getMessage());
         }
     }

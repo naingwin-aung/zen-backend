@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\ProductListingResource;
+use App\Http\Resources\Admin\Product\ProductDetailResource;
+use App\Http\Resources\Admin\Product\ProductListingResource;
 use App\Services\Admin\ProductService;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,8 +19,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
 
@@ -27,10 +28,23 @@ class ProductController extends Controller
             $products = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $products->total(),
+                'total' => $products->total(),
                 'is_load_more' => $products->hasMorePages(),
-                'products'     => ProductListingResource::collection($products->getCollection()),
+                'products' => ProductListingResource::collection($products->getCollection()),
             ], 'Products retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
+    public function show(string $slug)
+    {
+        try {
+            $product = $this->service->show($slug);
+
+            return success([
+                'product' => new ProductDetailResource($product),
+            ], 'Product retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
