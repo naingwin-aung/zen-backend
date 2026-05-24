@@ -24,16 +24,16 @@ if (!function_exists('generateDatesFromClosingDays')) {
         }
 
         foreach ($closingDays as $closingDay) {
-            $dayName = $closingDay['name'];
+            $dayName = $closingDay;
 
             $dayMapping = [
-                'Every Sunday' => Carbon::SUNDAY,
-                'Every Monday' => Carbon::MONDAY,
-                'Every Tuesday' => Carbon::TUESDAY,
-                'Every Wednesday' => Carbon::WEDNESDAY,
-                'Every Thursday' => Carbon::THURSDAY,
-                'Every Friday' => Carbon::FRIDAY,
-                'Every Saturday' => Carbon::SATURDAY
+                'Sunday' => Carbon::SUNDAY,
+                'Monday' => Carbon::MONDAY,
+                'Tuesday' => Carbon::TUESDAY,
+                'Wednesday' => Carbon::WEDNESDAY,
+                'Thursday' => Carbon::THURSDAY,
+                'Friday' => Carbon::FRIDAY,
+                'Saturday' => Carbon::SATURDAY
             ];
 
             if (isset($dayMapping[$dayName])) {
