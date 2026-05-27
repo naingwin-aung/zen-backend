@@ -17,4 +17,9 @@ class AttractionPrice extends Model
     protected $casts = [
         'price' => 'float',
     ];
+
+    public function ageGroup()
+    {
+        return $this->belongsTo(AgeGroup::class);
+    }
 }

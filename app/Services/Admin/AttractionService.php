@@ -4,6 +4,8 @@ namespace App\Services\Admin;
 
 use App\Enums\ClosingTypeEnum;
 use App\Enums\ServiceEnum;
+use App\Exceptions\MyException;
+use App\Models\AttractionPackage;
 use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -263,7 +265,7 @@ class AttractionService
         return $attraction;
     }
 
-    private function getLowestPackagePrice(array $packages): ?float
+    private function getLowestPackagePrice(array $packages) : ?float
     {
         return collect($packages)
             ->flatMap(function (array $package) {
@@ -274,7 +276,7 @@ class AttractionService
             ->min();
     }
 
-    private function syncLowestPackagePrice(Product $attraction): void
+    private function syncLowestPackagePrice(Product $attraction) : void
     {
         $lowestPrice = $attraction->attractionPackages()
             ->with('prices:id,attraction_package_id,price')
@@ -314,5 +316,19 @@ class AttractionService
         if (count($imageArray) > 0) {
             $product->images()->createMany($imageArray);
         }
+    }
+
+    public function option(int $productId, int $id)
+    {
+        $attraction = AttractionPackage::with('prices.ageGroup')
+            ->where('product_id', $productId)
+            ->where('id', $id)
+            ->first();
+
+        if (!$attraction) {
+            throw new Exception('Attraction Ticket not found');
+        }
+
+        return $attraction;
     }
 }

@@ -31,6 +31,9 @@ Route::middleware('throttle:api')->group(function () {
         Route::get('products', [ProductController::class, 'index']);
         Route::get('/products/{slug}', [ProductController::class, 'show']);
 
+        // attractions
+        Route::get('/attractions/{productId}/options/{id}', [AttractionController::class, 'option']);
+
         // Booking
         Route::get('bookings', [BookingController::class, 'index']);
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\MyException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Attraction\StoreRequest;
 use App\Http\Requests\Admin\Attraction\UpdateRequest;
+use App\Http\Resources\Admin\Attraction\AttractionPackageOptionResource;
 use App\Services\Admin\AttractionService;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,8 +22,8 @@ class AttractionController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
 
@@ -29,9 +31,9 @@ class AttractionController extends Controller
             $attractions = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $attractions->total(),
+                'total' => $attractions->total(),
                 'is_load_more' => $attractions->hasMorePages(),
-                'attractions'  => $attractions->getCollection(),
+                'attractions' => $attractions->getCollection(),
             ], 'Attractions retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -93,6 +95,19 @@ class AttractionController extends Controller
             $this->service->delete($id);
 
             return success(null, 'Attraction deleted successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
+    public function option(int $productId, int $id)
+    {
+        try {
+            $attraction = $this->service->option($productId, $id);
+
+            return success([
+                'options' => new AttractionPackageOptionResource($attraction),
+            ], 'Attraction retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
         }
