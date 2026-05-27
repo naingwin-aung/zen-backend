@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
      * Category IDs: Activities=1
      * Age group IDs: Adult=1, Child=2
      */
-    public function run(): void
+    public function run() : void
     {
         /** @var array<int, array<string, mixed>> $products */
         $products = [
@@ -37,16 +37,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/ce/7c/d9/ce7cd9d41e00a095a28c8e19aed6997e.jpg',
-                    'https://i.pinimg.com/736x/8e/4b/ac/8e4bac0a3317a6f2ccd01c3e190e6509.jpg',
-                    'https://i.pinimg.com/736x/36/65/e8/3665e893a8ec9767578c70f53f225445.jpg',
-                    'https://i.pinimg.com/736x/91/91/be/9191bed3b8bec56be55e74e7d3a980cd.jpg',
-                    'https://i.pinimg.com/736x/69/0a/95/690a95c697034ff5a10c55faee2e47cb.jpg',
-                    'https://i.pinimg.com/736x/3e/e5/63/3ee5632d8c4d40ede209a6c1b2f4c6ee.jpg',
-                    'https://i.pinimg.com/736x/fa/1c/21/fa1c214acfb4def9f8c51d339eb70981.jpg',
-                    'https://i.pinimg.com/736x/32/d2/89/32d289e4fcc845d83075e89f3f9df5dd.jpg',
-                    'https://i.pinimg.com/736x/e1/27/32/e127323bfa3ea60955cdfa8e93eef1e3.jpg',
-                    'https://i.pinimg.com/736x/9f/2c/3f/9f2c3f8dcec65a691b81310b67d493fd.jpg',
+                    'https://i.pinimg.com/736x/87/98/2a/87982a235d529bad2d7adefeac778e2d.jpg',
+                    'https://i.pinimg.com/736x/95/e8/9a/95e89a04ba635a0f5fdd1aa23e1fb012.jpg',
+                    'https://i.pinimg.com/736x/44/6d/75/446d75d2f2d7dadc72791f01d1edcae8.jpg',
+                    'https://i.pinimg.com/736x/a2/fb/a4/a2fba432b601cc7d4da6b3cd54d81d4c.jpg',
+                    'https://i.pinimg.com/736x/4d/32/10/4d3210d7f0b484234d765939adb20ecd.jpg',
+                    'https://i.pinimg.com/736x/ba/45/15/ba45155157e2177b0f267e8250e1ff15.jpg',
+                    'https://i.pinimg.com/736x/fc/55/ee/fc55ee776c1c1c35832765665cc11928.jpg',
+                    'https://i.pinimg.com/736x/2f/b1/a8/2fb1a8cebb1f53b6716e95662460ef23.jpg',
+                    'https://i.pinimg.com/736x/2f/e4/44/2fe4446515632975beab7d321c44fd38.jpg',
+                    'https://i.pinimg.com/736x/1e/a5/ba/1ea5bac08512edd38c3c468bb56a8489.jpg',
                 ],
                 'packages' => [
                     [
@@ -82,16 +82,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/ff/0a/bc/ff0abc921b66b43bcc5722da58b39bfe.jpg',
-                    'https://i.pinimg.com/736x/b5/ec/14/b5ec14ee1973aff85afb7b071cfb7eae.jpg',
-                    'https://i.pinimg.com/736x/58/07/be/5807be164ba274ae0cfe56411cc69a0e.jpg',
-                    'https://i.pinimg.com/736x/98/33/b8/9833b825fa96fba6e12c9e2268bb46b8.jpg',
-                    'https://i.pinimg.com/736x/07/82/57/078257295153bab4789bff3f4bc78ae1.jpg',
-                    'https://i.pinimg.com/736x/0f/fe/d6/0ffed6e299b819cab88ba79ace2c3e23.jpg',
-                    'https://i.pinimg.com/736x/e6/0b/14/e60b1422aa9bdc6ccc135e89bf060f7c.jpg',
-                    'https://i.pinimg.com/736x/c7/95/84/c795844854de254eeac9180a8c81f529.jpg',
-                    'https://i.pinimg.com/736x/7a/8c/36/7a8c36c2a46260ed2f3c3a78c2efd0fe.jpg',
-                    'https://i.pinimg.com/736x/d8/2d/5e/d82d5eac7f984948884c5c025b12bd50.jpg',
+                    'https://i.pinimg.com/1200x/d3/9a/fa/d39afada636e9484e7ad79b6d8602784.jpg',
+                    'https://i.pinimg.com/736x/be/30/b1/be30b1c2c2ca395814c123af4eb136a3.jpg',
+                    'https://i.pinimg.com/736x/3b/08/a5/3b08a5c7ce57660d90109604555adf4c.jpg',
+                    'https://i.pinimg.com/1200x/9f/83/a2/9f83a221ab4a5b37fd9da0fa414cb8c6.jpg',
+                    'https://i.pinimg.com/1200x/7e/4d/93/7e4d93c5055c40579b4b866a89ceb94b.jpg',
+                    'https://i.pinimg.com/736x/6b/c3/30/6bc3302a15ad18537dc05b279e0d33ba.jpg',
+                    'https://i.pinimg.com/736x/09/a0/1b/09a01bcea246b14e519f24fe9cc53aeb.jpg',
+                    'https://i.pinimg.com/736x/a3/c2/47/a3c247914d177b43431b5d5c18ce9c78.jpg',
+                    'https://i.pinimg.com/1200x/34/b5/a3/34b5a3cbb751fe844502b71822b10fcd.jpg',
+                    'https://i.pinimg.com/736x/ed/0f/ef/ed0fef7957e4e953268c167b1f6bc3e0.jpg',
                 ],
                 'packages' => [
                     [
@@ -119,16 +119,16 @@ class ProductSeeder extends Seeder
                 'cities' => [7024],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/79/0d/3b/790d3b06a4dc130e184c1ae9ed58b2be.jpg',
-                    'https://i.pinimg.com/736x/ee/88/e3/ee88e3c0070b838bd1f6972af96d1a3b.jpg',
-                    'https://i.pinimg.com/736x/7a/48/8b/7a488b832b6c3f12c20c37ac80c57a9c.jpg',
-                    'https://i.pinimg.com/736x/93/69/5b/93695bdef142fc3091c727c5020c2bf5.jpg',
-                    'https://i.pinimg.com/736x/15/d9/d0/15d9d00ba755b4e513e38e8351c68a27.jpg',
-                    'https://i.pinimg.com/736x/92/e2/66/92e266f0a6f10f8eaa222fc9ff151867.jpg',
-                    'https://i.pinimg.com/736x/74/c5/b9/74c5b91b91f964fad4e091dbbd384f0b.jpg',
-                    'https://i.pinimg.com/736x/ce/08/bf/ce08bfa896a7c7362b2a91d918feccfb.jpg',
-                    'https://i.pinimg.com/736x/ce/3e/ff/ce3eff3b25e26c14d0d0ea58c03e08e9.jpg',
-                    'https://i.pinimg.com/736x/88/ea/c7/88eac78fe8995c0032ba24b6e43dd16c.jpg',
+                    'https://i.pinimg.com/1200x/0f/2a/6d/0f2a6d2416feecc4788b45808231800d.jpg',
+                    'https://i.pinimg.com/1200x/2e/17/89/2e17893f3bef3a401d1a93bf8b41ecfd.jpg',
+                    'https://i.pinimg.com/736x/7f/0b/ed/7f0bed71f51dc8e9edecf6899ecceb55.jpg',
+                    'https://i.pinimg.com/1200x/37/7b/49/377b4985467fae05b18edbb4885fa36e.jpg',
+                    'https://i.pinimg.com/1200x/4d/a6/7b/4da67b931c130fd658c14aa254309c0f.jpg',
+                    'https://i.pinimg.com/1200x/86/b0/92/86b092b7f02b86d025c7938d1f8ab4b5.jpg',
+                    'https://i.pinimg.com/736x/2f/ef/e8/2fefe84fd51e29163bd21c06b6ec56f3.jpg',
+                    'https://i.pinimg.com/736x/f7/c4/cd/f7c4cdbb4a3b249c370c2d8b0eb9a0ed.jpg',
+                    'https://i.pinimg.com/736x/3d/96/c2/3d96c213a74d5a008986d0e1aa123e29.jpg',
+                    'https://i.pinimg.com/1200x/b0/60/bc/b060bc68c5a6321a7612971f047d3c9f.jpg',
                 ],
                 'packages' => [
                     [
@@ -164,16 +164,16 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/4b/65/87/4b6587320707f1f0f283aaa026f2c37c.jpg',
-                    'https://i.pinimg.com/736x/33/a9/b1/33a9b105e20c3cd4717e91acb4602108.jpg',
-                    'https://i.pinimg.com/736x/ee/27/df/ee27dfb2da5ebaed27cba173d087af33.jpg',
-                    'https://i.pinimg.com/736x/4e/96/1b/4e961bd83d22803e61637ac233dc7b6c.jpg',
-                    'https://i.pinimg.com/736x/23/2d/24/232d240321cde03ebd38b6330b9990fd.jpg',
-                    'https://i.pinimg.com/736x/ff/e1/70/ffe170e15bf89b0c98114e2b26c6c21b.jpg',
-                    'https://i.pinimg.com/736x/cc/a4/15/cca415a69945abbf33ed459888bf2c5e.jpg',
-                    'https://i.pinimg.com/736x/a4/96/b1/a496b1045f69dd9c7a9cbf71ee83805c.jpg',
-                    'https://i.pinimg.com/736x/93/f2/e1/93f2e1a4a99249bc8ad50955f17cba11.jpg',
-                    'https://i.pinimg.com/736x/f7/64/ec/f764ecf10c3ca5b3ce11295b84d13066.jpg',
+                    'https://i.pinimg.com/736x/12/2d/64/122d644598dbcb4e94174c9bd8ce9a1c.jpg',
+                    'https://i.pinimg.com/736x/81/d1/f1/81d1f1f4fd78cecdbf69c7dca5cefad3.jpg',
+                    'https://i.pinimg.com/736x/a4/69/08/a4690838c6ac92202e5b32222a683510.jpg',
+                    'https://i.pinimg.com/736x/10/1d/a3/101da368d5e6684b814fcf753841014a.jpg',
+                    'https://i.pinimg.com/736x/ef/9a/9d/ef9a9db987231eeb1845a89c5b561d0d.jpg',
+                    'https://i.pinimg.com/736x/fc/14/6c/fc146cd5959cd10b0c1859fe8894b908.jpg',
+                    'https://i.pinimg.com/736x/04/8a/a5/048aa5a96067f85c276fa30fbe5c60cd.jpg',
+                    'https://i.pinimg.com/736x/fd/3d/13/fd3d1389efa936e6a079d444dde57362.jpg',
+                    'https://i.pinimg.com/736x/c5/a4/84/c5a48447327b3ef235bfcc83a53e064b.jpg',
+                    'https://i.pinimg.com/736x/17/e7/70/17e7707edb8f75a116907d174cef1ceb.jpg',
                 ],
                 'packages' => [
                     [
@@ -201,16 +201,16 @@ class ProductSeeder extends Seeder
                 'cities' => [1],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/c3/3e/43/c33e43f7e97be95a55856be26ae0984f.jpg',
-                    'https://i.pinimg.com/736x/3c/94/14/3c9414cd4b55b14907e1b94ba7223446.jpg',
-                    'https://i.pinimg.com/736x/82/b7/fc/82b7fc034e297a24b44531f21d72226b.jpg',
-                    'https://i.pinimg.com/736x/21/df/cf/21dfcfc57d1c24eaed64f178796b7c76.jpg',
-                    'https://i.pinimg.com/736x/18/3d/0d/183d0dc4b038dcf792362133510b6ecb.jpg',
-                    'https://i.pinimg.com/736x/3c/81/71/3c81719bbb36ede8e13ec3f9d04c9579.jpg',
-                    'https://i.pinimg.com/736x/19/86/44/198644018da6f0750cfaaf702862b274.jpg',
-                    'https://i.pinimg.com/736x/09/93/5d/09935d71bf6c849aa395d18138d323a2.jpg',
-                    'https://i.pinimg.com/736x/3b/5d/03/3b5d03b92f2afd1865200db18e4a17fd.jpg',
-                    'https://i.pinimg.com/736x/d7/d2/88/d7d288a4817e4a236d8b2eddda6a0c9b.jpg',
+                    'https://i.pinimg.com/736x/93/9d/0a/939d0acf20f09ee7f3c8a02ab97f2263.jpg',
+                    'https://i.pinimg.com/736x/a1/f7/5f/a1f75f26d6c214677e958aff56a25ee0.jpg',
+                    'https://i.pinimg.com/736x/07/27/2d/07272df566fd504f2061ab10a6f96e0c.jpg',
+                    'https://i.pinimg.com/736x/e1/0a/b2/e10ab2ef4e73f907d144ce60e71fcca2.jpg',
+                    'https://i.pinimg.com/736x/b9/1c/09/b91c09e04c0ff8f7be350945a8796072.jpg',
+                    'https://i.pinimg.com/736x/0c/42/96/0c4296c3f315def1b3f83a82383f3841.jpg',
+                    'https://i.pinimg.com/736x/57/02/3a/57023aa5816661bd2fad57985a20f5b1.jpg',
+                    'https://i.pinimg.com/736x/b3/94/25/b39425df71e5f8830e5505d1698ddc54.jpg',
+                    'https://i.pinimg.com/736x/8d/8f/2d/8d8f2d6b6cc5afc1c618c0256bf75eae.jpg',
+                    'https://i.pinimg.com/736x/6c/1d/3b/6c1d3bd4f9b3b3a69dbb4420d63160b0.jpg',
                 ],
                 'packages' => [
                     [
@@ -238,16 +238,16 @@ class ProductSeeder extends Seeder
                 'cities' => [1],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/52/fc/6f/52fc6f1e499e5f148df8aff401dcd374.jpg',
-                    'https://i.pinimg.com/736x/2a/e0/01/2ae0015dac78a18cfc7a1f2dcaec2e8e.jpg',
-                    'https://i.pinimg.com/736x/d8/64/25/d86425079a05f851cada667ea1cad0ac.jpg',
-                    'https://i.pinimg.com/736x/1e/ba/1a/1eba1a3a0c61564b1f38621facea42f9.jpg',
-                    'https://i.pinimg.com/736x/b5/46/95/b54695c8a6c22d65ae83ac5e74bcb387.jpg',
-                    'https://i.pinimg.com/736x/2c/47/2c/2c472ccdc78f84d7cde767884486b354.jpg',
-                    'https://i.pinimg.com/736x/60/2a/07/602a0794c4b31fb4439efde5f172d88a.jpg',
-                    'https://i.pinimg.com/736x/5b/6b/a5/5b6ba5abc31f7fec5dce26f18c9c4459.jpg',
-                    'https://i.pinimg.com/736x/3f/bf/39/3fbf3944f184866f99f48cb65d20943f.jpg',
-                    'https://i.pinimg.com/736x/2e/cf/f3/2ecff369ec1e32718ff81bafca4865d6.jpg',
+                    'https://i.pinimg.com/736x/cc/2a/49/cc2a4986cc8e45a854da141385045ee4.jpg',
+                    'https://i.pinimg.com/736x/d2/14/e2/d214e22fbdc22dcf28e7460a73c2213f.jpg',
+                    'https://i.pinimg.com/736x/fd/26/67/fd2667de80e88f8035c49c82ab501469.jpg',
+                    'https://i.pinimg.com/736x/cc/d3/f4/ccd3f4cff2007085f35e7fb16b411134.jpg',
+                    'https://i.pinimg.com/736x/8a/6c/01/8a6c01a575bf3d676a2a89c2e72ffd0f.jpg',
+                    'https://i.pinimg.com/736x/49/1b/3b/491b3b051756d3dcb5af188f91da22d9.jpg',
+                    'https://i.pinimg.com/736x/67/76/8b/67768be6df2635fddbbc71210ad6d477.jpg',
+                    'https://i.pinimg.com/736x/7e/08/f6/7e08f6381635864859b7252262191f84.jpg',
+                    'https://i.pinimg.com/736x/2e/15/6e/2e156ee4712b4496b6b6c00fcc43a9b3.jpg',
+                    'https://i.pinimg.com/736x/a8/96/14/a89614bb836d3e3c392db251d103f1b8.jpg',
                 ],
                 'packages' => [
                     [
@@ -275,16 +275,16 @@ class ProductSeeder extends Seeder
                 'cities' => [221],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/4f/b5/96/4fb596fd106a1f6b2e85162d026cfc4f.jpg',
-                    'https://i.pinimg.com/736x/61/54/ca/6154ca6df16c9d00ea4332aa8ee44942.jpg',
-                    'https://i.pinimg.com/736x/c5/7e/e6/c57ee6d0c247ade764d9cd9bcde4b929.jpg',
-                    'https://i.pinimg.com/736x/c9/9d/2a/c99d2a6291b01d33d28026395afe454f.jpg',
-                    'https://i.pinimg.com/736x/46/07/25/46072545bd2044f899125ab9cc468088.jpg',
-                    'https://i.pinimg.com/736x/00/b7/bf/00b7bf1046985fedf00a299d76aad0e2.jpg',
-                    'https://i.pinimg.com/736x/c4/98/d6/c498d69651cf406fa3403da4e5b06cda.jpg',
-                    'https://i.pinimg.com/736x/02/fe/24/02fe24d26a1007b85962d2f39ce799ea.jpg',
-                    'https://i.pinimg.com/736x/87/22/c0/8722c0357fb124bc5b7b974e49968bd0.jpg',
-                    'https://i.pinimg.com/736x/a7/8b/f3/a78bf33d0f241da4ee62d583006af7e4.jpg',
+                    'https://i.pinimg.com/736x/f2/a4/08/f2a4087b98c46746840cc08a2b0db387.jpg',
+                    'https://i.pinimg.com/736x/6d/05/a8/6d05a8d914216c448d17ace87f3a871d.jpg',
+                    'https://i.pinimg.com/736x/eb/bf/03/ebbf036443f4d52584b99482deb1aa24.jpg',
+                    'https://i.pinimg.com/736x/1c/8d/83/1c8d83008a4d6c7090ee4608ac5d0885.jpg',
+                    'https://i.pinimg.com/736x/8c/91/e3/8c91e3a1a4bfc2b0b3c5c8b533c79b58.jpg',
+                    'https://i.pinimg.com/736x/95/10/0e/95100e6bbb4e0728dbb90a5033802b73.jpg',
+                    'https://i.pinimg.com/736x/21/83/92/218392fa3ff059c6c8908c47089d3585.jpg',
+                    'https://i.pinimg.com/736x/56/99/88/5699889649264aeea0ff63a28f197ede.jpg',
+                    'https://i.pinimg.com/736x/94/e5/7a/94e57a7968b5a7cfef0ca80cf720dcf3.jpg',
+                    'https://i.pinimg.com/736x/60/26/69/6026695dccfaeeb93ebaf6b9d97c345f.jpg',
                 ],
                 'packages' => [
                     [
@@ -320,16 +320,16 @@ class ProductSeeder extends Seeder
                 'cities' => [221],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/78/42/33/7842333f9d0381c1063c68a442331eef.jpg',
-                    'https://i.pinimg.com/736x/49/5c/2b/495c2bf7beddb9850f90378fdd745c1e.jpg',
-                    'https://i.pinimg.com/736x/76/ac/9d/76ac9d14da535774119406ad019425f2.jpg',
-                    'https://i.pinimg.com/736x/21/a0/d0/21a0d09f55caa68190de011bf1e3ee78.jpg',
-                    'https://i.pinimg.com/736x/a4/b4/9a/a4b49a6f7489aa09eeaa5cb9ee711b8a.jpg',
-                    'https://i.pinimg.com/736x/59/9f/46/599f4603ea91a339e162c1c3568f0751.jpg',
-                    'https://i.pinimg.com/736x/27/d2/eb/27d2eb04d9450f92147b1e125d6fdff6.jpg',
-                    'https://i.pinimg.com/736x/9e/d2/db/9ed2db332345e2df5e3bc397dc3746c2.jpg',
-                    'https://i.pinimg.com/736x/dd/29/76/dd29760d98ad130802c9cd27b4090798.jpg',
-                    'https://i.pinimg.com/736x/ec/65/11/ec6511d49a46a707c36420b396482b27.jpg',
+                    'https://i.pinimg.com/736x/88/ec/56/88ec56143aad7770e1617be1ff847628.jpg',
+                    'https://i.pinimg.com/736x/9e/06/14/9e0614673e0baf526c50977875ba9d20.jpg',
+                    'https://i.pinimg.com/736x/42/8c/8a/428c8a5eb091937a6d0709eee58f61a4.jpg',
+                    'https://i.pinimg.com/736x/f9/dc/2b/f9dc2b954abf54121cf188c1383c1afb.jpg',
+                    'https://i.pinimg.com/736x/06/97/74/069774aef341a74926286af8cbc05406.jpg',
+                    'https://i.pinimg.com/736x/4f/d8/a7/4fd8a740358f0d57d41703e8d7015090.jpg',
+                    'https://i.pinimg.com/736x/2d/a9/d6/2da9d658e798a8ecd9b6e67cd51a130d.jpg',
+                    'https://i.pinimg.com/736x/2c/fc/21/2cfc21d1138eac4cd5d56e40a8d0008b.jpg',
+                    'https://i.pinimg.com/736x/ab/2e/15/ab2e15d7c590b44d6c4731c85a88aeb2.jpg',
+                    'https://i.pinimg.com/736x/0a/50/55/0a5055fdbefe76025a3d75bdcd246e61.jpg',
                 ],
                 'packages' => [
                     [
@@ -365,16 +365,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/d7/d0/0c/d7d00cdbf09a41b487b86f65cdce3f8a.jpg',
-                    'https://i.pinimg.com/736x/b7/9e/48/b79e48d439e66276369eaac9c97239ce.jpg',
-                    'https://i.pinimg.com/736x/07/98/c0/0798c09695db5f789db7206d66d08564.jpg',
-                    'https://i.pinimg.com/736x/72/a4/77/72a47731443f47aa66276f15ba0fd20c.jpg',
-                    'https://i.pinimg.com/736x/e5/00/95/e5009592f716bbf9a90df592016f451a.jpg',
-                    'https://i.pinimg.com/736x/32/f9/6d/32f96dbd48e8c826ffb133a99235b732.jpg',
-                    'https://i.pinimg.com/736x/3d/9e/49/3d9e49f1d183a894558de87035f74bce.jpg',
-                    'https://i.pinimg.com/736x/24/78/34/24783403ae76a9383a466946b6630b01.jpg',
-                    'https://i.pinimg.com/736x/cb/90/78/cb9078279455826a66573fdec4b8ab38.jpg',
-                    'https://i.pinimg.com/736x/57/cc/fe/57ccfefa9a039bdde64a02696c5a0f5e.jpg',
+                    'https://i.pinimg.com/736x/69/a5/5b/69a55b312104bfeb8d4abb587ceb066b.jpg',
+                    'https://i.pinimg.com/736x/a1/59/b4/a159b434d344150956b36522b38aa884.jpg',
+                    'https://i.pinimg.com/736x/2e/2e/08/2e2e08bc2d936a30df5bf317cfedb0c9.jpg',
+                    'https://i.pinimg.com/736x/93/10/ea/9310ea1c987b8208c26e75f4a81f6010.jpg',
+                    'https://i.pinimg.com/736x/6d/0f/9a/6d0f9ae9560d18f63e25e09e2a555d96.jpg',
+                    'https://i.pinimg.com/736x/31/3f/cc/313fcc24dc30548e98e8a4e2772055f9.jpg',
+                    'https://i.pinimg.com/736x/a7/d6/70/a7d6702357c342b1982acbc0ee8c1475.jpg',
+                    'https://i.pinimg.com/736x/71/e3/66/71e366b92177426db1e584757e41e29e.jpg',
+                    'https://i.pinimg.com/736x/d4/31/5a/d4315a651f97093d8de5d3687f3cb71e.jpg',
+                    'https://i.pinimg.com/736x/fa/78/7c/fa787c2af188e12eb70701dc2f7c9561.jpg',
                 ],
                 'packages' => [
                     [
@@ -402,16 +402,16 @@ class ProductSeeder extends Seeder
                 'cities' => [48],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/c9/43/6e/c9436ebecaf4bb5990883a02fbfb7687.jpg',
-                    'https://i.pinimg.com/736x/7a/05/54/7a0554c513aa071d245e96d8dbc1ada9.jpg',
-                    'https://i.pinimg.com/736x/c6/ae/17/c6ae17444ab7cb0f1ee8920565d6c22f.jpg',
-                    'https://i.pinimg.com/736x/6f/a6/bb/6fa6bb1bad9e39bd60d76cacdad31355.jpg',
-                    'https://i.pinimg.com/736x/5a/6e/97/5a6e97fb092fc1235e86eaf6555cd3cd.jpg',
-                    'https://i.pinimg.com/736x/dc/98/76/dc98760b4167375877ea687100cfdfa4.jpg',
-                    'https://i.pinimg.com/736x/cd/c3/de/cdc3de8fd3f8a0b1b001df291c240bf4.jpg',
-                    'https://i.pinimg.com/736x/4c/c3/f7/4cc3f7bbb5cce3ac7079bab7d4ce2376.jpg',
-                    'https://i.pinimg.com/736x/6a/39/4c/6a394cb1eaf80756d9d06c37e0c2fa31.jpg',
-                    'https://i.pinimg.com/736x/a1/a3/b0/a1a3b047c21d45cd00dd3e947ada065e.jpg',
+                    'https://i.pinimg.com/736x/3e/8f/e5/3e8fe57916bc1e3b57714cf67110ebd9.jpg',
+                    'https://i.pinimg.com/736x/80/1c/81/801c8112578d0771cfe5c85b6f540808.jpg',
+                    'https://i.pinimg.com/736x/fb/8f/0f/fb8f0f4e7a8a92a7e9a3a87b430e3253.jpg',
+                    'https://i.pinimg.com/736x/64/8a/c1/648ac1d92f94000440ab5c18cdf263b6.jpg',
+                    'https://i.pinimg.com/736x/f2/73/0d/f2730d96675236374f9fad29e357cf52.jpg',
+                    'https://i.pinimg.com/736x/af/db/10/afdb1000048008c3a0bdbd64abdaf5bb.jpg',
+                    'https://i.pinimg.com/736x/f4/81/67/f48167320ac5fad451a5f0c64c2cd38a.jpg',
+                    'https://i.pinimg.com/736x/c2/65/7e/c2657efc1da9825d5e70467375f57370.jpg',
+                    'https://i.pinimg.com/736x/77/2a/0e/772a0ebdb417aad2fa99573f17af36e6.jpg',
+                    'https://i.pinimg.com/736x/39/24/46/39244688d50a81cbd50eb19c6f67d245.jpg',
                 ],
                 'packages' => [
                     [
@@ -439,16 +439,16 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/5d/95/f8/5d95f89f0c2275373f862cb24d8e2588.jpg',
-                    'https://i.pinimg.com/736x/a4/b9/04/a4b904e5d2d52f4cf7b1f0e79a656677.jpg',
-                    'https://i.pinimg.com/736x/99/f3/78/99f3786f27dd1ef76805d56889c82aae.jpg',
-                    'https://i.pinimg.com/736x/48/b3/fe/48b3fee74f3eeb4bede5c136295c7c0f.jpg',
-                    'https://i.pinimg.com/736x/95/33/50/953350f22316f610b1130d320f614e41.jpg',
-                    'https://i.pinimg.com/736x/d2/ec/af/d2ecaf5bed3aba4ee6f47f17b42f1ea4.jpg',
-                    'https://i.pinimg.com/736x/24/0a/da/240adab4a0d3ccd78670bd5713083bc9.jpg',
-                    'https://i.pinimg.com/736x/2b/c6/77/2bc677b13991ceccaf84afed5e820c5c.jpg',
-                    'https://i.pinimg.com/736x/20/b5/2e/20b52ecfe8136030c6862e293c00deae.jpg',
-                    'https://i.pinimg.com/736x/b8/50/54/b85054b9cce060e742250afa62740abd.jpg',
+                    'https://i.pinimg.com/736x/45/f7/88/45f7883ba243fa7ce88f0f80fcfe6cbc.jpg',
+                    'https://i.pinimg.com/736x/53/e7/55/53e755e01ec12bdd3f69b5ee3a8dd024.jpg',
+                    'https://i.pinimg.com/736x/f1/87/1f/f1871f264dcdffa74ad3f124b585d910.jpg',
+                    'https://i.pinimg.com/736x/fc/0b/5a/fc0b5a71e517f4135d7c28fd579f1ba0.jpg',
+                    'https://i.pinimg.com/736x/b2/1e/3b/b21e3bd9ad52099f73ed6cacee461ef0.jpg',
+                    'https://i.pinimg.com/736x/5e/43/78/5e437851da52a508dbcb89370675b532.jpg',
+                    'https://i.pinimg.com/736x/bf/8e/79/bf8e795a9dd401b75f76f26565657e51.jpg',
+                    'https://i.pinimg.com/736x/92/1b/f3/921bf3d4d226d33225c0aee128d36405.jpg',
+                    'https://i.pinimg.com/736x/95/ad/03/95ad03abbdba1026369294d85582964f.jpg',
+                    'https://i.pinimg.com/736x/62/d7/ea/62d7ea76a95b3daf1b39052f77bc1fa3.jpg',
                 ],
                 'packages' => [
                     [
@@ -476,16 +476,16 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/25/16/02/251602bfac83fdc2cece4795d7db7645.jpg',
-                    'https://i.pinimg.com/736x/6a/44/8f/6a448f7b99bf2b338af8a6b548467c71.jpg',
-                    'https://i.pinimg.com/736x/3d/fb/1d/3dfb1d3ffda55dc102fd39ca214d6246.jpg',
-                    'https://i.pinimg.com/736x/69/5f/46/695f463d72b847e728283dd5dc773404.jpg',
-                    'https://i.pinimg.com/736x/6d/7b/6c/6d7b6c4786deac04b56f776897ce0c62.jpg',
-                    'https://i.pinimg.com/736x/36/28/cc/3628cc9f5f5ef9483f229d75d518f296.jpg',
-                    'https://i.pinimg.com/736x/26/51/6c/26516c12a17aebdaa3e5a9314f92ea8b.jpg',
-                    'https://i.pinimg.com/736x/09/d9/3b/09d93bf4318f38d93707bb4af10c6673.jpg',
-                    'https://i.pinimg.com/736x/b5/03/41/b503418d73a2ba3f5fefc821d7c4764e.jpg',
-                    'https://i.pinimg.com/736x/e0/9f/9e/e09f9ecf0dd338e3727ebce83532287d.jpg',
+                    'https://i.pinimg.com/736x/fb/30/79/fb3079c52f46f7e4fa2b40a950ac8bf4.jpg',
+                    'https://i.pinimg.com/736x/cb/24/0d/cb240d6910c6b5cd17c8958c08a9d66d.jpg',
+                    'https://i.pinimg.com/736x/00/bb/2a/00bb2a4ea6342d025b09f0ff3a447a50.jpg',
+                    'https://i.pinimg.com/736x/bb/60/d3/bb60d3960f59081f4d7db36962efff4b.jpg',
+                    'https://i.pinimg.com/736x/13/92/27/139227abd3a5c93ee86ad777362d4928.jpg',
+                    'https://i.pinimg.com/736x/e3/4f/87/e34f87ff2c640f880c1e7d0277c3a1fb.jpg',
+                    'https://i.pinimg.com/736x/07/aa/6b/07aa6b65aa824e6d9794a98486237c5a.jpg',
+                    'https://i.pinimg.com/736x/be/1b/cf/be1bcf8414b2d816cc068057aa5c1be3.jpg',
+                    'https://i.pinimg.com/736x/36/b3/38/36b3387f10872f3ef42eb7e1ab8f1cf2.jpg',
+                    'https://i.pinimg.com/736x/e3/2d/77/e32d7723d01a74c5dff51e6eb1886d9d.jpg',
                 ],
                 'packages' => [
                     [
@@ -513,16 +513,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/90/96/9f/90969f45369edbc611349fab14918eb3.jpg',
-                    'https://i.pinimg.com/736x/12/d7/e1/12d7e116fd4436e3544ec904ab940771.jpg',
-                    'https://i.pinimg.com/736x/1e/07/2c/1e072c72e764c4ad68abce7fc3a4a587.jpg',
-                    'https://i.pinimg.com/736x/2e/e3/99/2ee3995d9ab66833028f7eb66b66c458.jpg',
-                    'https://i.pinimg.com/736x/63/6e/24/636e24c0d995a4cb775eaa7b0fcd4916.jpg',
-                    'https://i.pinimg.com/736x/8c/c1/b9/8cc1b97f29c1081bd12aeafce0deab1e.jpg',
-                    'https://i.pinimg.com/736x/54/37/15/5437159f7acdaedf82f5aa7096b3f85a.jpg',
-                    'https://i.pinimg.com/736x/f0/ab/6f/f0ab6f015f1789172a0ebbe96efafd32.jpg',
-                    'https://i.pinimg.com/736x/4f/e2/a9/4fe2a9bef8978cf332099d7b35814226.jpg',
-                    'https://i.pinimg.com/736x/3c/ae/9c/3cae9cfa54b68cb7dc12290f4d04a71c.jpg',
+                    'https://i.pinimg.com/736x/77/c1/13/77c1139a4614a24e539039a580fa18ea.jpg',
+                    'https://i.pinimg.com/736x/1f/9c/cd/1f9ccddad3897c67583b849aed317139.jpg',
+                    'https://i.pinimg.com/736x/94/ad/66/94ad664792b8b3012468c8d878247b42.jpg',
+                    'https://i.pinimg.com/736x/7e/f9/76/7ef976639cb0b7a1486b7b3ae33100ab.jpg',
+                    'https://i.pinimg.com/736x/41/ea/63/41ea63bfc53b3e40b34a43ca2b1181c2.jpg',
+                    'https://i.pinimg.com/736x/8a/b1/16/8ab1168c5368db073f82953845793c7b.jpg',
+                    'https://i.pinimg.com/736x/b2/2b/b9/b22bb92fbfebe6666ecde7d3c960dfb5.jpg',
+                    'https://i.pinimg.com/736x/b4/d9/54/b4d9545a05a4c1fcf2a333dd20ef5dab.jpg',
+                    'https://i.pinimg.com/736x/ff/ad/06/ffad06896b12fb9cd8ff45fe2f44c49d.jpg',
+                    'https://i.pinimg.com/736x/b3/3b/12/b33b12593cb6cb45b0b14fa8ca193f56.jpg',
                 ],
                 'packages' => [
                     [
@@ -550,16 +550,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/67/d2/a6/67d2a6f80f2f69ba6b0af667fbaf5f97.jpg',
-                    'https://i.pinimg.com/736x/3c/2e/0c/3c2e0c2e9c456daed2a59cbf1629d661.jpg',
-                    'https://i.pinimg.com/736x/77/b3/8f/77b38f06398ad45988daf9e6b4fc79aa.jpg',
-                    'https://i.pinimg.com/736x/a1/3e/ef/a13eef9ec05f3c5bbc7809143a798e07.jpg',
-                    'https://i.pinimg.com/736x/d1/a0/21/d1a02196a6f0266e70cdadff8a9a8b63.jpg',
-                    'https://i.pinimg.com/736x/cc/3a/1c/cc3a1c60a650eee3e04dd503de906ec2.jpg',
-                    'https://i.pinimg.com/736x/db/fd/13/dbfd13df18fdbb30707f0be3bbfb936f.jpg',
-                    'https://i.pinimg.com/736x/6f/c8/cd/6fc8cdaed3e0eef7e0637a3b030a046e.jpg',
-                    'https://i.pinimg.com/736x/38/af/78/38af78d084b0097fe5040ab41381ec29.jpg',
-                    'https://i.pinimg.com/736x/3f/bf/cc/3fbfcc6d1326d0e85f9b405e89f369b2.jpg',
+                    'https://i.pinimg.com/736x/f6/77/18/f677180d43a20efaf763bcf2f66461bf.jpg',
+                    'https://i.pinimg.com/736x/98/43/05/984305572246ed603867c34d49b381a5.jpg',
+                    'https://i.pinimg.com/736x/56/02/82/560282b64b05ed4e1f85bed71baa269b.jpg',
+                    'https://i.pinimg.com/736x/42/2c/56/422c56b922e8b2730bc596a0fbe8a4a3.jpg',
+                    'https://i.pinimg.com/736x/a0/c2/22/a0c222dfcb56cdf43b85ef64d142c9a3.jpg',
+                    'https://i.pinimg.com/736x/df/77/9b/df779bc59113d334ec43d855e61f1ce5.jpg',
+                    'https://i.pinimg.com/736x/26/1f/45/261f45cddcb017a3892f36b8c5e38d80.jpg',
+                    'https://i.pinimg.com/736x/bd/fd/37/bdfd37f29b634c492fb0977ab5055120.jpg',
+                    'https://i.pinimg.com/736x/7d/db/32/7ddb32178a4856590ddab7522d8e3bae.jpg',
+                    'https://i.pinimg.com/736x/10/69/be/1069be3201504c4a7085fc00fc9ac48a.jpg',
                 ],
                 'packages' => [
                     [
@@ -587,16 +587,16 @@ class ProductSeeder extends Seeder
                 'cities' => [1],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/35/d7/85/35d7856e014b0967a84b60f8f905be23.jpg',
-                    'https://i.pinimg.com/736x/d0/0c/b9/d00cb9400b8d0369ef4e6d4493d573ab.jpg',
-                    'https://i.pinimg.com/736x/29/bc/75/29bc752283f642e569c8bb6e7e7c807f.jpg',
-                    'https://i.pinimg.com/736x/36/c5/37/36c537c7dd68e2563d4baebba31ba29d.jpg',
-                    'https://i.pinimg.com/736x/99/9c/a4/999ca4ca43b5bf029f87a97d47d37987.jpg',
-                    'https://i.pinimg.com/736x/fc/5e/46/fc5e46e77bd187f6c5b1656887846498.jpg',
-                    'https://i.pinimg.com/736x/3b/ca/1b/3bca1b94707fe8f9da11e82f3ac4d035.jpg',
-                    'https://i.pinimg.com/736x/43/73/1e/43731e0d1b6323c4eec025b2d3ce400f.jpg',
-                    'https://i.pinimg.com/736x/ca/c9/5a/cac95a211d4b0e3cb4ed9d7caa0ab6d1.jpg',
-                    'https://i.pinimg.com/736x/b2/51/f8/b251f8d5459c19e1a1e30f5b9c263e12.jpg',
+                    'https://i.pinimg.com/736x/b6/a3/63/b6a363fd36785ced5ee48dd8ff20ccaf.jpg',
+                    'https://i.pinimg.com/736x/64/cd/c3/64cdc323ac84d320dab8264369d2b05f.jpg',
+                    'https://i.pinimg.com/736x/4b/e8/59/4be85977f40b4f22bd9ae96df07f2851.jpg',
+                    'https://i.pinimg.com/736x/bb/a4/0d/bba40dd024b24defe53d8493508753ac.jpg',
+                    'https://i.pinimg.com/736x/0d/2d/f8/0d2df85a2f9b2f4d690a872ac6538d1b.jpg',
+                    'https://i.pinimg.com/736x/28/31/da/2831da0f8a4b18fde25867ef90e66207.jpg',
+                    'https://i.pinimg.com/736x/f1/15/45/f115450cc347177ebd85c0bcf7ff0946.jpg',
+                    'https://i.pinimg.com/736x/b9/51/ad/b951ad2f0e374c898a01eca0887b8f39.jpg',
+                    'https://i.pinimg.com/736x/54/20/f4/5420f48caca7471d7433944e5ed8596a.jpg',
+                    'https://i.pinimg.com/736x/e1/2d/70/e12d702d208795e9aab0b3226e8c08aa.jpg',
                 ],
                 'packages' => [
                     [
@@ -624,16 +624,16 @@ class ProductSeeder extends Seeder
                 'cities' => [221],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/c2/f3/da/c2f3da2314e11e289cc49ea6b26ed95b.jpg',
-                    'https://i.pinimg.com/736x/c0/bd/70/c0bd7013c75074282126a73f8d37b48a.jpg',
-                    'https://i.pinimg.com/736x/e6/a1/dd/e6a1ddcbb30d000e6d01c32fe8915cf9.jpg',
-                    'https://i.pinimg.com/736x/1e/18/a7/1e18a741b5273b50436e395f7ac892d9.jpg',
-                    'https://i.pinimg.com/736x/17/47/04/174704f2e510288b225801dfc9845d33.jpg',
-                    'https://i.pinimg.com/736x/7d/2b/69/7d2b698235ae8551bf482def8d18d1a3.jpg',
-                    'https://i.pinimg.com/736x/69/53/ae/6953ae82ae05ce3fa60e2253a4bfc078.jpg',
-                    'https://i.pinimg.com/736x/70/9d/af/709dafb6c493a906a354f2095bd5b134.jpg',
-                    'https://i.pinimg.com/736x/d0/e3/7b/d0e37b5134c99bf1873b49747de5c457.jpg',
-                    'https://i.pinimg.com/736x/67/9c/d1/679cd11fd677a7860f5603c6b5048b54.jpg',
+                    'https://i.pinimg.com/736x/29/8a/f0/298af03e61c099e882319e35e9e24362.jpg',
+                    'https://i.pinimg.com/736x/11/d2/41/11d241fb88f601682197f6531e284397.jpg',
+                    'https://i.pinimg.com/736x/8d/76/bd/8d76bd72770f76a4df5944161b3b8256.jpg',
+                    'https://i.pinimg.com/736x/63/a8/06/63a80603eb18f74dad76ff878c5d9d2a.jpg',
+                    'https://i.pinimg.com/736x/37/47/15/374715bf401583ac00556d4c3bd40a07.jpg',
+                    'https://i.pinimg.com/736x/25/1d/56/251d56c222c6024cb517fc0313c4c6b6.jpg',
+                    'https://i.pinimg.com/736x/65/65/b4/6565b45e9f3f356310a38010ab4d1b8f.jpg',
+                    'https://i.pinimg.com/736x/1c/7e/85/1c7e85c60d8787539b6071c0d7594a71.jpg',
+                    'https://i.pinimg.com/736x/6b/e4/6c/6be46c0f8b13fb8e0dc9b9d7d07cf322.jpg',
+                    'https://i.pinimg.com/736x/1d/01/81/1d01817aabf5c404cc273381dceb1435.jpg',
                 ],
                 'packages' => [
                     [
@@ -661,16 +661,16 @@ class ProductSeeder extends Seeder
                 'cities' => [48],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/b9/5a/0b/b95a0bcccfa846051531cee31f33ef3e.jpg',
-                    'https://i.pinimg.com/736x/3e/8c/3c/3e8c3c69492cfb34af48ecdf8d7f376f.jpg',
-                    'https://i.pinimg.com/736x/b2/71/87/b27187598681ecc71d98432eab5175c7.jpg',
-                    'https://i.pinimg.com/736x/ec/7f/fb/ec7ffbd98d96d789768b328e6d1d6437.jpg',
-                    'https://i.pinimg.com/736x/4b/88/68/4b8868aa62590c0b267caac15bbe81d3.jpg',
-                    'https://i.pinimg.com/736x/53/7f/c0/537fc09b4335dc7660404504353fb0db.jpg',
-                    'https://i.pinimg.com/736x/03/52/41/0352417ce00cbe36f5d6dc845194c054.jpg',
-                    'https://i.pinimg.com/736x/09/31/41/093141c72dde0a0493bff4b3def7cc94.jpg',
-                    'https://i.pinimg.com/736x/fb/1d/12/fb1d124a1670cc3a59dcd520c4159dc8.jpg',
-                    'https://i.pinimg.com/736x/e2/8f/c9/e28fc922085f8a5b3378e00eda47f0ed.jpg',
+                    'https://i.pinimg.com/736x/30/bb/3b/30bb3b2888ec48ed14b984f8c2cfd586.jpg',
+                    'https://i.pinimg.com/736x/2c/e0/90/2ce090a1b74ced4744ce783bfd01b9b7.jpg',
+                    'https://i.pinimg.com/736x/85/ad/bc/85adbc0527bbda7d7c8b97fe04513394.jpg',
+                    'https://i.pinimg.com/736x/f9/6d/bc/f96dbc41423cd3ee53aea4e4e56f1d5b.jpg',
+                    'https://i.pinimg.com/736x/57/ed/a6/57eda615542ff4e52778fc6a2f891f99.jpg',
+                    'https://i.pinimg.com/736x/2d/06/c1/2d06c17284b30990b13a571811edf536.jpg',
+                    'https://i.pinimg.com/736x/0e/95/21/0e95218e09c5beaa6fb1aab63af952bf.jpg',
+                    'https://i.pinimg.com/736x/90/4e/30/904e3046d07b5dbca86c1ecfac3aaa1f.jpg',
+                    'https://i.pinimg.com/736x/78/1d/7b/781d7b9fc6fcd892c876940c9a8d35c8.jpg',
+                    'https://i.pinimg.com/736x/43/5b/bf/435bbff43301838c8f6be86723bb3343.jpg',
                 ],
                 'packages' => [
                     [
@@ -698,16 +698,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/f1/20/e5/f120e5ff55625e47390c9db5b6776bb6.jpg',
-                    'https://i.pinimg.com/736x/f4/17/4a/f4174a9d24d9c1a38d4bd610170d0a28.jpg',
-                    'https://i.pinimg.com/736x/c8/1a/cb/c81acbb67cb2200869834c2ddd9951b5.jpg',
-                    'https://i.pinimg.com/736x/6a/0e/3b/6a0e3b3e458a033b0a887312fb937760.jpg',
-                    'https://i.pinimg.com/736x/9e/31/f1/9e31f18062896298fc152ea191b8e44a.jpg',
-                    'https://i.pinimg.com/736x/bf/9b/cb/bf9bcbc5136c33d61d030451d86bb3ee.jpg',
-                    'https://i.pinimg.com/736x/f4/0f/49/f40f498d0cf6ca2b8ed711883b03cdfe.jpg',
-                    'https://i.pinimg.com/736x/c9/06/a2/c906a221449d89e7480bd03dc939111d.jpg',
-                    'https://i.pinimg.com/736x/87/37/18/873718d6de6d2283ce83c03c6254ba55.jpg',
-                    'https://i.pinimg.com/736x/ad/03/f4/ad03f4e10c86a44e1f521d744ef58437.jpg',
+                    'https://i.pinimg.com/736x/a5/97/53/a5975324b0ae981e5354863566436e62.jpg',
+                    'https://i.pinimg.com/736x/97/b6/22/97b6225c22cbe34d94084ca6b7c0c00d.jpg',
+                    'https://i.pinimg.com/736x/51/7a/2e/517a2e0d73728aab72901ca1fddab89b.jpg',
+                    'https://i.pinimg.com/736x/b2/40/c1/b240c17eadf433025a4dc6d88f72b646.jpg',
+                    'https://i.pinimg.com/736x/6a/e0/b6/6ae0b60436a1d494069a8ffb4dbe8116.jpg',
+                    'https://i.pinimg.com/736x/5e/21/94/5e2194e8759ccb843694cede557fc008.jpg',
+                    'https://i.pinimg.com/736x/e4/de/dd/e4dedd90cf8b69ab9b51e806cdd27b8.jpg',
+                    'https://i.pinimg.com/736x/e3/96/ee/e396ee82b94a57e3a0db5b87cb2530cb.jpg',
+                    'https://i.pinimg.com/736x/fd/82/ce/fd82ce6b601bfec84968ab6e491187ce.jpg',
+                    'https://i.pinimg.com/736x/dc/84/93/dc84930568de8f90ed05037c5be32ca6.jpg',
                 ],
                 'packages' => [
                     [
@@ -735,16 +735,16 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/cb/e4/73/cbe4736d8000bf15eebc268c4a89238a.jpg',
-                    'https://i.pinimg.com/736x/77/d0/84/77d084ff3e45e00a5ebc6b506e694266.jpg',
-                    'https://i.pinimg.com/736x/50/47/f7/5047f7a182ca7a9da6f1993b14310d62.jpg',
-                    'https://i.pinimg.com/736x/38/70/fb/3870fb26bbbba1a29c5c673f98ded34e.jpg',
-                    'https://i.pinimg.com/736x/1e/11/f9/1e11f9aa0be09c8cbda2912c29a134aa.jpg',
-                    'https://i.pinimg.com/736x/1c/e5/ce/1ce5ce32ac983a0e2f1d89e721bad232.jpg',
-                    'https://i.pinimg.com/736x/7b/16/a1/7b16a12e82f5a9291b14bffb28b89833.jpg',
-                    'https://i.pinimg.com/736x/56/41/44/564144a10a69c7822c408359373f6824.jpg',
-                    'https://i.pinimg.com/736x/d4/b3/43/d4b3430dfc9b070e71cd8cb7156818bb.jpg',
-                    'https://i.pinimg.com/736x/91/cc/7c/91cc7c6dc48d45509cc89dc3aaa4ff6e.jpg',
+                    'https://i.pinimg.com/736x/29/b1/ff/29b1ff4a4b07d0f30f266855f431ba6a.jpg',
+                    'https://i.pinimg.com/736x/70/ff/eb/70ffebc3d8fafe1317182ebfa448e113.jpg',
+                    'https://i.pinimg.com/736x/65/79/99/657999ad91018b593c9f8092c116e29d.jpg',
+                    'https://i.pinimg.com/736x/09/20/26/092026660046762e025cf719606663e0.jpg',
+                    'https://i.pinimg.com/736x/85/46/bc/8546bcb63c0a5e8ec1736dbbcd902226.jpg',
+                    'https://i.pinimg.com/736x/85/ba/a1/85baa149fd71a55c0986a2c684f9b2f3.jpg',
+                    'https://i.pinimg.com/736x/2c/37/d6/2c37d6d4a932793ffdff6a158004e608.jpg',
+                    'https://i.pinimg.com/736x/79/01/dd/7901dd025e9e3649082e9ce4f6f11c86.jpg',
+                    'https://i.pinimg.com/736x/1a/05/04/1a05043ba270637e3aaddca04a2656f2.jpg',
+                    'https://i.pinimg.com/736x/1b/51/61/1b5161aeee4860aa994a12eeb3cf2616.jpg',
                 ],
                 'packages' => [
                     [
@@ -772,16 +772,16 @@ class ProductSeeder extends Seeder
                 'cities' => [87],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/49/50/cd/4950cd88b9d0544b0814cf3095b09787.jpg',
-                    'https://i.pinimg.com/736x/09/3d/90/093d90d0c748e7b6941ee5998d2ea56c.jpg',
-                    'https://i.pinimg.com/736x/3e/a5/67/3ea567c062ac6681579dc013d4e4b2a3.jpg',
-                    'https://i.pinimg.com/736x/8f/68/e2/8f68e2ee6f809ff8f2176504d22e6095.jpg',
-                    'https://i.pinimg.com/736x/8b/91/8a/8b918ac5f3229f6b3bbba2c4ef7eaf84.jpg',
-                    'https://i.pinimg.com/736x/a3/ff/4c/a3ff4cc185bc914c056607537e40adf7.jpg',
-                    'https://i.pinimg.com/736x/43/48/53/434853de7dc9e5fa63e62a8d27b2475f.jpg',
-                    'https://i.pinimg.com/736x/24/e5/73/24e5730606d62a8690cb535f4d5b12c6.jpg',
-                    'https://i.pinimg.com/736x/b2/30/e2/b230e2f0259af0943dfcae08a25fd291.jpg',
-                    'https://i.pinimg.com/736x/a5/8c/63/a58c639983a5d3e5c14c449c738fd941.jpg',
+                    'https://i.pinimg.com/736x/f9/a2/7f/f9a27f2a857e86d613aa1345ae13859a.jpg',
+                    'https://i.pinimg.com/736x/c0/36/51/c036511c8006967819f84f1b83ed8c66.jpg',
+                    'https://i.pinimg.com/736x/be/47/6a/be476ab78aa3322d0e5bc3a7a8ce3a25.jpg',
+                    'https://i.pinimg.com/736x/26/fe/ec/26feec4bb699ea7d3b98a80f6fd3521.jpg',
+                    'https://i.pinimg.com/736x/59/17/04/59170401053592e2f35526637cfad2b4.jpg',
+                    'https://i.pinimg.com/736x/aa/7b/cc/aa7bcc36e77f916e62a96dfc525b1fcc.jpg',
+                    'https://i.pinimg.com/736x/a6/c6/e4/a6c6e40406663758c64de811a3a51080.jpg',
+                    'https://i.pinimg.com/736x/9f/fc/65/9ffc654d6a85d89e9b25d8a46b49462c.jpg',
+                    'https://i.pinimg.com/736x/6c/52/c3/6c52c3a814cb9a701e9fc9c98970fa70.jpg',
+                    'https://i.pinimg.com/736x/6f/ce/a0/6fcea09b94c16dad39e74a7d1511b774.jpg',
                 ],
                 'packages' => [
                     [
@@ -809,16 +809,16 @@ class ProductSeeder extends Seeder
                 'cities' => [7024],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/b9/1d/b2/b91db24cb958015d50f493d60f1bdf70.jpg',
-                    'https://i.pinimg.com/736x/9d/38/43/9d38439fe4abfcd5a618eb562421f85b.jpg',
-                    'https://i.pinimg.com/736x/8d/60/53/8d605330be6312862622c869c42505e3.jpg',
-                    'https://i.pinimg.com/736x/d7/05/8c/d7058c786e669094ed9096a9b527fae1.jpg',
-                    'https://i.pinimg.com/736x/0a/ee/c2/0aeec27bf6e1aaa48126ddd91449332c.jpg',
-                    'https://i.pinimg.com/736x/e3/d1/69/e3d169163683483b1d550c55cdbae119.jpg',
-                    'https://i.pinimg.com/736x/34/28/0d/34280d4ba2287b1ac46ca870e16b182b.jpg',
-                    'https://i.pinimg.com/736x/4b/be/59/4bbe59692f159991278c7f4cba77ee04.jpg',
-                    'https://i.pinimg.com/736x/98/35/35/98353582dcea142a6c9a5af40dabd545.jpg',
-                    'https://i.pinimg.com/736x/97/d7/00/97d700b145edb6078d7513a29886b160.jpg',
+                    'https://i.pinimg.com/736x/40/cd/42/40cd42acdbf836a853a82f62d538a478.jpg',
+                    'https://i.pinimg.com/736x/3d/96/c2/3d96c213a74d5a008986d0e1aa123e29.jpg',
+                    'https://i.pinimg.com/736x/d0/13/e7/d013e7ef7b87c11ef07bc99618905ea7.jpg',
+                    'https://i.pinimg.com/736x/76/dc/be/76dcbe5c1ecc25c82dbbec00dc0f2a34.jpg',
+                    'https://i.pinimg.com/736x/5b/a7/4d/5ba74d095370341b567ef47866e505c1.jpg',
+                    'https://i.pinimg.com/736x/a5/46/be/a546be45da18d11586ac0566f2f79901.jpg',
+                    'https://i.pinimg.com/736x/07/e4/76/07e47625ef1d5264dd3f4ae1cbc860ac.jpg',
+                    'https://i.pinimg.com/736x/18/22/45/182245584f6f3aeb1f189d7124d764d9.jpg',
+                    'https://i.pinimg.com/736x/74/29/35/742935d7f8337358fb24cea6e5ee2f31.jpg',
+                    'https://i.pinimg.com/736x/39/ac/fc/39acfc4b57ef8ec03a7c12f73b88277e.jpg',
                 ],
                 'packages' => [
                     [
@@ -852,16 +852,16 @@ class ProductSeeder extends Seeder
                 'cities' => [10484],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/95/07/c8/9507c81f25cd7facb276c86f5661e231.jpg',
-                    'https://i.pinimg.com/736x/79/70/77/797077f33d22900354b1cd6987f86ad6.jpg',
-                    'https://i.pinimg.com/736x/8c/1e/72/8c1e7296200bff9e5112c4e75212def6.jpg',
-                    'https://i.pinimg.com/736x/9d/d4/01/9dd40143e84f2179e258776eac1d5e53.jpg',
-                    'https://i.pinimg.com/736x/8b/f6/08/8bf608ef0c1ff734ed2a9ecbe156f905.jpg',
-                    'https://i.pinimg.com/736x/ac/ca/47/acca47d51041182aac0d099cd2ca48d1.jpg',
-                    'https://i.pinimg.com/736x/e9/da/24/e9da248ffadf7bd5e9936de3ab3f99a4.jpg',
-                    'https://i.pinimg.com/736x/81/d4/d1/81d4d10853a26a6d819a2f3154235a21.jpg',
-                    'https://i.pinimg.com/736x/b3/8a/4d/b38a4d45af38a19f10bbd56ed2e812b3.jpg',
-                    'https://i.pinimg.com/736x/32/d9/3a/32d93a1a7ee9cce8af88beff46e08711.jpg',
+                    'https://i.pinimg.com/736x/36/86/0b/36860b7072ad60a3914b58326bac87e7.jpg',
+                    'https://i.pinimg.com/736x/d6/39/60/d63960467bb77cf522990c921088d390.jpg',
+                    'https://i.pinimg.com/736x/13/f6/e3/13f6e34e1a8ce1c420988ba4c3a90aae.jpg',
+                    'https://i.pinimg.com/736x/a9/9e/fc/a99efc0c5e190a23cb34f3530349952f.jpg',
+                    'https://i.pinimg.com/736x/43/8a/2e/438a2e134faa28b43751bd8d1da7627e.jpg',
+                    'https://i.pinimg.com/736x/80/3d/3a/803d3a0eea2d55a7cabc737924ee9334.jpg',
+                    'https://i.pinimg.com/736x/e2/21/d8/e221d85c3342a3f2883dc1fc567832a3.jpg',
+                    'https://i.pinimg.com/736x/cd/13/38/cd1338e66a30729acd247fa1e30b40fb.jpg',
+                    'https://i.pinimg.com/736x/31/16/48/3116481dd87f25d31a8feef3e1a8192d.jpg',
+                    'https://i.pinimg.com/736x/c5/ee/d9/c5eed937871e0f9f3e544e9c6dd9f000.jpg',
                 ],
                 'packages' => [
                     [
@@ -889,16 +889,16 @@ class ProductSeeder extends Seeder
                 'cities' => [7024],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/6c/f7/06/6cf706fec66cf7bb503e0eac9200a6e3.jpg',
-                    'https://i.pinimg.com/736x/0b/d6/2f/0bd62f9578c9c74ca153aa62c00ac434.jpg',
-                    'https://i.pinimg.com/736x/15/77/36/15773626820d32fdc905b7ab8ae3dc1b.jpg',
-                    'https://i.pinimg.com/736x/76/28/d3/7628d36898458ad2351da1d4fc4e296d.jpg',
-                    'https://i.pinimg.com/736x/ad/c3/4c/adc34c00b24e76fdc3517d6e0f8cb5a4.jpg',
-                    'https://i.pinimg.com/736x/2f/22/5f/2f225f63c3aaf4162f8d3595f32c509d.jpg',
-                    'https://i.pinimg.com/736x/7f/04/88/7f048885b055c5f107b40ca34cf3f98f.jpg',
-                    'https://i.pinimg.com/736x/64/43/57/644357457d5c24e882cb19c1027cb2a0.jpg',
-                    'https://i.pinimg.com/736x/55/06/99/550699658a91fdbd2313509c66aed260.jpg',
-                    'https://i.pinimg.com/736x/55/90/11/5590111e8f44c7da91f66779d81fe50a.jpg',
+                    'https://i.pinimg.com/736x/dc/ee/a8/dceea8998d063da7b99e88889277b6c4.jpg',
+                    'https://i.pinimg.com/736x/5a/de/00/5ade0058c3683d94d225ee8b8f136726.jpg',
+                    'https://i.pinimg.com/736x/18/d3/0b/18d30b9ea25cafe7043ce3b548f384fb.jpg',
+                    'https://i.pinimg.com/736x/4b/71/81/4b7181f06652a6902ae7a1cfeba56df0.jpg',
+                    'https://i.pinimg.com/736x/eb/61/38/eb6138b410e4376a234e5452e9388b03.jpg',
+                    'https://i.pinimg.com/736x/3c/7b/2a/3c7b2adb898c0302a9150a83d009224e.jpg',
+                    'https://i.pinimg.com/736x/f2/78/f0/f278f0d3ea06fc7f6d24d83623dc39b6.jpg',
+                    'https://i.pinimg.com/736x/b0/2e/1c/b02e1ca09e58c91eac3641119564168b.jpg',
+                    'https://i.pinimg.com/736x/89/ca/c2/89cac234eb397f1bccf962337af3544e.jpg',
+                    'https://i.pinimg.com/736x/c4/84/3e/c4843e5375da0b0c8183fb146d10b8fa.jpg',
                 ],
                 'packages' => [
                     [
@@ -926,16 +926,16 @@ class ProductSeeder extends Seeder
                 'cities' => [7024],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/f4/66/c2/f466c2c071f6130aa75f836bdd74e4c0.jpg',
-                    'https://i.pinimg.com/736x/ad/af/fc/adaffc92ab8a6f76883ff99351e6f9db.jpg',
-                    'https://i.pinimg.com/736x/c6/ba/47/c6ba47cde924c910b58835f443d73eb9.jpg',
-                    'https://i.pinimg.com/736x/3e/b5/32/3eb532b12cf6454e894b065e6919b9e0.jpg',
-                    'https://i.pinimg.com/736x/fa/b1/68/fab1686a1c745b7a5f63819cd84a1bb5.jpg',
-                    'https://i.pinimg.com/736x/9b/05/8a/9b058a1228e8d849005086a853a50c66.jpg',
-                    'https://i.pinimg.com/736x/70/6c/e8/706ce8e5f44f932669c39bb6c825917c.jpg',
-                    'https://i.pinimg.com/736x/5f/d8/cc/5fd8cc02bd092d6fb6f757cc4d388e9a.jpg',
-                    'https://i.pinimg.com/736x/94/fe/31/94fe319af263df51bb99d00fca81498c.jpg',
-                    'https://i.pinimg.com/736x/d9/34/e3/d934e37818d5757f25cf3c6578dbe568.jpg',
+                    'https://i.pinimg.com/736x/91/ac/33/91ac33f3490d699cafc32007586514e4.jpg',
+                    'https://i.pinimg.com/736x/ee/c7/9d/eec79d5b63baea2b49485fab642555ce.jpg',
+                    'https://i.pinimg.com/736x/1e/92/88/1e92884a6c97ee795ac10399d6951ab0.jpg',
+                    'https://i.pinimg.com/736x/ad/cc/97/adcc972a7453e3045b8a19a1150aca43.jpg',
+                    'https://i.pinimg.com/736x/10/c1/4e/10c14e346380875475787defc3ea6bfc.jpg',
+                    'https://i.pinimg.com/736x/81/f3/b6/81f3b66d6fc757e2a462efe268cf0590.jpg',
+                    'https://i.pinimg.com/736x/e7/f0/45/e7f045333be9d7acf251c5ce70abbfd3.jpg',
+                    'https://i.pinimg.com/736x/d3/58/69/d35869fb3400a4c1e600cb7838870020.jpg',
+                    'https://i.pinimg.com/736x/0b/a3/36/0ba33625a8c29c5bba101336161e800e.jpg',
+                    'https://i.pinimg.com/736x/d8/8b/85/d88b85e5fbb19d0e084ce5063be7e9fa.jpg',
                 ],
                 'packages' => [
                     [
@@ -971,16 +971,16 @@ class ProductSeeder extends Seeder
                 'cities' => [15486],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/23/eb/42/23eb42617dcec5dbfa7c1a6776ee91b9.jpg',
-                    'https://i.pinimg.com/736x/60/ff/33/60ff33fe0515d0440ecaee078b9241ea.jpg',
-                    'https://i.pinimg.com/736x/5b/e2/91/5be291fc0a70dc07420d5c7ead10f905.jpg',
-                    'https://i.pinimg.com/736x/df/57/b5/df57b560ab3cccd3aabb3c056d2c11aa.jpg',
-                    'https://i.pinimg.com/736x/bc/ec/a1/bceca19815c3341abe53dfb50fc1fc4f.jpg',
-                    'https://i.pinimg.com/736x/d2/65/0b/d2650bd9ea3dfa8c36220419d429a86a.jpg',
-                    'https://i.pinimg.com/736x/9f/2b/f0/9f2bf041e18b54d8c8a3b40639b7b3b0.jpg',
-                    'https://i.pinimg.com/736x/1f/fd/38/1ffd38babdddc38ae84849c14d75d3d7.jpg',
-                    'https://i.pinimg.com/736x/36/66/58/366658ef40352caab6726880db76f718.jpg',
-                    'https://i.pinimg.com/736x/2e/d2/7c/2ed27c83054008b4f26349a477c3dc43.jpg',
+                    'https://i.pinimg.com/736x/b5/29/ae/b529ae208c6b77dff504d166f614b281.jpg',
+                    'https://i.pinimg.com/736x/a3/ab/3c/a3ab3cc1cb6fa06b43dd88211a46cfbd.jpg',
+                    'https://i.pinimg.com/736x/bd/33/03/bd3303ef2bf7e4d2626841986cbb98e4.jpg',
+                    'https://i.pinimg.com/736x/40/01/a5/4001a5f7b73739bb0c1f12ee4d4d23c4.jpg',
+                    'https://i.pinimg.com/736x/ab/b5/12/abb5122c7ae9c6939ca9cae814c34f84.jpg',
+                    'https://i.pinimg.com/736x/51/93/fa/5193fa295d54e67488eba3879cb94e68.jpg',
+                    'https://i.pinimg.com/736x/38/97/34/38973446b0dbba2a74f3826521c9eba8.jpg',
+                    'https://i.pinimg.com/736x/b4/d0/38/b4d038f61ed18136bec78dee79930489.jpg',
+                    'https://i.pinimg.com/736x/a6/14/50/a6145092b25ec13a354e8c373d3545ae.jpg',
+                    'https://i.pinimg.com/736x/f0/00/21/f00021c26b101e8f86196af05a39a840.jpg',
                 ],
                 'packages' => [
                     [
@@ -1008,16 +1008,14 @@ class ProductSeeder extends Seeder
                 'cities' => [601],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/b4/14/81/b41481f58010311f2224aa07e0356f3a.jpg',
-                    'https://i.pinimg.com/736x/1c/b9/c8/1cb9c8bd2ab3444a050f7178af58594e.jpg',
-                    'https://i.pinimg.com/736x/6d/40/c9/6d40c9e0b4c48fe690b638942fcc2c5f.jpg',
-                    'https://i.pinimg.com/736x/86/24/0d/86240d38dcdb062621c9cfd8760d322e.jpg',
-                    'https://i.pinimg.com/736x/97/90/23/97902312c0322bb1564b09ed213d6dfa.jpg',
-                    'https://i.pinimg.com/736x/a6/8c/74/a68c742d6f063ed4f8a2235fdb14e39b.jpg',
-                    'https://i.pinimg.com/736x/5f/5d/47/5f5d472b666b27ef08d2820e15c0819c.jpg',
-                    'https://i.pinimg.com/736x/49/f1/38/49f1380ee25ea0302ef64fc437bae76d.jpg',
-                    'https://i.pinimg.com/736x/86/34/b3/8634b308ed93f57339e3c071e354cd4d.jpg',
-                    'https://i.pinimg.com/736x/37/b4/39/37b4396f902286eafc88c45a0a3481b8.jpg',
+                    'https://i.pinimg.com/736x/b1/a2/e4/b1a2e47bdbbce9d69e66cf5390d1a8c5.jpg',
+                    'https://i.pinimg.com/1200x/aa/ad/00/aaad005cabfa927a012b9be5f6679c35.jpg',
+                    'https://i.pinimg.com/736x/d8/2a/46/d82a4660c917989843e29a7be99f1c04.jpg',
+                    'https://i.pinimg.com/1200x/be/6b/62/be6b624b6d9cb6522e37388b0d1ebd21.jpg',
+                    'https://i.pinimg.com/1200x/40/dc/79/40dc7947a0ceb34c6c75043876948dc1.jpg',
+                    'https://i.pinimg.com/1200x/79/5d/37/795d379bd940297257786dea51122c60.jpg',
+                    'https://i.pinimg.com/736x/89/3b/be/893bbe71dc12dba1e57601fee8fefe3c.jpg',
+                    'https://i.pinimg.com/736x/41/4f/4c/414f4c0a219518d03ce644c570b37c84.jpg'
                 ],
                 'packages' => [
                     [
@@ -1045,16 +1043,16 @@ class ProductSeeder extends Seeder
                 'cities' => [601],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/ec/03/d5/ec03d5a66ab2685fa40fbea0f8faef8b.jpg',
-                    'https://i.pinimg.com/736x/a6/7a/41/a67a4186bc7b85220b189e803e5e389d.jpg',
-                    'https://i.pinimg.com/736x/e3/e6/b0/e3e6b0d27790c2e624188e1131ee479e.jpg',
-                    'https://i.pinimg.com/736x/a2/d8/4a/a2d84a6e762bf8050a1336bf49d680bd.jpg',
-                    'https://i.pinimg.com/736x/2c/96/db/2c96dbe267849234fc10364777379cd9.jpg',
-                    'https://i.pinimg.com/736x/e1/c9/60/e1c960a6bdcad4ab7f786007b94acfba.jpg',
-                    'https://i.pinimg.com/736x/8a/96/9e/8a969e2fcdc2af8a108426902a97df2d.jpg',
-                    'https://i.pinimg.com/736x/c7/4d/32/c74d32330c3f02e95bb8af7b71189c08.jpg',
-                    'https://i.pinimg.com/736x/37/2f/ee/372feefc03c01258794334a1e5ff0184.jpg',
-                    'https://i.pinimg.com/736x/2a/68/1a/2a681ac1cd35455291c5d9007ce7ffc3.jpg',
+                    'https://i.pinimg.com/736x/64/91/20/649120a508d11aeb681a24e4ad675e40.jpg',
+                    'https://i.pinimg.com/736x/18/9e/2a/189e2aa85c099b979c5bb33263aeb661.jpg',
+                    'https://i.pinimg.com/736x/01/32/22/013222de267c933d22a755a806392c92.jpg',
+                    'https://i.pinimg.com/736x/4b/b5/71/4bb5716e828011af9df0b1c865912659.jpg',
+                    'https://i.pinimg.com/736x/cf/07/a7/cf07a74cd8142ecde8194225241deb02.jpg',
+                    'https://i.pinimg.com/736x/13/d2/67/13d26745a0b06614aece477940209e7e.jpg',
+                    'https://i.pinimg.com/736x/ce/f1/1a/cef11ada18440bfb2dd412f907e9e192.jpg',
+                    'https://i.pinimg.com/736x/d4/07/0c/d4070c1555f1a29e6f48b594ad6f96da.jpg',
+                    'https://i.pinimg.com/736x/7e/ba/6b/7eba6ba69e7dcb67ef6e22f72b7c89fe.jpg',
+                    'https://i.pinimg.com/736x/c2/c0/1c/c2c01c69c624cdde9d1153902ab29811.jpg',
                 ],
                 'packages' => [
                     [
@@ -1082,16 +1080,16 @@ class ProductSeeder extends Seeder
                 'cities' => [19074],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/0e/11/64/0e116498020f4cf04f8f32a37513aaa1.jpg',
-                    'https://i.pinimg.com/736x/19/21/ad/1921ad86e438f465e608f3b5b95b11b4.jpg',
-                    'https://i.pinimg.com/736x/e8/ca/8e/e8ca8e36ac0c86e873624e420d1ffcb9.jpg',
-                    'https://i.pinimg.com/736x/12/98/20/1298207420d96cfa1e0bb5eba5e1d20e.jpg',
-                    'https://i.pinimg.com/736x/5b/b2/2c/5bb22ccc254b24f1435827ca8f53d7f5.jpg',
-                    'https://i.pinimg.com/736x/fe/24/d0/fe24d0b51b916dd2848e44f0beda6d40.jpg',
-                    'https://i.pinimg.com/736x/72/00/59/7200590faef76145a134a07935880a7b.jpg',
-                    'https://i.pinimg.com/736x/81/82/4e/81824e08bf61d308ef025a266c2e7a04.jpg',
-                    'https://i.pinimg.com/736x/6a/ec/d0/6aecd0ebad14c42aae37a6815c6df038.jpg',
-                    'https://i.pinimg.com/736x/b6/bf/39/b6bf391efe3665e50e79ae1b1d75e0c2.jpg',
+                    'https://i.pinimg.com/736x/19/ac/9d/19ac9dce866049073c9dbba0f0d8ffa5.jpg',
+                    'https://i.pinimg.com/736x/f7/72/e6/f772e6d4d69a38715cec70f894396292.jpg',
+                    'https://i.pinimg.com/736x/9c/31/d3/9c31d32976f52de4970fd884e1de2075.jpg',
+                    'https://i.pinimg.com/736x/7e/9d/9f/7e9d9ff52ef66ae7813300860543144c.jpg',
+                    'https://i.pinimg.com/736x/72/f1/3c/72f13cee1eb0dce14d8bd48e78e2a167.jpg',
+                    'https://i.pinimg.com/736x/f9/2f/b6/f92fb61c0c05d78c87726927f21bba3.jpg',
+                    'https://i.pinimg.com/736x/ab/74/dd/ab74ddfdd035bced569c92a116d7820a.jpg',
+                    'https://i.pinimg.com/736x/86/07/8c/86078c70bed4e6a9ffcf4bbb0b723feb.jpg',
+                    'https://i.pinimg.com/736x/78/29/84/7829841dad96d7c5fb2b7662321fddee.jpg',
+                    'https://i.pinimg.com/736x/fc/1d/3b/fc1d3bb67539b24e1f0a73cf4f603488.jpg',
                 ],
                 'packages' => [
                     [
@@ -1119,16 +1117,16 @@ class ProductSeeder extends Seeder
                 'cities' => [7880],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/92/12/78/9212780af33f8424b8ea5786e7b65ac7.jpg',
-                    'https://i.pinimg.com/736x/7c/b3/c2/7cb3c2899eebd2966aabc7c3f138ed4f.jpg',
-                    'https://i.pinimg.com/736x/b8/52/51/b85251c873e1e56803b52aef75f0ab84.jpg',
-                    'https://i.pinimg.com/736x/63/14/56/631456e37e941b36610bdc9b29a54564.jpg',
-                    'https://i.pinimg.com/736x/29/51/c2/2951c229a9368feb37d875383536482a.jpg',
-                    'https://i.pinimg.com/736x/0b/c3/12/0bc31201e136a3a0de404365e17cb798.jpg',
-                    'https://i.pinimg.com/736x/40/0d/03/400d03a8a96aa6bfb5ff4d0ea33e16fe.jpg',
-                    'https://i.pinimg.com/736x/70/50/6b/70506ba1186ea2b9eeb27e4eee0786c7.jpg',
-                    'https://i.pinimg.com/736x/0c/04/4e/0c044e99acfcf96210c11682a8b97ac3.jpg',
-                    'https://i.pinimg.com/736x/b6/82/fa/b682fa9787a02e3dfb2fdfb3199f1676.jpg',
+                    'https://i.pinimg.com/736x/b4/20/14/b4201417a2df2bde790cb4b121e71073.jpg',
+                    'https://i.pinimg.com/736x/0e/39/a2/0e39a2b2795d0fb7b6740c8f851984e0.jpg',
+                    'https://i.pinimg.com/736x/b2/cc/60/b2cc60a7231d797677398b5df3621789.jpg',
+                    'https://i.pinimg.com/736x/7a/78/6a/7a786ad288f66402916fe131095c2ba3.jpg',
+                    'https://i.pinimg.com/736x/ef/45/a7/ef45a739f7c0858251499758a12d3470.jpg',
+                    'https://i.pinimg.com/736x/18/ec/fc/18ecfcb904f5b99c9d7a5be6eb376fb1.jpg',
+                    'https://i.pinimg.com/736x/c6/b6/1d/c6b61dfebbf05b6b99182354eea38bbb.jpg',
+                    'https://i.pinimg.com/736x/0d/8f/7f/0d8f7f223fe5e78e4cc88ba85cc05a62.jpg',
+                    'https://i.pinimg.com/736x/48/9a/b1/489ab16cadf233ad270b3887a50d9b2a.jpg',
+                    'https://i.pinimg.com/736x/6e/58/f3/6e58f346b349b9330b35b7ca02699017.jpg',
                 ],
                 'packages' => [
                     [
@@ -1156,16 +1154,16 @@ class ProductSeeder extends Seeder
                 'cities' => [19074],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/a3/47/3a/a3473a5a0b223171f50c602f689644b3.jpg',
-                    'https://i.pinimg.com/736x/d6/09/62/d60962624d384642256afa32fa2f097d.jpg',
-                    'https://i.pinimg.com/736x/b7/c8/c2/b7c8c23779c030f5a95025d63a71c6e1.jpg',
-                    'https://i.pinimg.com/736x/a8/38/e2/a838e2d139721267d3e4c933ba58f4e3.jpg',
-                    'https://i.pinimg.com/736x/3f/79/33/3f79335219ce2fffc0f4fe42594a756d.jpg',
-                    'https://i.pinimg.com/736x/f7/68/c4/f768c4e6a0408ec5134243cd3bd5d01d.jpg',
-                    'https://i.pinimg.com/736x/43/bf/1b/43bf1be1cc1983d30a92b55b5de24fd6.jpg',
-                    'https://i.pinimg.com/736x/66/64/8e/66648ee24fa561f0e582c99f06f363d6.jpg',
-                    'https://i.pinimg.com/736x/07/ae/2d/07ae2d46ad282d0b8f36994673439244.jpg',
-                    'https://i.pinimg.com/736x/ed/98/27/ed982793574d9feca91fef08e3df5094.jpg',
+                    'https://i.pinimg.com/736x/62/9a/c8/629ac8ebe6f83a297d9cba4e687ef4a8.jpg',
+                    'https://i.pinimg.com/736x/f0/5e/5e/f05e5ee2db457eb181e91dc71f0af591.jpg',
+                    'https://i.pinimg.com/736x/2e/9b/fb/2e9bfb4f39eb9018fc46a368a2871c2d.jpg',
+                    'https://i.pinimg.com/736x/83/f7/bd/83f7bd66a07cfbe915849f9b766f5376.jpg',
+                    'https://i.pinimg.com/736x/5c/64/25/5c6425692ba1d33a104617c08b603f33.jpg',
+                    'https://i.pinimg.com/736x/43/87/b7/4387b76db6d483214bca7689dfb51f2e.jpg',
+                    'https://i.pinimg.com/736x/a3/59/c6/a359c6530473de308ac0b59663ed243f.jpg',
+                    'https://i.pinimg.com/736x/85/f9/fb/85f9fbe93112eccabc72ca67a507f9dd.jpg',
+                    'https://i.pinimg.com/736x/0b/14/6e/0b146e91db9b64886f2d04b8b4f2627d.jpg',
+                    'https://i.pinimg.com/736x/1b/56/93/1b569351a83f67b8a65c80984e4becbe.jpg',
                 ],
                 'packages' => [
                     [
@@ -1193,16 +1191,11 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/d2/a2/85/d2a285aaf5abda0c181ce7e69e36a5fb.jpg',
-                    'https://i.pinimg.com/736x/c7/bf/5e/c7bf5e772be2c43b223b20526a2afedb.jpg',
-                    'https://i.pinimg.com/736x/60/9c/f6/609cf6ab3da7270af767632e4a09f3ea.jpg',
-                    'https://i.pinimg.com/736x/a4/68/51/a46851036acd9ad40b215a29a0047bb5.jpg',
-                    'https://i.pinimg.com/736x/89/15/7e/89157eb6ee7066e9371bbb3c0b46a37e.jpg',
-                    'https://i.pinimg.com/736x/46/46/e7/4646e72108fe6ccadab0610ac5fbaef2.jpg',
-                    'https://i.pinimg.com/736x/00/f3/16/00f316eef2f09c05759bc7ba71b93050.jpg',
-                    'https://i.pinimg.com/736x/68/83/26/68832600b87224c64effb2ba7baa572b.jpg',
-                    'https://i.pinimg.com/736x/70/a2/e9/70a2e9b61496a3dc6ed4f26a77b40748.jpg',
-                    'https://i.pinimg.com/736x/7a/91/6d/7a916d4e0f96f8a0189e5038fd5ebe06.jpg',
+                    'https://i.pinimg.com/1200x/4f/f3/d2/4ff3d24c5e12d0f9a23d7f71d44dae0f.jpg',
+                    'https://i.pinimg.com/1200x/50/78/e3/5078e3b30a820ade2a79d2137549fad2.jpg',
+                    'https://i.pinimg.com/736x/52/b6/85/52b6857d303c025aa8b9249dc1bd1f72.jpg',
+                    'https://i.pinimg.com/736x/a5/9e/df/a59edf687f047b53cfe9a07c22365483.jpg',
+                    'https://i.pinimg.com/1200x/c4/7e/58/c47e58307906d9f544c4a7f47bb344d2.jpg',
                 ],
                 'packages' => [
                     [
@@ -1238,16 +1231,16 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/d9/b3/42/d9b342272b2cee8b87d9382b8ecaaa35.jpg',
-                    'https://i.pinimg.com/736x/3d/b3/39/3db339dcde9556c27e2dc183ae820d9f.jpg',
-                    'https://i.pinimg.com/736x/cd/4c/69/cd4c697711f766146383b36134fd5db5.jpg',
-                    'https://i.pinimg.com/736x/9c/32/6d/9c326d765fe9509e2fc62e8cf73807e6.jpg',
-                    'https://i.pinimg.com/736x/a7/18/3b/a7183b8471b246e3f4e55a7b8bcc6661.jpg',
-                    'https://i.pinimg.com/736x/50/3f/b0/503fb06bfd20c58c13fc49260c95962b.jpg',
-                    'https://i.pinimg.com/736x/d8/1a/eb/d81aeb87bef017bfa2593339561de277.jpg',
-                    'https://i.pinimg.com/736x/fd/6e/33/fd6e331546048eefb4171fb8ee80eac4.jpg',
-                    'https://i.pinimg.com/736x/10/1e/5b/101e5b35ffa1caadf83871f9cf7f71ab.jpg',
-                    'https://i.pinimg.com/736x/15/6b/75/156b750160eba2893394552d46933245.jpg',
+                    'https://i.pinimg.com/736x/d8/cb/72/d8cb72f96581c1a9b02b8801f6ea3db6.jpg',
+                    'https://i.pinimg.com/736x/7d/86/b0/7d86b0088d04337045399998d5e17c95.jpg',
+                    'https://i.pinimg.com/736x/16/d3/15/16d315919faf905503262aae500dbef1.jpg',
+                    'https://i.pinimg.com/736x/12/b6/dc/12b6dcce77d191f26bd5ee5d93f8706d.jpg',
+                    'https://i.pinimg.com/736x/38/24/17/382417f068719035e32e1301f6e9e2c1.jpg',
+                    'https://i.pinimg.com/736x/1e/18/c8/1e18c8a783a0d88a7b62279e449010ad.jpg',
+                    'https://i.pinimg.com/736x/2a/25/b4/2a25b4834e69d173aa1786fe0428e840.jpg',
+                    'https://i.pinimg.com/736x/cb/0d/35/cb0d35085bec3fbce5294a6bd5cc4936.jpg',
+                    'https://i.pinimg.com/736x/0d/93/7b/0d937b18054d8ec91f379486df34ec65.jpg',
+                    'https://i.pinimg.com/736x/c7/6b/1a/c76b1aa5398296c8ee545e683c5810a6.jpg',
                 ],
                 'packages' => [
                     [
@@ -1283,16 +1276,15 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/e5/9f/13/e59f13c1ad465d2fc012dc8cc6456ff7.jpg',
-                    'https://i.pinimg.com/736x/15/4b/58/154b5844f466a7a7992aa1c358812698.jpg',
-                    'https://i.pinimg.com/736x/0f/f5/2d/0ff52d86776a1eb3d6ff81f409aebaca.jpg',
-                    'https://i.pinimg.com/736x/03/8b/5a/038b5abade1b69c0359d3e6f692834f0.jpg',
-                    'https://i.pinimg.com/736x/e2/26/b6/e226b6a93fef9de25b15dae5e84278d9.jpg',
-                    'https://i.pinimg.com/736x/3b/af/d7/3bafd7742421f89fc51d0e9e7e7a63a7.jpg',
-                    'https://i.pinimg.com/736x/f3/4a/e7/f34ae739ef1a558cd3e6c6f4d7a9f4ab.jpg',
-                    'https://i.pinimg.com/736x/52/26/34/52263450f6d6eb4e03db718b122bede0.jpg',
-                    'https://i.pinimg.com/736x/5a/2e/d0/5a2ed0147bd179c2e0f72d2cefd44c5d.jpg',
-                    'https://i.pinimg.com/736x/af/89/9c/af899c0b87e46054c9df1326115d18f5.jpg',
+                    'https://i.pinimg.com/736x/62/1a/f2/621af25016f79eafe15bc16ea8df7b05.jpg',
+                    'https://i.pinimg.com/736x/f6/c6/a8/f6c6a8792ecc8acf44f990e36b76377d.jpg',
+                    'https://i.pinimg.com/736x/7c/64/be/7c64be2fb7013f9b5d07fe7bf2484509.jpg',
+                    'https://i.pinimg.com/736x/63/16/27/63162773c16a1357657ca2f1f2e7285a.jpg',
+                    'https://i.pinimg.com/736x/33/3a/78/333a786ec45f4d075f154d8da7bc6e81.jpg',
+                    'https://i.pinimg.com/736x/81/52/1c/81521c113f209219653c0ff1363d0b13.jpg',
+                    'https://i.pinimg.com/736x/b0/c2/50/b0c25081cb6e487f51d8794aea7a4329.jpg',
+                    'https://i.pinimg.com/736x/77/32/5d/77325d96c45b807fecb32fb6b94ffa6a.jpg',
+                    'https://i.pinimg.com/736x/02/94/81/0294813f2a61e1bcf5e5b1734e0271b2.jpg',
                 ],
                 'packages' => [
                     [
@@ -1320,16 +1312,15 @@ class ProductSeeder extends Seeder
                 'cities' => [1962],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/15/33/a2/1533a27ef056137d983fa9eed6f79ad4.jpg',
-                    'https://i.pinimg.com/736x/07/ab/40/07ab401e586b3b5d6a6d138dfe81903a.jpg',
-                    'https://i.pinimg.com/736x/bb/0e/22/bb0e22d53dcf9150f41dbd2c0214c25e.jpg',
-                    'https://i.pinimg.com/736x/b1/a3/85/b1a385f32bf3c161e2861f56f6fb5d2b.jpg',
-                    'https://i.pinimg.com/736x/77/28/17/772817aa9d4abe6713e7bedc6762d5f9.jpg',
-                    'https://i.pinimg.com/736x/b9/af/2a/b9af2a9c7a491ae92c92f47db9dba6d9.jpg',
-                    'https://i.pinimg.com/736x/22/3c/60/223c607e01e9e4f134a59a4cb1c20b8f.jpg',
-                    'https://i.pinimg.com/736x/71/09/1b/71091b9a664cbfd7506d7e9113070516.jpg',
-                    'https://i.pinimg.com/736x/d8/fd/45/d8fd450551e8073d12664c84cbdb20ad.jpg',
-                    'https://i.pinimg.com/736x/ab/94/06/ab940669c05567458dea24c838970bff.jpg',
+                    'https://i.pinimg.com/736x/5a/d2/29/5ad22925443405181af883a9f0167bff.jpg',
+                    'https://i.pinimg.com/736x/32/06/f9/3206f9d4ff536937e3bc00fc0b7286e0.jpg',
+                    'https://i.pinimg.com/736x/c4/24/09/c42409aff7c34c1ba6ace473d44f04ba.jpg',
+                    'https://i.pinimg.com/736x/f3/d7/be/f3d7be74c748753370eb3764a3be86be.jpg',
+                    'https://i.pinimg.com/736x/3e/5c/25/3e5c255a6694b0da93ad6328dae064d5.jpg',
+                    'https://i.pinimg.com/736x/cf/8c/88/cf8c8827270d97068c5d748993646f6e.jpg',
+                    'https://i.pinimg.com/736x/ee/22/4f/ee224f349b76ccca076688ade43eb995.jpg',
+                    'https://i.pinimg.com/736x/a6/4f/5d/a64f5dec0b7a59f5e02d4cd58c5105d1.jpg',
+                    'https://i.pinimg.com/736x/44/a3/d9/44a3d994694ac1679ff6f42f51658ba8.jpg',
                 ],
                 'packages' => [
                     [
@@ -1357,16 +1348,14 @@ class ProductSeeder extends Seeder
                 'cities' => [1962],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/fb/e0/24/fbe0244138d86d0192bb2bf8c092cb19.jpg',
-                    'https://i.pinimg.com/736x/e3/bd/7b/e3bd7bf5b226e319efe1b6fcf0a5434f.jpg',
-                    'https://i.pinimg.com/736x/33/6d/73/336d73742e2b92deac21957a132836b3.jpg',
-                    'https://i.pinimg.com/736x/ee/5c/a3/ee5ca3658716a1ac5514d8ec789ed9aa.jpg',
-                    'https://i.pinimg.com/736x/8f/cd/59/8fcd59a43df4ef79a971e0a3681ef420.jpg',
-                    'https://i.pinimg.com/736x/d4/cb/03/d4cb0382f871af6370a5df96c71ba0d2.jpg',
-                    'https://i.pinimg.com/736x/21/20/82/212082fce83490988e30bc3fd39ac393.jpg',
-                    'https://i.pinimg.com/736x/49/24/03/492403d1bf2ee348994bb447703c1d0c.jpg',
-                    'https://i.pinimg.com/736x/ab/ba/70/abba70361e40274aaa6787a7f14290fa.jpg',
-                    'https://i.pinimg.com/736x/8e/19/be/8e19be5ec087d7a76c987e793f53c09b.jpg',
+                    'https://i.pinimg.com/736x/ae/fe/51/aefe51976e17bb761c80aae17733c958.jpg',
+                    'https://i.pinimg.com/1200x/28/0d/19/280d1927fece32d7dcb8029589f6f845.jpg',
+                    'https://i.pinimg.com/736x/6a/78/93/6a78938ecb5bbcae91cd45f52babf672.jpg',
+                    'https://i.pinimg.com/736x/04/63/4f/04634f99828b802db63b1a1c4e93e33e.jpg',
+                    'https://i.pinimg.com/736x/c3/c7/ef/c3c7eff06dbc85e808d3eca0142161b5.jpg',
+                    'https://i.pinimg.com/736x/9d/8e/af/9d8eaf98d2dc0c2025775284e3cd08f3.jpg',
+                    'https://i.pinimg.com/736x/0f/d6/8c/0fd68c126009999e68be0e7ecdd2842b.jpg',
+                    'https://i.pinimg.com/736x/d9/85/62/d98562e587eb7fee6f6996768a5f9bda.jpg'
                 ],
                 'packages' => [
                     [
@@ -1394,16 +1383,16 @@ class ProductSeeder extends Seeder
                 'cities' => [15486],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/01/99/98/019998e72a14494f1b3d3ea4d1a27928.jpg',
-                    'https://i.pinimg.com/736x/0c/3f/44/0c3f44608debd8d7210720282a38ae02.jpg',
-                    'https://i.pinimg.com/736x/ab/73/0b/ab730b656f1ea3216aed00e2b1e04a19.jpg',
-                    'https://i.pinimg.com/736x/6e/1c/42/6e1c4283a5a14939da32c9edeec1032e.jpg',
-                    'https://i.pinimg.com/736x/a3/27/3e/a3273eba8ccb8bd14717954962b86fa4.jpg',
-                    'https://i.pinimg.com/736x/cf/01/7c/cf017c8c9110966550354073d76f6d38.jpg',
-                    'https://i.pinimg.com/736x/67/e6/e9/67e6e96fe07518d175e3ef849cfe15c5.jpg',
-                    'https://i.pinimg.com/736x/98/c8/05/98c805927197c65d48dbd85a827d8821.jpg',
-                    'https://i.pinimg.com/736x/5e/50/11/5e5011d7ca1f45eeb96ea2b33a4efb2b.jpg',
-                    'https://i.pinimg.com/736x/90/35/b5/9035b5d032cd8c0f1ee700513d9b2cce.jpg',
+                    'https://i.pinimg.com/736x/35/d9/6a/35d96aae8437565d8842eb21867165a5.jpg',
+                    'https://i.pinimg.com/736x/51/78/71/517871a30cdf85ceb0f32211d8a337b5.jpg',
+                    'https://i.pinimg.com/736x/bf/f7/ab/bff7abec1fe9d69aae673348b5c072d5.jpg',
+                    'https://i.pinimg.com/736x/6a/25/be/6a25be4ce4fcdb7fe95026d08320a1f9.jpg',
+                    'https://i.pinimg.com/736x/5d/3a/04/5d3a045151d99adf6178818e901438dd.jpg',
+                    'https://i.pinimg.com/736x/93/9a/16/939a16423a9e8471cba19be89ca3b6e9.jpg',
+                    'https://i.pinimg.com/736x/c4/1e/5c/c41e5cd1833a6e6c639c18ccd669e910.jpg',
+                    'https://i.pinimg.com/736x/01/ed/36/01ed36acb4e9b044a62a821d1139d3c.jpg',
+                    'https://i.pinimg.com/736x/9e/88/b4/9e88b42cd11456e338e968e3d357bcf6.jpg',
+                    'https://i.pinimg.com/736x/07/10/92/071092e976996fdf9b156343105ec8f2.jpg',
                 ],
                 'packages' => [
                     [
@@ -1431,16 +1420,16 @@ class ProductSeeder extends Seeder
                 'cities' => [7024],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/3b/11/03/3b11034ea3f82a8d1c8795fe95080ba4.jpg',
-                    'https://i.pinimg.com/736x/3c/28/a7/3c28a774019e6d2965e9ee3037f4dda1.jpg',
-                    'https://i.pinimg.com/736x/2f/a9/b5/2fa9b596de8d51e55fcab7885f240e74.jpg',
-                    'https://i.pinimg.com/736x/f3/21/08/f321080382fc32b12493ae51645995a2.jpg',
-                    'https://i.pinimg.com/736x/bb/8c/25/bb8c25e59d41f751c9c1e00ee716830e.jpg',
-                    'https://i.pinimg.com/736x/06/1e/56/061e56a80ab97ae88b9e54f150497b43.jpg',
-                    'https://i.pinimg.com/736x/3a/14/01/3a1401969e9a0c60e54a63c1c387a9e9.jpg',
-                    'https://i.pinimg.com/736x/d2/76/50/d27650843a701b4728c8201be2fc2262.jpg',
-                    'https://i.pinimg.com/736x/91/ca/e9/91cae9117b4e311dbeb8095a9092d9ae.jpg',
-                    'https://i.pinimg.com/736x/9d/59/c7/9d59c7c993406a0581eed2e4345f9d10.jpg',
+                    'https://i.pinimg.com/736x/e2/46/3d/e2463d13f36d32ecae1fcaa3e77b220f.jpg',
+                    'https://i.pinimg.com/736x/10/45/22/104522e091e22eadc9e27768c42bd6f2.jpg',
+                    'https://i.pinimg.com/736x/74/e7/38/74e7388a0df1ab4ff693cbc09192d093.jpg',
+                    'https://i.pinimg.com/736x/b5/33/21/b533218cc9a730f255a7285fbfc69788.jpg',
+                    'https://i.pinimg.com/736x/2a/48/15/2a4815fcd9185b07ae74fe111f85b4c0.jpg',
+                    'https://i.pinimg.com/736x/06/1d/7d/061d7de82d6391ba249c11aca5a040c3.jpg',
+                    'https://i.pinimg.com/736x/df/3f/70/df3f70e134dd86c9938084663c9aa59a.jpg',
+                    'https://i.pinimg.com/736x/a2/21/77/a22177fac82748f47e9d21521dfc8e0e.jpg',
+                    'https://i.pinimg.com/736x/e1/44/48/e1444801081376374f750906e0a9444c.jpg',
+                    'https://i.pinimg.com/736x/08/bd/2a/08bd2a21f0f9a6ed9efdcd58230c537f.jpg',
                 ],
                 'packages' => [
                     [
@@ -1468,16 +1457,16 @@ class ProductSeeder extends Seeder
                 'cities' => [601],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/e4/97/2b/e4972bea2ebc494f72283653ab2e82d2.jpg',
-                    'https://i.pinimg.com/736x/4e/9f/47/4e9f4756fa7f0f2aaf3de57cf70bea20.jpg',
-                    'https://i.pinimg.com/736x/27/e4/9c/27e49ca7b2f16593ac5d9068c8f33763.jpg',
-                    'https://i.pinimg.com/736x/22/39/1e/22391e3faa3668463be9480ab098102f.jpg',
-                    'https://i.pinimg.com/736x/15/95/d9/1595d992c0a8e8b9d1c1f48059075684.jpg',
-                    'https://i.pinimg.com/736x/8d/da/f8/8ddaf80d61ff5f71f8edec8b8503b500.jpg',
-                    'https://i.pinimg.com/736x/34/68/57/346857a60b1152201bb51b4b0fd9da37.jpg',
-                    'https://i.pinimg.com/736x/37/4f/8f/374f8f2360487560a88c4e859900f8ed.jpg',
-                    'https://i.pinimg.com/736x/9f/7b/0b/9f7b0be84cd11305122df7b9ebf8a608.jpg',
-                    'https://i.pinimg.com/736x/c3/c0/38/c3c0382488a6592d25faefcc45fe3e3d.jpg',
+                    'https://i.pinimg.com/736x/72/64/11/726411d7fec7ff72339910c026951c91.jpg',
+                    'https://i.pinimg.com/736x/b5/80/ec/b580ecc4d70e919bff93ec044a735ed0.jpg',
+                    'https://i.pinimg.com/736x/c1/26/c9/c126c9a025a7d9cc4fb245ebbeda314b.jpg',
+                    'https://i.pinimg.com/736x/36/21/08/36210808df9a194d39bd1dfbe3f13976.jpg',
+                    'https://i.pinimg.com/736x/bb/99/55/bb9955a7d863f074d64bd6addbf89454.jpg',
+                    'https://i.pinimg.com/736x/5b/35/e7/5b35e7ff5bcae85220ebb910d7a198e6.jpg',
+                    'https://i.pinimg.com/736x/14/4b/5f/144b5f78bbda0a5856baa07e043c0091.jpg',
+                    'https://i.pinimg.com/736x/28/7a/b4/287ab43493488f6e65bf446cbb0cb7d4.jpg',
+                    'https://i.pinimg.com/736x/b6/67/a2/b667a2348550076546fe1c741c55dde5.jpg',
+                    'https://i.pinimg.com/736x/a7/62/4b/a7624ba281434b98107fb14692b9adf2.jpg',
                 ],
                 'packages' => [
                     [
@@ -1505,16 +1494,16 @@ class ProductSeeder extends Seeder
                 'cities' => [17],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/83/c4/33/83c433164f11f973adbaa35a4c88ff24.jpg',
-                    'https://i.pinimg.com/736x/af/01/e2/af01e28ced7b0ec5bbaa9fc1d6d7f1a5.jpg',
-                    'https://i.pinimg.com/736x/f2/7d/55/f27d55344de38bca4d2632604f1aa23f.jpg',
-                    'https://i.pinimg.com/736x/70/28/d1/7028d116b9d793ecba12625e340be321.jpg',
-                    'https://i.pinimg.com/736x/30/ba/61/30ba61f04bb59830b3c881bcfbdf8bc6.jpg',
-                    'https://i.pinimg.com/736x/e6/ab/81/e6ab81828ff881aa1bedf816bb071faa.jpg',
-                    'https://i.pinimg.com/736x/fb/ed/b8/fbedb873b6b1e21ecf31a9493ce48a62.jpg',
-                    'https://i.pinimg.com/736x/c6/3b/19/c63b19233955836574c20ee1596d8695.jpg',
-                    'https://i.pinimg.com/736x/9a/b9/49/9ab94997756756382d739e30769829e9.jpg',
-                    'https://i.pinimg.com/736x/f2/1d/16/f21d168d7176aedbf29ef5d308c05fd8.jpg',
+                    'https://i.pinimg.com/736x/b6/c0/65/b6c065559e1be55633b23771a54f4fd8.jpg',
+                    'https://i.pinimg.com/736x/2b/6a/45/2b6a4582b5b03f736891a962f6a15206.jpg',
+                    'https://i.pinimg.com/736x/b8/be/c0/b8bec0d7e09ca84e3a9ed9314ce743b8.jpg',
+                    'https://i.pinimg.com/736x/e6/29/60/e62960826841ae0bb16da336e7f98772.jpg',
+                    'https://i.pinimg.com/736x/84/9f/a2/849fa20c8926f1d3a742389fbb2b457e.jpg',
+                    'https://i.pinimg.com/736x/da/6b/c2/da6bc21c4396329fdf594d72e498ce0a.jpg',
+                    'https://i.pinimg.com/736x/e3/4a/c8/e34ac83c5f8b35750411a65bdd79ce3e.jpg',
+                    'https://i.pinimg.com/736x/c9/fb/cd/c9fbcdeab1125d2d6c973952f49d2c58.jpg',
+                    'https://i.pinimg.com/736x/74/0e/3e/740e3eaeea2dc489e31afb6a1357f91e.jpg',
+                    'https://i.pinimg.com/736x/ac/9f/fb/ac9ffb7ce2fc600733605e2e6f1787c5.jpg',
                 ],
                 'packages' => [
                     [
@@ -1542,16 +1531,11 @@ class ProductSeeder extends Seeder
                 'cities' => [8320],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/33/67/ec/3367ec9b9fbad5dd2dcab0a5ea368b9a.jpg',
-                    'https://i.pinimg.com/736x/ae/5d/bd/ae5dbd81285178238e857b9a4c5708ae.jpg',
-                    'https://i.pinimg.com/736x/0c/80/44/0c8044e4142fa1f03f534a6540480296.jpg',
-                    'https://i.pinimg.com/736x/4b/2b/ef/4b2befe4230c1bc6ba0cf561161a17ae.jpg',
-                    'https://i.pinimg.com/736x/4f/52/56/4f5256544f4ed9d54bb48d815ed73b86.jpg',
-                    'https://i.pinimg.com/736x/21/39/ef/2139ef55406fda15fcb3323aca348f41.jpg',
-                    'https://i.pinimg.com/736x/35/f5/80/35f580dd379e4295a5a7c40a91b5b43c.jpg',
-                    'https://i.pinimg.com/736x/52/d1/de/52d1ded32c21275296e128f3548d353d.jpg',
-                    'https://i.pinimg.com/736x/a4/5d/e4/a45de4b42a84c8e3d8ed927ba6739dee.jpg',
-                    'https://i.pinimg.com/736x/f5/07/9d/f5079da037ee6f2ed742151ab2e38fdc.jpg',
+                    'https://i.pinimg.com/736x/8f/4f/5a/8f4f5a524142235ad8969f29b3df0f6a.jpg',
+                    'https://i.pinimg.com/736x/cc/17/3e/cc173e6842c64c40361e9e5943fb95cd.jpg',
+                    'https://i.pinimg.com/736x/ba/3c/08/ba3c084260161b1b7aebe8ec5741e7e6.jpg',
+                    'https://i.pinimg.com/736x/49/5a/47/495a47e5878a480ae05431706d128e33.jpg',
+                    'https://i.pinimg.com/736x/dc/f7/a6/dcf7a6e38ab2df2066fabdb5d4bf712a.jpg',
                 ],
                 'packages' => [
                     [
@@ -1579,16 +1563,16 @@ class ProductSeeder extends Seeder
                 'cities' => [601],
                 'categories' => [1],
                 'images' => [
-                    'https://i.pinimg.com/736x/c5/e3/31/c5e331179599307f1fb378da597adb23.jpg',
-                    'https://i.pinimg.com/736x/7d/e7/dc/7de7dc35ce957725f98eadf70bef2eee.jpg',
-                    'https://i.pinimg.com/736x/c6/fb/0c/c6fb0c8779161dd0457f93c630259419.jpg',
-                    'https://i.pinimg.com/736x/7b/bf/6e/7bbf6ecb40b2ca121011cc20e998bfaa.jpg',
-                    'https://i.pinimg.com/736x/99/5d/f7/995df7fb1d634a95eb19ebf68ea1389b.jpg',
-                    'https://i.pinimg.com/736x/00/9b/80/009b805a946d005e4af8c6f5e8b0dafa.jpg',
-                    'https://i.pinimg.com/736x/6c/08/c2/6c08c27be0d7c99e814e877239152c7c.jpg',
-                    'https://i.pinimg.com/736x/51/8d/4c/518d4c2ab3baade1a258e9cf0c627ef9.jpg',
-                    'https://i.pinimg.com/736x/7b/1b/71/7b1b718456ddbd18188d5b5c10cdeb8e.jpg',
-                    'https://i.pinimg.com/736x/84/db/d6/84dbd6c2e004561433a2dbf2d9baad61.jpg',
+                    'https://i.pinimg.com/736x/90/6c/8e/906c8e9e31bf7647e08257030e2dbb09.jpg',
+                    'https://i.pinimg.com/736x/da/8b/42/da8b4279750cd9f2177ad680b68614d3.jpg',
+                    'https://i.pinimg.com/736x/ac/59/f7/ac59f7ae863fbb91dcd53d528e68c96d.jpg',
+                    'https://i.pinimg.com/736x/e0/9f/84/e09f8431adddc8b40260f05acaafe9c0.jpg',
+                    'https://i.pinimg.com/736x/64/5a/3e/645a3eacbde35972248d20494c3d654c.jpg',
+                    'https://i.pinimg.com/736x/67/40/6e/67406e37a38fa2ce3b32fd6b8b70726f.jpg',
+                    'https://i.pinimg.com/736x/3f/1d/27/3f1d27a65b8a509449d93432065b0d56.jpg',
+                    'https://i.pinimg.com/736x/e3/43/3e/e3433e5655eea1e617d5eaafd3e01d21.jpg',
+                    'https://i.pinimg.com/736x/8b/16/36/8b1636b1e2b60ab0867c9cd9d1977fc5.jpg',
+                    'https://i.pinimg.com/736x/f0/ff/c1/f0ffc1ddd56e3be7daeffcc066050072.jpg',
                 ],
                 'packages' => [
                     [
@@ -1605,7 +1589,7 @@ class ProductSeeder extends Seeder
 
         foreach ($products as $data) {
             $lowestPackagePrice = collect($data['packages'])
-                ->flatMap(fn (array $package): array => $package['prices'])
+                ->flatMap(fn(array $package) : array => $package['prices'])
                 ->min('price');
 
             $product = Product::create([
@@ -1618,8 +1602,8 @@ class ProductSeeder extends Seeder
 
             $noSpaceName = str_replace(' ', '', strtolower($product->name));
             $product->update([
-                'slug' => $product->id.'-'.Str::slug($product->name),
-                'search_keywords' => "{$noSpaceName}, ".$data['search_keywords'],
+                'slug' => $product->id . '-' . Str::slug($product->name),
+                'search_keywords' => "{$noSpaceName}, " . $data['search_keywords'],
             ]);
 
             // Format highlights to exactly 5 high-quality, long-sentence HTML bullet points
@@ -1629,41 +1613,41 @@ class ProductSeeder extends Seeder
             $formattedHighlights = [];
 
             // Bullet 1: Exclusivity & seamless entry
-            $formattedHighlights[] = 'Exclusivity and convenience with seamless entry tickets to explore '.$data['name'].' for a completely hassle-free visit.';
+            $formattedHighlights[] = 'Exclusivity and convenience with seamless entry tickets to explore ' . $data['name'] . ' for a completely hassle-free visit.';
 
             // Bullet 2: Core expectation
             $coreExpect = trim($data['what_to_expect']);
             $coreExpect = rtrim($coreExpect, '.');
             if (strncasecmp($coreExpect, 'experience', 10) === 0) {
-                $formattedHighlights[] = $coreExpect.' in a highly immersive and beautifully themed environment.';
+                $formattedHighlights[] = $coreExpect . ' in a highly immersive and beautifully themed environment.';
             } else {
-                $formattedHighlights[] = 'Experience the best of the venue: '.lcfirst($coreExpect).' for an unforgettable day.';
+                $formattedHighlights[] = 'Experience the best of the venue: ' . lcfirst($coreExpect) . ' for an unforgettable day.';
             }
 
             // Bullet 3: Highlight 1 & 2
             if (isset($rawHighlights[0])) {
-                $extra = isset($rawHighlights[1]) ? ' and the iconic '.$rawHighlights[1] : '';
-                $formattedHighlights[] = 'Discover the spectacular landmarks and popular attractions of the venue, including '.$rawHighlights[0].$extra.' for visitors of all ages.';
+                $extra = isset($rawHighlights[1]) ? ' and the iconic ' . $rawHighlights[1] : '';
+                $formattedHighlights[] = 'Discover the spectacular landmarks and popular attractions of the venue, including ' . $rawHighlights[0] . $extra . ' for visitors of all ages.';
             } else {
                 $formattedHighlights[] = 'Marvel at the stunning architectural layouts and scenic backdrops that make this destination a world-renowned highlight.';
             }
 
             // Bullet 4: Highlight 3 & 4 / Good to know
             if (isset($rawHighlights[2])) {
-                $extra = isset($rawHighlights[3]) ? ' as well as '.$rawHighlights[3] : '';
-                $formattedHighlights[] = 'Hop on thrilling rides, explore detailed themed zones, or check out unique highlights like '.$rawHighlights[2].$extra.'.';
+                $extra = isset($rawHighlights[3]) ? ' as well as ' . $rawHighlights[3] : '';
+                $formattedHighlights[] = 'Hop on thrilling rides, explore detailed themed zones, or check out unique highlights like ' . $rawHighlights[2] . $extra . '.';
             } else {
                 $goodToKnow = trim($data['good_to_know']);
                 $goodToKnow = rtrim($goodToKnow, '.');
-                $formattedHighlights[] = 'Get the most out of your trip with helpful tips: '.lcfirst($goodToKnow).' to ensure a highly comfortable and safe experience.';
+                $formattedHighlights[] = 'Get the most out of your trip with helpful tips: ' . lcfirst($goodToKnow) . ' to ensure a highly comfortable and safe experience.';
             }
 
             // Bullet 5: Timing / memorable sunset or night view
-            $formattedHighlights[] = 'Visit in the late afternoon for a memorable sunset experience or early in the morning for a relaxed, crowd-free exploration of '.$data['name'].'.';
+            $formattedHighlights[] = 'Visit in the late afternoon for a memorable sunset experience or early in the morning for a relaxed, crowd-free exploration of ' . $data['name'] . '.';
 
             $highlightsHtml = '<ul class="list-disc pl-5 space-y-1">';
             foreach ($formattedHighlights as $item) {
-                $highlightsHtml .= '<li>'.e($item).'</li>';
+                $highlightsHtml .= '<li>' . e($item) . '</li>';
             }
             $highlightsHtml .= '</ul>';
 
