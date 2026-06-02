@@ -82,6 +82,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: zen-queue-worker
+    user: www-data
     restart: unless-stopped
     working_dir: /var/www
     command: php artisan queue:work --verbose --tries=3 --timeout=90
