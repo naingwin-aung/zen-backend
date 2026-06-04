@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Admin\Checkout\Attraction;
 
 use App\Services\Admin\Checkout\ValidationInterface;
@@ -6,11 +7,23 @@ use App\Services\Admin\Checkout\ValidationInterface;
 class AttractionValidateService implements ValidationInterface
 {
     /**
+     * Apply the validation rules and custom messages.
+     *
+     * @param  array<string, string>  $rules
+     * @param  array<string, string>  $messages
+     */
+    public function handle(int|string $key, array &$rules, array &$messages): void
+    {
+        $this->rules($key, $rules);
+        $this->messages($key, $messages);
+    }
+
+    /**
      * Add validation rules for attraction products.
      *
      * @param  array<string, string>  $rules
      */
-    public function rules(int|string $key, array &$rules) : void
+    private function rules(int|string $key, array &$rules): void
     {
         $rules["products.$key.product_id"] = 'required|integer';
         $rules["products.$key.package_id"] = 'required|integer';
@@ -24,7 +37,7 @@ class AttractionValidateService implements ValidationInterface
      *
      * @param  array<string, string>  $messages
      */
-    public function messages(int|string $key, array &$messages) : void
+    private function messages(int|string $key, array &$messages): void
     {
         $messages["products.$key.product_id.required"] = 'Product ID is required.';
         $messages["products.$key.product_id.integer"] = 'Product ID must be an integer.';

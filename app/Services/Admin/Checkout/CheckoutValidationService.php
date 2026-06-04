@@ -35,8 +35,7 @@ class CheckoutValidationService
 
                 switch ($product['service']) {
                     case ServiceEnum::ATTRACTION->value:
-                        (new AttractionValidateService)->rules($key, $rules);
-                        (new AttractionValidateService)->messages($key, $messages);
+                        (new AttractionValidateService)->handle($key, $rules, $messages);
                         break;
                     default:
                         break;
