@@ -1,0 +1,41 @@
+<?php
+namespace App\Services\Admin\Checkout\Attraction;
+
+use App\Services\Admin\Checkout\ValidationInterface;
+
+class AttractionValidateService implements ValidationInterface
+{
+    /**
+     * Add validation rules for attraction products.
+     *
+     * @param  array<string, string>  $rules
+     */
+    public function rules(int|string $key, array &$rules) : void
+    {
+        $rules["products.$key.product_id"] = 'required|integer';
+        $rules["products.$key.package_id"] = 'required|integer';
+        $rules["products.$key.quantities"] = 'required|array';
+        $rules["products.$key.quantities.*.id"] = 'required|integer';
+        $rules["products.$key.quantities.*.quantity"] = 'required|integer|min:1';
+    }
+
+    /**
+     * Add validation custom messages for attraction products.
+     *
+     * @param  array<string, string>  $messages
+     */
+    public function messages(int|string $key, array &$messages) : void
+    {
+        $messages["products.$key.product_id.required"] = 'Product ID is required.';
+        $messages["products.$key.product_id.integer"] = 'Product ID must be an integer.';
+        $messages["products.$key.package_id.required"] = 'Package ID is required.';
+        $messages["products.$key.package_id.integer"] = 'Package ID must be an integer.';
+        $messages["products.$key.quantities.required"] = 'Quantities is required.';
+        $messages["products.$key.quantities.array"] = 'Quantities must be an array.';
+        $messages["products.$key.quantities.*.id.required"] = 'ID is required.';
+        $messages["products.$key.quantities.*.id.integer"] = 'ID must be an integer.';
+        $messages["products.$key.quantities.*.quantity.required"] = 'Quantity is required.';
+        $messages["products.$key.quantities.*.quantity.integer"] = 'Quantity must be an integer.';
+        $messages["products.$key.quantities.*.quantity.min"] = 'Quantity must be at least 1.';
+    }
+}

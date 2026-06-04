@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -37,9 +38,11 @@ Route::middleware('throttle:api')->group(function () {
         // Booking
         Route::get('bookings', [BookingController::class, 'index']);
 
+        // Checkout
+        Route::post('checkout', [CheckoutController::class, 'index']);
+
         // General routes
         Route::get('all-countries', [CountryController::class, 'all']);
         Route::get('all-age-groups', [AgeGroupController::class, 'all']);
     });
 });
-

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BookingProduct extends Model
 {
     protected $table = 'booking_products';
+
     protected $fillable = [
         'booking_id',
         'productable_id',
@@ -18,7 +19,12 @@ class BookingProduct extends Model
     ];
 
     protected $casts = [
-        'sub_total'   => 'float',
+        'sub_total' => 'float',
         'grand_total' => 'float',
     ];
+
+    public function bookingAttraction()
+    {
+        return $this->hasOne(BookingAttraction::class);
+    }
 }

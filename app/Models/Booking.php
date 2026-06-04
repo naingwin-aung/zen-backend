@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $table = 'bookings';
+
     protected $fillable = [
         'payment_reference',
         'payment_status',
@@ -18,7 +19,12 @@ class Booking extends Model
 
     protected $casts = [
         'request_payload' => 'json',
-        'sub_total'       => 'float',
-        'grand_total'     => 'float',
+        'sub_total' => 'float',
+        'grand_total' => 'float',
     ];
+
+    public function bookingProducts()
+    {
+        return $this->hasMany(BookingProduct::class);
+    }
 }
