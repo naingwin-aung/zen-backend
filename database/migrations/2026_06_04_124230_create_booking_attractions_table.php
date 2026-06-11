@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('attraction_id')->nullable()->constrained('products');
             $table->jsonb('product_snapshot')->nullable();
             $table->jsonb('option_snapshot')->nullable();
+            $table->jsonb('quantity_snapshot')->nullable();
             $table->timestamps();
         });
     }

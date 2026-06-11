@@ -13,7 +13,6 @@ class Booking extends Model
         'payment_status',
         'sub_total',
         'grand_total',
-        'user_id',
         'request_payload',
     ];
 

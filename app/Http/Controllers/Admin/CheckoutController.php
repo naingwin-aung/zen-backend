@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\MyException;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\Checkout\CheckoutService;
 use App\Services\Admin\Checkout\CheckoutValidationService;
@@ -22,10 +23,14 @@ class CheckoutController extends Controller
 
         try {
             $checkout = $this->service->checkout($validated);
+            $pricing = $this->service->getAdditional($checkout);
 
             return success([
                 'checkout' => $checkout,
+                'pricing' => $pricing,
             ], 'Checkout successful.');
+        } catch (MyException $e) {
+            return custom($e->getMessage());
         } catch (Exception $e) {
             return error($e->getMessage());
         }

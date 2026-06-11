@@ -14,10 +14,12 @@ class BookingAttraction extends Model
         'attraction_id',
         'product_snapshot',
         'option_snapshot',
+        'quantity_snapshot',
     ];
 
     protected $casts = [
         'product_snapshot' => 'json',
         'option_snapshot' => 'json',
+        'quantity_snapshot' => 'json',
     ];
 }
