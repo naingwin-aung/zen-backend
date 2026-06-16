@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AttractionController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CheckoutConfirmController;
 use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
@@ -40,6 +41,7 @@ Route::middleware('throttle:api')->group(function () {
 
         // Checkout
         Route::post('checkout', [CheckoutController::class, 'index']);
+        Route::post('checkout-confirm', [CheckoutConfirmController::class, 'index']);
 
         // General routes
         Route::get('all-countries', [CountryController::class, 'all']);
