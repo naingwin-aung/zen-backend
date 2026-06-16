@@ -13,10 +13,12 @@ class Booking extends Model
         'payment_status',
         'sub_total',
         'grand_total',
+        'buyer_info',
         'request_payload',
     ];
 
     protected $casts = [
+        'buyer_info' => 'json',
         'request_payload' => 'json',
         'sub_total' => 'float',
         'grand_total' => 'float',
