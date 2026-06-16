@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CheckoutConfirmController;
 use App\Http\Controllers\Admin\CheckoutController;
+use App\Http\Controllers\Admin\CheckoutPayloadController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -38,6 +39,10 @@ Route::middleware('throttle:api')->group(function () {
 
         // Booking
         Route::get('bookings', [BookingController::class, 'index']);
+
+        //checkout payloads
+        Route::get('checkout-payload/{guid}', [CheckoutPayloadController::class, 'show']);
+        Route::post('checkout-payload', [CheckoutPayloadController::class, 'store']);
 
         // Checkout
         Route::post('checkout', [CheckoutController::class, 'index']);
