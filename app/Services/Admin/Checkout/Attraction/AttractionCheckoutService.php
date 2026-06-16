@@ -75,7 +75,7 @@ class AttractionCheckoutService
 
         return [
             'service' => ServiceEnum::ATTRACTION->value,
-            'attraction' => $product,
+            'product' => $product,
             'package' => $package,
             'prices' => $prices,
             'total_price' => $totalPrice,

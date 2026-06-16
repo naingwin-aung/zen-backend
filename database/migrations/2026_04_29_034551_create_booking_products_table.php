@@ -4,17 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up() : void
     {
         Schema::create('booking_products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('booking_id')->constrained()->onDelete('cascade');
-            $table->morphs('productable');
+            $table->foreignId('product_id')->nullable()->constrained();
             $table->string('booking_number')->nullable();
             $table->string('booking_status')->nullable();
             $table->decimal('sub_total', 10, 2)->default(0);
@@ -26,7 +25,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down() : void
     {
         Schema::dropIfExists('booking_products');
     }

@@ -14,7 +14,7 @@ class AttractionProductResource extends JsonResource
      */
     public function toArray(Request $request) : array
     {
-        $attraction = $this['product']['attraction'];
+        $attraction = $this['product']['product'];
         $package = $this['product']['package'];
         $prices = $this['product']['prices'];
 

@@ -10,8 +10,7 @@ class BookingProduct extends Model
 
     protected $fillable = [
         'booking_id',
-        'productable_id',
-        'productable_type',
+        'product_id',
         'booking_number',
         'booking_status',
         'sub_total',
