@@ -55,7 +55,8 @@ class AttractionCheckoutService
         // check quantities
         $requestQuantities = collect($requestProduct['quantities'])->keyBy('id');
 
-        $prices = AttractionPrice::whereIn('id', $requestQuantities->keys())
+        $prices = AttractionPrice::with('ageGroup')
+            ->whereIn('id', $requestQuantities->keys())
             ->get();
 
         if ($prices->isEmpty()) {
@@ -74,7 +75,7 @@ class AttractionCheckoutService
 
         return [
             'service' => ServiceEnum::ATTRACTION->value,
-            'product' => $product,
+            'attraction' => $product,
             'package' => $package,
             'prices' => $prices,
             'total_price' => $totalPrice,

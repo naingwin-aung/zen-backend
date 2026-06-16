@@ -13,10 +13,10 @@ class CheckoutService
     {
         try {
             $products = [];
-            foreach ($validated['products'] as $product) {
+            foreach ($validated['products'] as $key => $product) {
                 switch ($product['service']) {
                     case ServiceEnum::ATTRACTION->value:
-                        $products[] = (new AttractionCheckoutService)->handle($product);
+                        $products[$key]['product'] = (new AttractionCheckoutService)->handle($product);
                         break;
                     default:
                         break;
@@ -33,7 +33,9 @@ class CheckoutService
 
     public function getAdditional(array $products)
     {
-        $totalPrice = collect($products)->sum('total_price');
+        $totalPrice = collect($products)->sum(function ($product) {
+            return $product['product']['total_price'];
+        });
 
         return [
             'total_price' => $totalPrice,

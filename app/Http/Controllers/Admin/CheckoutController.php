@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ServiceEnum;
 use App\Exceptions\MyException;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\Checkout\Attraction\AttractionProductResource;
 use App\Services\Admin\Checkout\CheckoutService;
 use App\Services\Admin\Checkout\CheckoutValidationService;
 use Exception;
@@ -23,16 +25,31 @@ class CheckoutController extends Controller
 
         try {
             $checkout = $this->service->checkout($validated);
-            $pricing = $this->service->getAdditional($checkout);
+            $additional = $this->service->getAdditional($checkout);
+
+            $data = $this->resourceProduct($checkout);
 
             return success([
-                'checkout' => $checkout,
-                'pricing' => $pricing,
+                'data' => $data,
+                'additional' => $additional,
             ], 'Checkout successful.');
         } catch (MyException $e) {
             return custom($e->getMessage());
         } catch (Exception $e) {
             return error($e->getMessage());
         }
+    }
+
+    private function resourceProduct(array $results)
+    {
+        $data = [];
+        foreach ($results as $checkout) {
+            $data[] = match ($checkout['product']['service']) {
+                ServiceEnum::ATTRACTION->value => AttractionProductResource::make($checkout),
+                default => null,
+            };
+        }
+
+        return $data;
     }
 }
