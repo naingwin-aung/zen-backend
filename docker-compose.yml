@@ -31,7 +31,8 @@ services:
       <<: *laravel-env
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
     volumes:
-      - .:/var/www
+      - ./storage:/var/www/storage
+      - public_assets:/var/www/public
     depends_on:
       db:
         condition: service_healthy
@@ -47,10 +48,10 @@ services:
       - "${FORWARD_HTTP_PORT:-80}:80"
       - "${FORWARD_HTTPS_PORT:-443}:443"
     volumes:
-      - ./public:/var/www/public
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+      - public_assets:/var/www/public:ro
     depends_on:
       - app
     networks:
@@ -110,7 +111,7 @@ services:
       <<: *laravel-env
       RUN_MIGRATIONS: "false"
     volumes:
-      - .:/var/www
+      - ./storage:/var/www/storage
     depends_on:
       app:
         condition: service_started
@@ -128,7 +129,7 @@ services:
       <<: *laravel-env
       RUN_MIGRATIONS: "false"
     volumes:
-      - .:/var/www
+      - ./storage:/var/www/storage
     depends_on:
       app:
         condition: service_started
@@ -154,4 +155,7 @@ volumes:
     driver: local
   caddy_config:
     name: zen-backend_caddy_config
+    driver: local
+  public_assets:
+    name: zen-backend_public_assets
     driver: local
