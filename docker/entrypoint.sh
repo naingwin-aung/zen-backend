@@ -4,7 +4,7 @@ set -e
 # Save environment variables for cron if running as root
 if [ "$(id -u)" = "0" ]; then
   echo "Saving environment variables for cron..."
-  env | grep -v -e '^HOME=' -e '^USER=' -e '^PATH=' -e '^SHELL=' > /var/www/.cronenv || true
+  export | grep -E -v '^(export )?(HOME|USER|PATH|SHELL)=' > /var/www/.cronenv || true
   chown www-data:www-data /var/www/.cronenv
   chmod 600 /var/www/.cronenv
 
