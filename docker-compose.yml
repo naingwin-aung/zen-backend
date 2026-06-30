@@ -38,17 +38,19 @@ services:
       redis:
         condition: service_healthy
 
-  # Nginx Web Server Service (Security-hardened)
+  # Caddy Web Server (Handles automatic HTTPS, Let's Encrypt, and proxies PHP-FPM)
   web:
-    image: nginx:alpine
+    image: caddy:2-alpine
     container_name: zen-web
     restart: unless-stopped
     ports:
-      - "${FORWARD_HTTP_PORT:-8000}:80"
+      - "${FORWARD_HTTP_PORT:-80}:80"
+      - "${FORWARD_HTTPS_PORT:-443}:443"
     volumes:
-      # ONLY mount the public folder to Nginx, keeping backend code private
       - ./public:/var/www/public
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
     depends_on:
       - app
     networks:
@@ -146,4 +148,10 @@ volumes:
     driver: local
   redisdata:
     name: zen-backend_redisdata
+    driver: local
+  caddy_data:
+    name: zen-backend_caddy_data
+    driver: local
+  caddy_config:
+    name: zen-backend_caddy_config
     driver: local

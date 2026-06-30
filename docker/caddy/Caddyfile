@@ -1,0 +1,34 @@
+{$APP_DOMAIN:localhost} {
+    # Set the root folder for static files
+    root * /var/www/public
+
+    # Compress responses
+    encode gzip zstd
+
+    # Serve static files directly
+    file_server
+
+    # Deny access to hidden files (dotfiles), except for Let's Encrypt verification
+    @hiddenFiles {
+        path */.*
+        not path */.well-known/*
+    }
+    respond @hiddenFiles 404
+
+    # Recommended Security Headers
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "no-referrer-when-downgrade"
+    }
+
+    # Pass all PHP requests to the PHP-FPM container
+    php_fastcgi app:9000
+
+    # Output logs to stdout as JSON (ideal for container logging)
+    log {
+        output stdout
+        format json
+    }
+}
