@@ -39,21 +39,35 @@ fi
 # Create storage symlink as www-data to avoid permission issues
 if [ ! -e "/var/www/public/storage" ]; then
   echo "Creating storage symlink..."
-  su -s /bin/sh -c "php artisan storage:link --relative" www-data || su -s /bin/sh -c "php artisan storage:link" www-data
+  if [ "$(id -u)" = "0" ]; then
+    su -s /bin/sh -c "php artisan storage:link --relative" www-data || su -s /bin/sh -c "php artisan storage:link" www-data
+  else
+    php artisan storage:link --relative || php artisan storage:link
+  fi
 fi
 
 # Run migrations as www-data if RUN_MIGRATIONS is set to true
 if [ "$RUN_MIGRATIONS" = "true" ]; then
   echo "Running database migrations..."
-  su -s /bin/sh -c "php artisan migrate --force" www-data
+  if [ "$(id -u)" = "0" ]; then
+    su -s /bin/sh -c "php artisan migrate --force" www-data
+  else
+    php artisan migrate --force
+  fi
 fi
 
 # Cache configuration if APP_ENV is production (runtime fallback)
 if [ "$APP_ENV" = "production" ]; then
   echo "Caching configuration and routes for production..."
-  su -s /bin/sh -c "php artisan config:cache" www-data
-  su -s /bin/sh -c "php artisan route:cache" www-data
-  su -s /bin/sh -c "php artisan view:cache" www-data
+  if [ "$(id -u)" = "0" ]; then
+    su -s /bin/sh -c "php artisan config:cache" www-data
+    su -s /bin/sh -c "php artisan route:cache" www-data
+    su -s /bin/sh -c "php artisan view:cache" www-data
+  else
+    php artisan config:cache
+    php artisan route:cache
+    php artisan view:cache
+  fi
 fi
 
 # Execute the main container command
