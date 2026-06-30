@@ -33,6 +33,7 @@ services:
     volumes:
       - ./storage:/var/www/storage
       - public_assets:/var/www/public
+      - ./.env:/var/www/.env
     depends_on:
       db:
         condition: service_healthy
@@ -112,6 +113,7 @@ services:
       RUN_MIGRATIONS: "false"
     volumes:
       - ./storage:/var/www/storage
+      - ./.env:/var/www/.env
     depends_on:
       app:
         condition: service_started
@@ -130,6 +132,7 @@ services:
       RUN_MIGRATIONS: "false"
     volumes:
       - ./storage:/var/www/storage
+      - ./.env:/var/www/.env
     depends_on:
       app:
         condition: service_started
