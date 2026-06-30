@@ -17,18 +17,18 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
-        
+
         try {
             $bookings = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $bookings->total(),
+                'total' => $bookings->total(),
                 'is_load_more' => $bookings->hasMorePages(),
-                'bookings'     => $bookings->getCollection(),
+                'bookings' => $bookings->getCollection(),
             ], 'Bookings retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());

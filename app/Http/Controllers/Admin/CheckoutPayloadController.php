@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\Checkout\CheckoutValidationService;
 use App\Services\Admin\CheckoutPayloadService;
 use Exception;
 use Illuminate\Http\Request;
@@ -30,9 +31,8 @@ class CheckoutPayloadController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'payload' => 'required',
-        ]);
+        [$rules, $messages] = (new CheckoutValidationService)->validate($request);
+        $validated = $request->validate($rules, $messages);
 
         try {
             $result = $this->service->create($validated);

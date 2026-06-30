@@ -18,7 +18,7 @@ class CheckoutPayloadService
     {
         $cart = CheckoutPayload::create([
             'guid' => Str::uuid(),
-            'payload' => $data['payload'],
+            'payload' => $data,
             'status' => 'active',
         ]);
 
