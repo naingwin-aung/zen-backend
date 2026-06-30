@@ -7,6 +7,10 @@ if [ "$(id -u)" = "0" ]; then
   env | grep -v -e '^HOME=' -e '^USER=' -e '^PATH=' -e '^SHELL=' > /var/www/.cronenv || true
   chown www-data:www-data /var/www/.cronenv
   chmod 600 /var/www/.cronenv
+
+  echo "Setting correct permissions for storage and bootstrap/cache..."
+  chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+  chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 fi
 
 # Wait for PostgreSQL database with a 30s timeout to prevent infinite boot-loops
