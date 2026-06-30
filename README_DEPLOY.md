@@ -1,10 +1,11 @@
 # Production Deployment Guide: Deploying `zen-backend` on DigitalOcean Ubuntu Droplet
 
-This guide details the exact step-by-step process for deploying the `zen-backend` application using **Docker Compose** and **Caddy** for zero-host-configuration automatic Let's Encrypt HTTPS.
+This guide details the exact step-by-step process for deploying the `zen-backend` application using **Docker Compose** and **Nginx** as the web server.
 
 This application is built with:
 - **PHP 8.3-FPM** with compiled Redis, PDO, and standard extensions.
-- **Caddy Web Server** managing SSL certificates via Let's Encrypt and proxying PHP requests.
+- **Nginx (Docker)** acting as the internal web server serving static files and proxying PHP-FPM requests.
+- **Nginx (Host)** acting as the external reverse proxy, handling SSL termination (HTTPS) via Let's Encrypt.
 - **PostgreSQL 16** as the persistent database service.
 - **Redis 7** acting as the high-performance cache and queue broker.
 - **Laravel Queue Worker** processing asynchronous jobs under a restricted `www-data` user.
@@ -16,17 +17,19 @@ This application is built with:
 
 ```mermaid
 graph TD
-    Client[Client Browser / API Client] -->|HTTPS:443 / HTTP:80| DockerCaddy[Docker Caddy Container: zen-web]
-    DockerCaddy -->|FastCGI:9000| AppContainer[PHP-FPM Container: zen-app]
+    Client[Client Browser / API Client] -->|HTTPS:443 / HTTP:80| HostNginx[Host Nginx: Reverse Proxy / SSL]
+    HostNginx -->|Proxy:8000| DockerNginx[Docker Nginx Container: zen-web]
+    DockerNginx -->|FastCGI:9000| AppContainer[PHP-FPM Container: zen-app]
     AppContainer -->|Query| DB[Postgres Container: zen-db]
     AppContainer -->|Cache/Queue| Redis[Redis Container: zen-redis]
     QueueWorker[Queue Worker Container: zen-queue-worker] -->|Process| Redis
     Scheduler[Scheduler Container: zen-scheduler] -->|Execute| AppContainer
 ```
 
-In this production environment, we use a **fully containerized single-tier architecture**:
-1. **Caddy (`zen-web`)**: Binds directly to the Droplet's ports `80` and `443`. It automatically requests, installs, and renews Let's Encrypt SSL certificates based on the `APP_DOMAIN` environment variable.
-2. **PHP-FPM (`zen-app`)**: Caddy forwards PHP requests directly to `zen-app:9000` via FastCGI.
+In this production environment, we use a **reverse-proxied multi-tier architecture**:
+1. **Host Nginx**: Binds to ports `80` and `443` on the Droplet host. It terminates TLS/SSL and proxies requests to the internal Docker web service running on port `8000`.
+2. **Docker Nginx (`zen-web`)**: Binds to port `80` inside the container network (mapped to port `8000` on the host). It serves static assets directly and passes PHP requests to `zen-app:9000` via FastCGI.
+3. **PHP-FPM (`zen-app`)**: Processes the PHP application logic.
 
 ---
 
@@ -73,9 +76,9 @@ sudo ufw status verbose
 
 ---
 
-## Phase 2: Installing Docker
+## Phase 2: Installing Docker & Host Nginx
 
-We will install Docker Engine and Docker Compose from official upstream repositories.
+We will install Docker Engine, Docker Compose, and host Nginx from official upstream repositories.
 
 ### 1. Install Docker and Docker Compose
 ```bash
@@ -99,12 +102,18 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-### 2. Verification
-Verify that Docker is running smoothly:
+### 2. Install Host Nginx and Certbot (SSL)
+```bash
+sudo apt install -y nginx certbot python3-certbot-nginx
+```
+
+### 3. Verification
+Verify that both Docker and Nginx are running smoothly:
 ```bash
 docker --version
 docker compose version
 sudo systemctl status docker --no-pager
+sudo systemctl status nginx --no-pager
 ```
 
 ---
@@ -152,9 +161,6 @@ APP_ENV=production
 APP_DEBUG=false
 APP_URL=https://yourdomain.com
 
-# Caddy Domain Configuration (Used to request Let's Encrypt SSL automatically)
-APP_DOMAIN=yourdomain.com
-
 DB_CONNECTION=pgsql
 DB_HOST=db
 DB_PORT=5432
@@ -169,11 +175,8 @@ QUEUE_CONNECTION=redis
 CACHE_STORE=redis
 SESSION_DRIVER=redis
 
-# Let Caddy Docker container bind directly to ports 80/443 on the Droplet host
-FORWARD_HTTP_PORT=80
-FORWARD_HTTPS_PORT=443
-
-# Internal database & redis expose settings (keep these secure/restricted)
+# Let Nginx Docker container know to bind on port 8000 internally
+FORWARD_HTTP_PORT=8000
 FORWARD_DB_PORT=5433
 FORWARD_REDIS_PORT=6379
 
@@ -182,23 +185,61 @@ RUN_MIGRATIONS=true
 
 ---
 
-## Phase 4: Pointing your Domain Name
-Before launching the application, you must point your domain names to your Droplet's public IP address. In your domain registrar or DNS provider (e.g., Cloudflare, Namecheap):
+## Phase 4: Host Nginx Configuration & SSL Setup
 
-1. Add an **A Record**:
-   - **Host/Name**: `@`
-   - **Value**: `[Your Droplet's Public IP]`
-2. Add a **CNAME Record**:
-   - **Host/Name**: `www`
-   - **Value**: `yourdomain.com`
+Now, we configure host Nginx to accept public traffic on port `80` and `443`, terminate SSL, and proxy traffic to our Docker web service on port `8000`.
 
-*Wait a few minutes for DNS propagation before running the Docker containers so Caddy can successfully complete the HTTP Let's Encrypt validation challenge.*
+### 1. Create Host Nginx Server Block
+Create a new configuration file:
+```bash
+sudo nano /etc/nginx/sites-available/zen-backend
+```
+
+Paste the following configuration (replace `yourdomain.com` with your actual domain):
+```nginx
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    # Redirect HTTP traffic to HTTPS (Certbot will handle this automatically, but this is a placeholder)
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+### 2. Enable Configuration and Test Nginx
+```bash
+# Link the site configuration to sites-enabled
+sudo ln -s /etc/nginx/sites-available/zen-backend /etc/nginx/sites-enabled/
+
+# Remove default configuration if present to avoid port conflicts
+sudo rm /etc/nginx/sites-enabled/default
+
+# Test Nginx syntax
+sudo nginx -t
+
+# Reload Nginx server
+sudo systemctl reload nginx
+```
+
+### 3. Generate Let's Encrypt SSL Certificate
+Run Certbot to request a secure SSL certificate and configure HTTPS automatically:
+```bash
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+```
+*Follow the interactive prompts. Choose the option to automatically redirect all HTTP traffic to HTTPS.*
 
 ---
 
 ## Phase 5: Building and Launching the Docker Environment
 
-With the host infrastructure and DNS ready, build and start your Docker services. Caddy will automatically request and install the SSL certificate on startup.
+With the host infrastructure fully configured, build your Docker services.
 
 ### 1. Generate Laravel Security Key
 Generate the static encryption key used for hashes, cookies, and tokens:
@@ -209,7 +250,7 @@ docker compose run --rm app php artisan key:generate
 Copy the generated key from output and ensure it is updated inside your host `.env` file if it was not auto-saved.
 
 ### 2. Launch the Application Suite
-Build the customized PHP image and launch all containers in detached mode:
+Build the customized PHP image (installing the Redis extension, setting up `www-data` shell, creating the scheduler crontab) and launch all containers in detached mode:
 ```bash
 docker compose up --build -d
 ```
@@ -221,7 +262,7 @@ docker compose up --build -d
 Verify that all systems are operational:
 
 ### 1. Verify Container States
-Check the health status of all services:
+Check the health status of all six services:
 ```bash
 docker compose ps
 ```
@@ -233,7 +274,7 @@ zen-db              postgres:16-alpine  "docker-entrypoint.s…"   db           
 zen-queue-worker    zen-backend-app     "/var/www/docker/en…"   queue-worker        3 minutes ago       Up 3 minutes        9000/tcp
 zen-redis           redis:7-alpine      "docker-entrypoint.s…"   redis               3 minutes ago       Up 3 minutes        0.0.0.0:6379->6379/tcp
 zen-scheduler       zen-backend-app     "/var/www/docker/en…"   scheduler           3 minutes ago       Up 3 minutes        9000/tcp
-zen-web             caddy:2-alpine      "caddy run --config…"   web                 3 minutes ago       Up 3 minutes        0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 80/tcp
+zen-web             nginx:alpine        "/docker-entrypoint.…"   web                 3 minutes ago       Up 3 minutes        0.0.0.0:8000->80/tcp
 ```
 
 ### 2. Verify Database Connection and Migrations
@@ -241,9 +282,28 @@ Check the startup logs of `zen-app` to ensure the database connectivity check su
 ```bash
 docker compose logs app
 ```
+You should see:
+```text
+Waiting for database connection at db:5432...
+Database is up and running!
+Creating storage symlink...
+Running database migrations...
+Migration table created successfully.
+...
+```
 
-### 3. Verify SSL Status
-Open your browser and navigate to `https://yourdomain.com`. You should see the padlock icon indicating a secure HTTPS connection verified by Let's Encrypt.
+### 3. Verify Scheduler Execution
+Verify that the `crond` process in the scheduler container is starting scheduled jobs:
+```bash
+docker compose logs scheduler
+```
+
+### 4. Verify Non-Root Execution of Queue Worker
+Verify that the queue worker service is running under the secure `www-data` user:
+```bash
+docker compose exec queue-worker whoami
+# Output must be: www-data
+```
 
 ---
 
@@ -266,4 +326,10 @@ sudo crontab -e
 Add the following line to execute a clean-up every Sunday at 3:00 AM:
 ```text
 0 3 * * 0 docker system prune -af --volumes > /dev/null 2>&1
+```
+
+### 3. Check Real-time System Load
+To see how much memory and CPU the running containers are taking:
+```bash
+docker stats
 ```
