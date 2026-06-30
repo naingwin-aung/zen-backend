@@ -9,9 +9,11 @@ if [ "$(id -u)" = "0" ]; then
   chmod 600 /var/www/.cronenv
 fi
 
-# Wait for PostgreSQL database if DB_HOST is defined
+# Wait for PostgreSQL database with a 30s timeout to prevent infinite boot-loops
 if [ -n "$DB_HOST" ]; then
   echo "Waiting for database connection at $DB_HOST:${DB_PORT:-5432}..."
+  TIMEOUT=30
+  COUNTER=0
   until php -r "
     try {
         new PDO('pgsql:host=' . getenv('DB_HOST') . ';port=' . (getenv('DB_PORT') ?: '5432') . ';dbname=' . getenv('DB_DATABASE'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));
@@ -20,29 +22,34 @@ if [ -n "$DB_HOST" ]; then
         exit(1);
     }
   " >/dev/null 2>&1; do
+    COUNTER=$((COUNTER + 1))
+    if [ $COUNTER -ge $TIMEOUT ]; then
+      echo "Error: Database connection timed out after $TIMEOUT seconds!" >&2
+      exit 1
+    fi
     sleep 1
   done
   echo "Database is up and running!"
 fi
 
-# Create storage symlink if it doesn't exist
+# Create storage symlink as www-data to avoid permission issues
 if [ ! -e "/var/www/public/storage" ]; then
   echo "Creating storage symlink..."
-  php artisan storage:link --relative || php artisan storage:link
+  su -s /bin/sh -c "php artisan storage:link --relative" www-data || su -s /bin/sh -c "php artisan storage:link" www-data
 fi
 
-# Run migrations if RUN_MIGRATIONS is set to true
+# Run migrations as www-data if RUN_MIGRATIONS is set to true
 if [ "$RUN_MIGRATIONS" = "true" ]; then
   echo "Running database migrations..."
-  php artisan migrate --force
+  su -s /bin/sh -c "php artisan migrate --force" www-data
 fi
 
-# Cache configuration if APP_ENV is production
+# Cache configuration if APP_ENV is production (runtime fallback)
 if [ "$APP_ENV" = "production" ]; then
   echo "Caching configuration and routes for production..."
-  php artisan config:cache
-  php artisan route:cache
-  php artisan view:cache
+  su -s /bin/sh -c "php artisan config:cache" www-data
+  su -s /bin/sh -c "php artisan route:cache" www-data
+  su -s /bin/sh -c "php artisan view:cache" www-data
 fi
 
 # Execute the main container command

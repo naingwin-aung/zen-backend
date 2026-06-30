@@ -1,39 +1,44 @@
 name: zen-backend
+
+# Common configurations shared across services
+x-laravel-common: &laravel-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  restart: unless-stopped
+  working_dir: /var/www
+  env_file:
+    - .env
+  networks:
+    - zen-network
+  logging: &logging-config
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+# Common environment overrides for container communication
+x-laravel-env: &laravel-env
+  DB_HOST: db
+  REDIS_HOST: redis
+
 services:
   # PHP-FPM Application Service
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *laravel-common
     container_name: zen-app
-    restart: unless-stopped
-    working_dir: /var/www
     environment:
-      APP_ENV: ${APP_ENV:-local}
-      APP_KEY: ${APP_KEY}
-      APP_DEBUG: ${APP_DEBUG:-true}
-      APP_URL: ${APP_URL:-http://localhost:8000}
-      DB_CONNECTION: pgsql
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: ${DB_DATABASE:-zen_backend}
-      DB_USERNAME: ${DB_USERNAME:-root}
-      DB_PASSWORD: ${DB_PASSWORD:-secret}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      QUEUE_CONNECTION: ${QUEUE_CONNECTION:-database}
-      CACHE_STORE: ${CACHE_STORE:-database}
-      SESSION_DRIVER: ${SESSION_DRIVER:-database}
+      <<: *laravel-env
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
     volumes:
       - .:/var/www
     depends_on:
-      - db
-      - redis
-    networks:
-      - zen-network
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
-  # Nginx Web Server Service
+  # Nginx Web Server Service (Security-hardened)
   web:
     image: nginx:alpine
     container_name: zen-web
@@ -41,14 +46,17 @@ services:
     ports:
       - "${FORWARD_HTTP_PORT:-8000}:80"
     volumes:
-      - .:/var/www
+      # ONLY mount the public folder to Nginx, keeping backend code private
+      - ./public:/var/www/public
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - app
     networks:
       - zen-network
+    logging:
+      <<: *logging-config
 
-  # PostgreSQL Database Service
+  # PostgreSQL Database Service (With healthcheck)
   db:
     image: postgres:16-alpine
     container_name: zen-db
@@ -61,10 +69,17 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-root} -d $${POSTGRES_DB:-zen_backend}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - zen-network
+    logging:
+      <<: *logging-config
 
-  # Redis Cache & Queue Broker Service
+  # Redis Cache & Queue Broker (With healthcheck)
   redis:
     image: redis:7-alpine
     container_name: zen-redis
@@ -73,84 +88,62 @@ services:
       - "${FORWARD_REDIS_PORT:-6379}:6379"
     volumes:
       - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - zen-network
+    logging:
+      <<: *logging-config
 
   # Laravel Queue Worker Service
   queue-worker:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *laravel-common
     container_name: zen-queue-worker
     user: www-data
-    restart: unless-stopped
-    working_dir: /var/www
     command: php artisan queue:work --verbose --tries=3 --timeout=90
     environment:
-      APP_ENV: ${APP_ENV:-local}
-      APP_KEY: ${APP_KEY}
-      APP_DEBUG: ${APP_DEBUG:-true}
-      DB_CONNECTION: pgsql
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: ${DB_DATABASE:-zen_backend}
-      DB_USERNAME: ${DB_USERNAME:-root}
-      DB_PASSWORD: ${DB_PASSWORD:-secret}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      QUEUE_CONNECTION: ${QUEUE_CONNECTION:-database}
-      CACHE_STORE: ${CACHE_STORE:-database}
-      SESSION_DRIVER: ${SESSION_DRIVER:-database}
-      RUN_MIGRATIONS: "false" # Main app service handles migrations
+      <<: *laravel-env
+      RUN_MIGRATIONS: "false"
     volumes:
       - .:/var/www
     depends_on:
-      - app
-      - db
-      - redis
-    networks:
-      - zen-network
+      app:
+        condition: service_started
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   # Laravel Cron Scheduler Service
   scheduler:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *laravel-common
     container_name: zen-scheduler
-    restart: unless-stopped
-    working_dir: /var/www
     command: crond -f -l 2
     environment:
-      APP_ENV: ${APP_ENV:-local}
-      APP_KEY: ${APP_KEY}
-      APP_DEBUG: ${APP_DEBUG:-true}
-      DB_CONNECTION: pgsql
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: ${DB_DATABASE:-zen_backend}
-      DB_USERNAME: ${DB_USERNAME:-root}
-      DB_PASSWORD: ${DB_PASSWORD:-secret}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      QUEUE_CONNECTION: ${QUEUE_CONNECTION:-database}
-      CACHE_STORE: ${CACHE_STORE:-database}
-      SESSION_DRIVER: ${SESSION_DRIVER:-database}
-      RUN_MIGRATIONS: "false" # Main app service handles migrations
+      <<: *laravel-env
+      RUN_MIGRATIONS: "false"
     volumes:
       - .:/var/www
     depends_on:
-      - app
-      - db
-      - redis
-    networks:
-      - zen-network
+      app:
+        condition: service_started
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 networks:
   zen-network:
+    name: zen-backend_zen-network
     driver: bridge
 
 volumes:
   pgdata:
+    name: zen-backend_pgdata
     driver: local
   redisdata:
+    name: zen-backend_redisdata
     driver: local
