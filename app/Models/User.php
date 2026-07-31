@@ -21,9 +21,11 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'title',
         'email',
         'password',
         'country_id',
+        'dial_id',
         'phone_number',
     ];
 
@@ -53,5 +55,10 @@ class User extends Authenticatable
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function dial()
+    {
+        return $this->belongsTo(Country::class, 'dial_id');
     }
 }

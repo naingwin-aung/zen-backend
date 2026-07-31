@@ -23,8 +23,10 @@ class DatabaseSeeder extends Seeder
             [
                 'first_name' => 'naing win',
                 'last_name' => 'aung',
+                'title' => 'Mr',
                 'password' => bcrypt('password'),
                 'country_id' => 116,
+                'dial_id' => 116,
                 'phone_number' => '09777777777',
             ]
         );
