@@ -57,7 +57,7 @@ RUN composer install --no-dev --no-interaction --no-plugins --no-scripts --prefe
 # ==========================================
 FROM node:20-alpine AS asset-builder
 WORKDIR /app
-COPY package.json vite.config.js ./
+COPY package*.json vite.config.js ./
 COPY resources/ ./resources/
 COPY public/ ./public/
 # Build production assets (using npm install as package-lock.json might not be present)
