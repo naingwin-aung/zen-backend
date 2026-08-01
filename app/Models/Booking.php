@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ReferenceCodeGenerator;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
@@ -23,6 +24,16 @@ class Booking extends Model
         'sub_total' => 'float',
         'grand_total' => 'float',
     ];
+
+    protected static function booted(): void
+    {
+        static::created(function (Booking $booking) {
+            if (empty($booking->payment_reference)) {
+                $booking->payment_reference = ReferenceCodeGenerator::generate($booking->id, 'PAY');
+                $booking->saveQuietly();
+            }
+        });
+    }
 
     public function bookingProducts()
     {
