@@ -41,6 +41,7 @@ Route::middleware('throttle:api')->group(function () {
 
         // Booking
         Route::get('bookings', [BookingController::class, 'index']);
+        Route::get('bookings/{id}', [BookingController::class, 'show']);
 
         // checkout payloads
         Route::get('checkout-payload/{guid}', [CheckoutPayloadController::class, 'show']);

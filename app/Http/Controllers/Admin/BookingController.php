@@ -34,4 +34,17 @@ class BookingController extends Controller
             return error($e->getMessage());
         }
     }
+
+    public function show(int|string $id)
+    {
+        try {
+            $booking = $this->service->show($id);
+
+            return success([
+                'booking' => $booking,
+            ], 'Booking details retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
 }
