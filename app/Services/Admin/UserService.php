@@ -44,7 +44,9 @@ class UserService
             $data['password'] = Hash::make($data['password']);
         }
 
-        return User::create($data);
+        $user = User::create($data);
+
+        return $user->load(['country', 'dial']);
     }
 
     public function update($id, array $data)
