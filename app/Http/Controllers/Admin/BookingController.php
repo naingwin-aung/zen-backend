@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\Booking\BookingDetailResource;
+use App\Http\Resources\Admin\Booking\BookingListingResource;
 use App\Services\Admin\BookingService;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +30,7 @@ class BookingController extends Controller
             return success([
                 'total' => $bookings->total(),
                 'is_load_more' => $bookings->hasMorePages(),
-                'bookings' => $bookings->getCollection(),
+                'bookings' => BookingListingResource::collection($bookings->getCollection()),
             ], 'Bookings retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -41,7 +43,7 @@ class BookingController extends Controller
             $booking = $this->service->show($id);
 
             return success([
-                'booking' => $booking,
+                'booking' => new BookingDetailResource($booking),
             ], 'Booking details retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
