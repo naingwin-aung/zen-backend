@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,9 +54,16 @@ describe('update', function () {
             'max_age' => 17,
         ]);
 
+        $supplier = Supplier::create([
+            'name' => 'Ocean Park',
+            'email' => 'ocean@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
         $response = $this->actingAs($this->admin, 'sanctum')
             ->postJson('/admin/attractions', [
                 'name' => 'Created Attraction',
+                'supplier_id' => $supplier->id,
                 'star_rating' => 4.5,
                 'countries' => [$country->id],
                 'cities' => [$city->id],
@@ -96,6 +104,8 @@ describe('update', function () {
         $attraction = Product::query()->where('name', 'Created Attraction')->firstOrFail();
 
         expect((float) $attraction->price)->toBe(80.0);
+        expect($attraction->supplier_id)->toBe($supplier->id);
+        expect($attraction->supplier->name)->toBe('Ocean Park');
     });
 
     it('updates attraction when payload contains new package without id', function () {
@@ -164,9 +174,16 @@ describe('update', function () {
             'price' => 50,
         ]);
 
+        $supplier = Supplier::create([
+            'name' => 'Ocean Park',
+            'email' => 'ocean@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
         $response = $this->actingAs($this->admin, 'sanctum')
             ->putJson('/admin/attractions/'.$attraction->id, [
                 'name' => 'Updated Attraction',
+                'supplier_id' => $supplier->id,
                 'star_rating' => 4,
                 'countries' => [$country->id],
                 'cities' => [$city->id],
@@ -217,6 +234,7 @@ describe('update', function () {
         $this->assertDatabaseHas('products', [
             'id' => $attraction->id,
             'price' => 30,
+            'supplier_id' => $supplier->id,
         ]);
     });
 });

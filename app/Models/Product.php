@@ -13,6 +13,7 @@ class Product extends Model
     public $table = 'products';
 
     protected $fillable = [
+        'supplier_id',
         'name',
         'slug',
         'service',
@@ -27,6 +28,11 @@ class Product extends Model
         'price' => 'float',
         'is_active' => 'boolean',
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 
     public function categories()
     {

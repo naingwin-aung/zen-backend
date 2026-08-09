@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Enums\ClosingTypeEnum;
 use App\Enums\ServiceEnum;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
@@ -18,7 +20,7 @@ class ProductSeeder extends Seeder
      * Category IDs: Activities=1
      * Age group IDs: Adult=1, Child=2
      */
-    public function run() : void
+    public function run(): void
     {
         /** @var array<int, array<string, mixed>> $products */
         $products = [
@@ -1015,7 +1017,7 @@ class ProductSeeder extends Seeder
                     'https://i.pinimg.com/1200x/40/dc/79/40dc7947a0ceb34c6c75043876948dc1.jpg',
                     'https://i.pinimg.com/1200x/79/5d/37/795d379bd940297257786dea51122c60.jpg',
                     'https://i.pinimg.com/736x/89/3b/be/893bbe71dc12dba1e57601fee8fefe3c.jpg',
-                    'https://i.pinimg.com/736x/41/4f/4c/414f4c0a219518d03ce644c570b37c84.jpg'
+                    'https://i.pinimg.com/736x/41/4f/4c/414f4c0a219518d03ce644c570b37c84.jpg',
                 ],
                 'packages' => [
                     [
@@ -1355,7 +1357,7 @@ class ProductSeeder extends Seeder
                     'https://i.pinimg.com/736x/c3/c7/ef/c3c7eff06dbc85e808d3eca0142161b5.jpg',
                     'https://i.pinimg.com/736x/9d/8e/af/9d8eaf98d2dc0c2025775284e3cd08f3.jpg',
                     'https://i.pinimg.com/736x/0f/d6/8c/0fd68c126009999e68be0e7ecdd2842b.jpg',
-                    'https://i.pinimg.com/736x/d9/85/62/d98562e587eb7fee6f6996768a5f9bda.jpg'
+                    'https://i.pinimg.com/736x/d9/85/62/d98562e587eb7fee6f6996768a5f9bda.jpg',
                 ],
                 'packages' => [
                     [
@@ -1587,12 +1589,16 @@ class ProductSeeder extends Seeder
             ],
         ];
 
+        /** @var array<int, int> $supplierIds */
+        $supplierIds = Supplier::pluck('id')->all();
+
         foreach ($products as $data) {
             $lowestPackagePrice = collect($data['packages'])
-                ->flatMap(fn(array $package) : array => $package['prices'])
+                ->flatMap(fn (array $package): array => $package['prices'])
                 ->min('price');
 
             $product = Product::create([
+                'supplier_id' => $supplierIds ? Arr::random($supplierIds) : null,
                 'name' => $data['name'],
                 'service' => ServiceEnum::ATTRACTION->value,
                 'star_rating' => $data['star_rating'],
@@ -1602,8 +1608,8 @@ class ProductSeeder extends Seeder
 
             $noSpaceName = str_replace(' ', '', strtolower($product->name));
             $product->update([
-                'slug' => $product->id . '-' . Str::slug($product->name),
-                'search_keywords' => "{$noSpaceName}, " . $data['search_keywords'],
+                'slug' => $product->id.'-'.Str::slug($product->name),
+                'search_keywords' => "{$noSpaceName}, ".$data['search_keywords'],
             ]);
 
             // Format highlights to exactly 5 high-quality, long-sentence HTML bullet points
@@ -1613,41 +1619,41 @@ class ProductSeeder extends Seeder
             $formattedHighlights = [];
 
             // Bullet 1: Exclusivity & seamless entry
-            $formattedHighlights[] = 'Exclusivity and convenience with seamless entry tickets to explore ' . $data['name'] . ' for a completely hassle-free visit.';
+            $formattedHighlights[] = 'Exclusivity and convenience with seamless entry tickets to explore '.$data['name'].' for a completely hassle-free visit.';
 
             // Bullet 2: Core expectation
             $coreExpect = trim($data['what_to_expect']);
             $coreExpect = rtrim($coreExpect, '.');
             if (strncasecmp($coreExpect, 'experience', 10) === 0) {
-                $formattedHighlights[] = $coreExpect . ' in a highly immersive and beautifully themed environment.';
+                $formattedHighlights[] = $coreExpect.' in a highly immersive and beautifully themed environment.';
             } else {
-                $formattedHighlights[] = 'Experience the best of the venue: ' . lcfirst($coreExpect) . ' for an unforgettable day.';
+                $formattedHighlights[] = 'Experience the best of the venue: '.lcfirst($coreExpect).' for an unforgettable day.';
             }
 
             // Bullet 3: Highlight 1 & 2
             if (isset($rawHighlights[0])) {
-                $extra = isset($rawHighlights[1]) ? ' and the iconic ' . $rawHighlights[1] : '';
-                $formattedHighlights[] = 'Discover the spectacular landmarks and popular attractions of the venue, including ' . $rawHighlights[0] . $extra . ' for visitors of all ages.';
+                $extra = isset($rawHighlights[1]) ? ' and the iconic '.$rawHighlights[1] : '';
+                $formattedHighlights[] = 'Discover the spectacular landmarks and popular attractions of the venue, including '.$rawHighlights[0].$extra.' for visitors of all ages.';
             } else {
                 $formattedHighlights[] = 'Marvel at the stunning architectural layouts and scenic backdrops that make this destination a world-renowned highlight.';
             }
 
             // Bullet 4: Highlight 3 & 4 / Good to know
             if (isset($rawHighlights[2])) {
-                $extra = isset($rawHighlights[3]) ? ' as well as ' . $rawHighlights[3] : '';
-                $formattedHighlights[] = 'Hop on thrilling rides, explore detailed themed zones, or check out unique highlights like ' . $rawHighlights[2] . $extra . '.';
+                $extra = isset($rawHighlights[3]) ? ' as well as '.$rawHighlights[3] : '';
+                $formattedHighlights[] = 'Hop on thrilling rides, explore detailed themed zones, or check out unique highlights like '.$rawHighlights[2].$extra.'.';
             } else {
                 $goodToKnow = trim($data['good_to_know']);
                 $goodToKnow = rtrim($goodToKnow, '.');
-                $formattedHighlights[] = 'Get the most out of your trip with helpful tips: ' . lcfirst($goodToKnow) . ' to ensure a highly comfortable and safe experience.';
+                $formattedHighlights[] = 'Get the most out of your trip with helpful tips: '.lcfirst($goodToKnow).' to ensure a highly comfortable and safe experience.';
             }
 
             // Bullet 5: Timing / memorable sunset or night view
-            $formattedHighlights[] = 'Visit in the late afternoon for a memorable sunset experience or early in the morning for a relaxed, crowd-free exploration of ' . $data['name'] . '.';
+            $formattedHighlights[] = 'Visit in the late afternoon for a memorable sunset experience or early in the morning for a relaxed, crowd-free exploration of '.$data['name'].'.';
 
             $highlightsHtml = '<ul class="list-disc pl-5 space-y-1">';
             foreach ($formattedHighlights as $item) {
-                $highlightsHtml .= '<li>' . e($item) . '</li>';
+                $highlightsHtml .= '<li>'.e($item).'</li>';
             }
             $highlightsHtml .= '</ul>';
 

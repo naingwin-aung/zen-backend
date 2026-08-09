@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CheckoutPayloadController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::apiResource('admins', AdminController::class);
         Route::apiResource('users', UserController::class);
+        Route::apiResource('suppliers', SupplierController::class);
         Route::apiResource('countries', CountryController::class);
         Route::apiResource('cities', CityController::class);
         Route::apiResource('categories', CategoryController::class);

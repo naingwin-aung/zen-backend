@@ -4,7 +4,6 @@ namespace App\Services\Admin;
 
 use App\Enums\ClosingTypeEnum;
 use App\Enums\ServiceEnum;
-use App\Exceptions\MyException;
 use App\Models\AttractionPackage;
 use App\Models\Product;
 use Exception;
@@ -19,8 +18,8 @@ class AttractionService
 
         if ($search) {
             $query = $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
-                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%" . strtolower($search) . "%"]);
+                $q->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($search).'%'])
+                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ['%'.strtolower($search).'%']);
             });
         }
 
@@ -35,11 +34,11 @@ class AttractionService
 
     public function find(int $id)
     {
-        $attraction = Product::with('images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail', 'schedule')
+        $attraction = Product::with('supplier', 'images', 'categories', 'countries', 'cities', 'attractionPackages.prices', 'detail', 'schedule')
             ->where('service', ServiceEnum::ATTRACTION->value)
             ->find($id);
 
-        if (!$attraction) {
+        if (! $attraction) {
             throw new Exception('Attraction not found.');
         }
 
@@ -49,6 +48,7 @@ class AttractionService
     public function create(array $data)
     {
         $attraction = Product::create([
+            'supplier_id' => $data['supplier_id'] ?? null,
             'name' => $data['name'],
             'price' => $this->getLowestPackagePrice($data['packages'] ?? []),
             'service' => ServiceEnum::ATTRACTION->value,
@@ -57,10 +57,10 @@ class AttractionService
         ]);
 
         $noSpaceName = str_replace(' ', '', strtolower($attraction->name));
-        $attraction->search_keywords = "{$noSpaceName}, " . ($data['search_keywords'] ?? '');
+        $attraction->search_keywords = "{$noSpaceName}, ".($data['search_keywords'] ?? '');
 
         $attraction->update([
-            'slug' => $attraction->id . '-' . Str::slug($attraction->name),
+            'slug' => $attraction->id.'-'.Str::slug($attraction->name),
             'search_keywords' => $attraction->search_keywords,
         ]);
 
@@ -125,8 +125,9 @@ class AttractionService
         $attraction = $this->find($id);
 
         $attraction->update([
+            'supplier_id' => $data['supplier_id'] ?? null,
             'name' => $data['name'],
-            'slug' => $attraction->id . '-' . Str::slug($data['name']),
+            'slug' => $attraction->id.'-'.Str::slug($data['name']),
             'search_keywords' => $data['search_keywords'] ?? $attraction->search_keywords,
             'star_rating' => $data['star_rating'] ?? 0,
             'is_active' => $data['is_active'] ?? false,
@@ -161,7 +162,7 @@ class AttractionService
         }
 
         // start handle product images
-        if (!empty($data['old_images'])) {
+        if (! empty($data['old_images'])) {
             if ($attraction->images->count() <= 1 && empty($data['images'])) {
                 throw new Exception('At least one image is required for the attraction.');
             }
@@ -265,18 +266,18 @@ class AttractionService
         return $attraction;
     }
 
-    private function getLowestPackagePrice(array $packages) : ?float
+    private function getLowestPackagePrice(array $packages): ?float
     {
         return collect($packages)
             ->flatMap(function (array $package) {
                 return collect($package['prices'] ?? []);
             })
             ->pluck('price')
-            ->filter(fn($price) => is_numeric($price))
+            ->filter(fn ($price) => is_numeric($price))
             ->min();
     }
 
-    private function syncLowestPackagePrice(Product $attraction) : void
+    private function syncLowestPackagePrice(Product $attraction): void
     {
         $lowestPrice = $attraction->attractionPackages()
             ->with('prices:id,attraction_package_id,price')
@@ -293,7 +294,7 @@ class AttractionService
     {
         $attraction = Product::where('service', ServiceEnum::ATTRACTION->value)->find($id);
 
-        if (!$attraction) {
+        if (! $attraction) {
             throw new Exception('Attraction not found.');
         }
 
@@ -325,7 +326,7 @@ class AttractionService
             ->where('id', $id)
             ->first();
 
-        if (!$attraction) {
+        if (! $attraction) {
             throw new Exception('Attraction Ticket not found');
         }
 
