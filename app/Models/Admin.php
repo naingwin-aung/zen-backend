@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'admins';
 
@@ -19,18 +19,18 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'profile'
+        'profile',
     ];
 
     protected $hidden = [
         'password',
     ];
 
-    protected function casts() : array
+    protected function casts(): array
     {
         return [
             'password' => 'hashed',
-            'profile'  => Image::class,
+            'profile' => Image::class,
         ];
     }
 }

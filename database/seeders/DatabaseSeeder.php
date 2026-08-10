@@ -40,28 +40,41 @@ class DatabaseSeeder extends Seeder
         );
 
         Category::updateOrCreate(
-            ['name' => 'Activities'],
+            ['name->en' => 'Activities'],
             [
+                'name' => [
+                    'en' => 'Activities',
+                    'mm' => 'လှုပ်ရှားမှုများ',
+                ],
                 'slug' => '1-activities',
             ]
         );
 
         AgeGroup::updateOrCreate(
-            ['name' => 'Adult'],
+            ['name->en' => 'Adult'],
             [
+                'name' => [
+                    'en' => 'Adult',
+                    'mm' => 'လူကြီး',
+                ],
                 'min_age' => 12,
             ]
         );
 
         AgeGroup::updateOrCreate(
-            ['name' => 'Child'],
+            ['name->en' => 'Child'],
             [
+                'name' => [
+                    'en' => 'Child',
+                    'mm' => 'ကလေး',
+                ],
                 'min_age' => 2,
                 'max_age' => 11,
             ]
         );
 
         $this->call([
+            LanguageSeeder::class,
             CountrySeeder::class,
             CitySeeder::class,
             SupplierSeeder::class,

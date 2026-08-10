@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\CategoryService;
 use Exception;
 use Illuminate\Http\Request;
-use App\Services\Admin\CategoryService;
 
 class CategoryController extends Controller
 {
@@ -17,8 +17,8 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
 
@@ -26,9 +26,9 @@ class CategoryController extends Controller
             $categories = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $categories->total(),
+                'total' => $categories->total(),
                 'is_load_more' => $categories->hasMorePages(),
-                'categories'    => $categories->getCollection(),
+                'categories' => $categories->getCollection(),
             ], 'Categories retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -51,7 +51,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required',
         ]);
 
         try {
@@ -68,7 +68,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required',
         ]);
 
         try {

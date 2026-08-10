@@ -27,6 +27,7 @@ class ProductFactory extends Factory
             'service' => ServiceEnum::ATTRACTION->value,
             'search_keywords' => $this->faker->words(5, true),
             'star_rating' => $this->faker->randomFloat(1, 3.0, 5.0),
+            'is_active' => true,
         ];
     }
 }

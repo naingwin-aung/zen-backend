@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\CheckoutPayloadController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\UserController;
@@ -33,6 +34,7 @@ Route::middleware('throttle:api')->group(function () {
         Route::apiResource('attractions', AttractionController::class);
 
         Route::apiResource('age-groups', AgeGroupController::class);
+        Route::apiResource('languages', LanguageController::class);
 
         // all products routes
         Route::get('products', [ProductController::class, 'index']);
@@ -56,5 +58,6 @@ Route::middleware('throttle:api')->group(function () {
         // General routes
         Route::get('all-countries', [CountryController::class, 'all']);
         Route::get('all-age-groups', [AgeGroupController::class, 'all']);
+        Route::get('all-languages', [LanguageController::class, 'all']);
     });
 });

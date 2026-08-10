@@ -15,6 +15,6 @@ class CheckoutPayload extends Model
     ];
 
     protected $casts = [
-        'payload' => 'json'
+        'payload' => 'json',
     ];
 }

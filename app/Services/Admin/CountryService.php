@@ -15,7 +15,7 @@ class CountryService
 
         if ($search) {
             $query = $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"]);
+                $q->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($search).'%']);
             });
         }
 
@@ -46,7 +46,7 @@ class CountryService
         ]);
 
         $country->update([
-            'slug' => 'co' . $country->id . '-' . Str::slug($name),
+            'slug' => 'co'.$country->id.'-'.Str::slug($name),
         ]);
 
         return $country;
@@ -62,7 +62,7 @@ class CountryService
 
         $country->update([
             'name' => $name,
-            'slug' => 'co' . $country->id . '-' . Str::slug($name),
+            'slug' => 'co'.$country->id.'-'.Str::slug($name),
             'dial_code' => $dial_code,
         ]);
 

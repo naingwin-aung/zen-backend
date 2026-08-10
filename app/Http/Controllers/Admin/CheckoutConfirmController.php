@@ -25,10 +25,11 @@ class CheckoutConfirmController extends Controller
 
         DB::beginTransaction();
         try {
-            $checkout = (new CheckoutService())->checkout($validated);
+            $checkout = (new CheckoutService)->checkout($validated);
             $booking = $this->service->confirm($checkout, $validated);
 
             DB::commit();
+
             return success([
                 'payment_reference' => $booking->payment_reference,
                 'payment_status' => $booking->payment_status,
@@ -36,9 +37,11 @@ class CheckoutConfirmController extends Controller
             ], 'Checkout successful.');
         } catch (MyException $e) {
             DB::rollBack();
+
             return custom($e->getMessage());
         } catch (Exception $e) {
             DB::rollBack();
+
             return error($e->getMessage());
         }
     }

@@ -12,13 +12,13 @@ class AttractionPackageResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'min_price' => $this->min_price
+            'name' => method_exists($this->resource, 'getTranslations') ? $this->getTranslations('name') : $this->name,
+            'description' => method_exists($this->resource, 'getTranslations') ? $this->getTranslations('description') : $this->description,
+            'min_price' => $this->min_price,
         ];
     }
 }

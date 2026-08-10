@@ -1,6 +1,6 @@
 <?php
 
-function success(array|null $data = null, string $message = 'Request was successful', int $statusCode = 200)
+function success(?array $data = null, string $message = 'Request was successful', int $statusCode = 200)
 {
     return response()->json([
         'success' => true,

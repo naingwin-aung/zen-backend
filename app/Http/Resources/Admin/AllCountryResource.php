@@ -12,12 +12,12 @@ class AllCountryResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
-            'id'        => $this['id'],
-            'name'      => $this['name'],
-            'slug'      => $this['slug'],
+            'id' => $this['id'],
+            'name' => $this['name'],
+            'slug' => $this['slug'],
             'dial_code' => $this['dial_code'],
         ];
     }

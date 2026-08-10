@@ -12,7 +12,7 @@ class AttractionProductResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         $attraction = $this['product']['product'];
         $package = $this['product']['package'];
@@ -25,22 +25,22 @@ class AttractionProductResource extends JsonResource
             'service' => $attraction['service'],
             'star_rating' => $attraction['star_rating'],
             'price' => $attraction['price'],
-            'categories' => $attraction['categories']->map(fn($category) => [
+            'categories' => $attraction['categories']->map(fn ($category) => [
                 'id' => $category['id'],
                 'name' => $category['name'],
                 'slug' => $category['slug'],
             ]),
-            'images' => $attraction['images']->map(fn($image) => [
+            'images' => $attraction['images']->map(fn ($image) => [
                 'id' => $image['id'],
                 'url' => $image['url'],
             ]),
-            'countries' => $attraction['countries']->map(fn($country) => [
+            'countries' => $attraction['countries']->map(fn ($country) => [
                 'id' => $country['id'],
                 'name' => $country['name'],
                 'slug' => $country['slug'],
                 'dial_code' => $country['dial_code'],
             ]),
-            'cities' => $attraction['cities']->map(fn($city) => [
+            'cities' => $attraction['cities']->map(fn ($city) => [
                 'id' => $city['id'],
                 'name' => $city['name'],
                 'slug' => $city['slug'],
@@ -50,7 +50,7 @@ class AttractionProductResource extends JsonResource
                 'name' => $package['name'],
                 'description' => $package['description'],
             ],
-            "prices" => $prices->map(fn($price) => [
+            'prices' => $prices->map(fn ($price) => [
                 'id' => $price['id'],
                 'name' => $price['ageGroup']['name'],
                 'min_age' => $price['ageGroup']['min_age'],
@@ -59,8 +59,8 @@ class AttractionProductResource extends JsonResource
                 'quantity' => $price['quantity'],
                 'total' => $price['total'],
             ]),
-            "total_price" => $this['product']['total_price'],
-            "date" => $this['product']['date'],
+            'total_price' => $this['product']['total_price'],
+            'date' => $this['product']['date'],
         ];
     }
 }

@@ -14,8 +14,8 @@ class AdminService
 
         if ($search) {
             $query = $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
-                    ->orWhereRaw('LOWER(email) LIKE ?', ["%" . strtolower($search) . "%"]);
+                $q->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($search).'%'])
+                    ->orWhereRaw('LOWER(email) LIKE ?', ['%'.strtolower($search).'%']);
             });
         }
 
@@ -31,7 +31,7 @@ class AdminService
     {
         $admin = Admin::find($id);
 
-        if (!$admin) {
+        if (! $admin) {
             throw new Exception('Admin not found.');
         }
 
@@ -46,10 +46,10 @@ class AdminService
         }
 
         $admin = Admin::create([
-            'name'     => $name,
-            'email'    => $email,
+            'name' => $name,
+            'email' => $email,
             'password' => bcrypt($password),
-            'profile'  => $image,
+            'profile' => $image,
         ]);
 
         return $admin;
@@ -59,7 +59,7 @@ class AdminService
     {
         $admin = Admin::find($id);
 
-        if (!$admin) {
+        if (! $admin) {
             throw new Exception('Admin not found.');
         }
 
@@ -72,10 +72,10 @@ class AdminService
         }
 
         $admin->update([
-            'name'     => $name,
-            'email'    => $email,
+            'name' => $name,
+            'email' => $email,
             'password' => $password ? bcrypt($password) : $admin->password,
-            'profile'  => $image,
+            'profile' => $image,
         ]);
 
         return $admin;
@@ -85,7 +85,7 @@ class AdminService
     {
         $admin = Admin::find($id);
 
-        if (!$admin) {
+        if (! $admin) {
             throw new Exception('Admin not found.');
         }
 

@@ -101,7 +101,7 @@ describe('update', function () {
 
         $response->assertSuccessful();
 
-        $attraction = Product::query()->where('name', 'Created Attraction')->firstOrFail();
+        $attraction = Product::query()->where('name->en', 'Created Attraction')->firstOrFail();
 
         expect((float) $attraction->price)->toBe(80.0);
         expect($attraction->supplier_id)->toBe($supplier->id);
@@ -223,10 +223,8 @@ describe('update', function () {
         $response->assertSuccessful();
 
         expect($response->json('success'))->toBeTrue();
-        $this->assertDatabaseHas('attraction_packages', [
-            'product_id' => $attraction->id,
-            'name' => 'Family Package',
-        ]);
+        $familyPackage = AttractionPackage::where('product_id', $attraction->id)->where('name->en', 'Family Package')->first();
+        expect($familyPackage)->not->toBeNull();
         $this->assertDatabaseHas('attraction_prices', [
             'attraction_package_id' => $existingPackage->id,
             'price' => 60,

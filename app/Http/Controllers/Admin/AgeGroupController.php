@@ -17,8 +17,8 @@ class AgeGroupController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
 
@@ -26,9 +26,9 @@ class AgeGroupController extends Controller
             $ageGroups = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $ageGroups->total(),
+                'total' => $ageGroups->total(),
                 'is_load_more' => $ageGroups->hasMorePages(),
-                'age_groups'   => $ageGroups->getCollection(),
+                'age_groups' => $ageGroups->getCollection(),
             ], 'Age groups retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -51,7 +51,7 @@ class AgeGroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'    => 'required|string|max:255',
+            'name' => 'required',
             'min_age' => 'nullable|integer|min:0',
             'max_age' => 'nullable|integer|min:0',
         ]);
@@ -70,7 +70,7 @@ class AgeGroupController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'    => 'required|string|max:255',
+            'name' => 'required',
             'min_age' => 'nullable|integer|min:0',
             'max_age' => 'nullable|integer|min:0',
         ]);

@@ -13,24 +13,32 @@ class CategoryService
         $query = Category::query();
 
         if ($search) {
-            $query = $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"]);
+            $locale = app()->getLocale();
+            $languageService = app(LanguageService::class);
+            $codes = $languageService->getCodes();
+
+            $query = $query->where(function ($q) use ($search, $locale, $codes) {
+                $q->where('name->'.$locale, 'LIKE', '%'.$search.'%');
+                foreach ($codes as $code) {
+                    $q->orWhere('name->'.$code, 'LIKE', '%'.$search.'%');
+                }
             });
         }
 
-        $data = $query
+        $locale = app()->getLocale();
+
+        return $query
+            ->orderBy('name->'.$locale)
             ->orderBy('id', 'desc')
             ->paginate($limit)
             ->withQueryString();
-
-        return $data;
     }
 
     public function find($id)
     {
         $category = Category::find($id);
 
-        if (!$category) {
+        if (! $category) {
             throw new Exception('Category not found.');
         }
 
@@ -40,11 +48,13 @@ class CategoryService
     public function create($name)
     {
         $category = Category::create([
-            'name'      => $name,
+            'name' => $name,
         ]);
 
+        $slugBase = is_array($name) ? ($name['en'] ?? (current(array_filter($name)) ?: reset($name))) : $name;
+
         $category->update([
-            'slug' => $category->id . '-' . Str::slug($name),
+            'slug' => $category->id.'-'.Str::slug((string) $slugBase),
         ]);
 
         return $category;
@@ -54,13 +64,15 @@ class CategoryService
     {
         $category = Category::find($id);
 
-        if (!$category) {
+        if (! $category) {
             throw new Exception('Category not found.');
         }
 
+        $slugBase = is_array($name) ? ($name['en'] ?? (current(array_filter($name)) ?: reset($name))) : $name;
+
         $category->update([
-            'name'      => $name,
-            'slug'      => $category->id . '-' . Str::slug($name),
+            'name' => $name,
+            'slug' => $category->id.'-'.Str::slug((string) $slugBase),
         ]);
 
         return $category;
@@ -70,7 +82,7 @@ class CategoryService
     {
         $category = Category::find($id);
 
-        if (!$category) {
+        if (! $category) {
             throw new Exception('Category not found.');
         }
 

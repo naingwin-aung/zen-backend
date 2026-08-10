@@ -12,7 +12,7 @@ class ProductListingResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
@@ -21,22 +21,22 @@ class ProductListingResource extends JsonResource
             'service' => $this->service,
             'star_rating' => $this->star_rating,
             'price' => $this->price,
-            'categories' => $this->categories->map(fn($category) => [
+            'categories' => $this->categories->map(fn ($category) => [
                 'id' => $category->id,
                 'name' => $category->name,
                 'slug' => $category->slug,
             ]),
-            'images' => $this->images->map(fn($image) => [
+            'images' => $this->images->map(fn ($image) => [
                 'id' => $image->id,
                 'url' => $image->url,
             ]),
-            'countries' => $this->countries->map(fn($country) => [
+            'countries' => $this->countries->map(fn ($country) => [
                 'id' => $country->id,
                 'name' => $country->name,
                 'slug' => $country->slug,
                 'dial_code' => $country->dial_code,
             ]),
-            'cities' => $this->cities->map(fn($city) => [
+            'cities' => $this->cities->map(fn ($city) => [
                 'id' => $city->id,
                 'name' => $city->name,
                 'slug' => $city->slug,

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Api;
 
 use App\Exceptions\MyException;
@@ -14,8 +15,9 @@ class AuthService
     public function login($email, $password)
     {
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            $user  = Auth::user();
+            $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
+
             return ['user' => $user, 'token' => $token];
         }
 
@@ -25,8 +27,8 @@ class AuthService
     public function register($name, $email, $password)
     {
         $user = User::create([
-            'name'     => $name,
-            'email'    => $email,
+            'first_name' => $name,
+            'email' => $email,
             'password' => $password,
         ]);
 
@@ -45,10 +47,10 @@ class AuthService
 
         $user = User::where('email', $providerUser->getEmail())->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::create([
-                'name'     => $providerUser->getName(),
-                'email'    => $providerUser->getEmail(),
+                'first_name' => $providerUser->getName(),
+                'email' => $providerUser->getEmail(),
                 'password' => Hash::make(Str::random(16)),
             ]);
         }
@@ -56,7 +58,7 @@ class AuthService
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return [
-            'user'  => $user,
+            'user' => $user,
             'token' => $token,
         ];
     }

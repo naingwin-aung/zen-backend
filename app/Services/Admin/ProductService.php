@@ -3,10 +3,8 @@
 namespace App\Services\Admin;
 
 use App\Exceptions\MyException;
-use App\Models\AttractionPackage;
 use App\Models\Product;
 use Carbon\Carbon;
-use Exception;
 
 class ProductService
 {
@@ -20,9 +18,12 @@ class ProductService
         ]);
 
         if ($search) {
-            $query = $query->where(function ($query) use ($search) {
-                $query->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"])
-                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%" . strtolower($search) . "%"]);
+            $locale = app()->getLocale();
+            $query = $query->where(function ($query) use ($search, $locale) {
+                $query->where('name->'.$locale, 'LIKE', '%'.$search.'%')
+                    ->orWhere('name->en', 'LIKE', '%'.$search.'%')
+                    ->orWhere('name->mm', 'LIKE', '%'.$search.'%')
+                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ['%'.strtolower($search).'%']);
             });
         }
 
@@ -46,14 +47,14 @@ class ProductService
             'schedule' => function ($query) {
                 $query->where('end_date', '>=', Carbon::now()->startOfDay());
             },
-            'attractionPackages.prices'
+            'attractionPackages.prices',
         ]);
 
         $data = $query->where('slug', $slug)
             ->where('is_active', true)
             ->first();
 
-        if (!$data) {
+        if (! $data) {
             throw new MyException('Product not found.');
         }
 

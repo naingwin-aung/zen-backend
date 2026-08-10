@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('checkout_payloads', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->id();
-            $table->string('guid')->nullable();
-            $table->jsonb('payload')->nullable();
-            $table->string('status')->nullable();
+            $table->string('name');
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('checkout_payloads');
+        Schema::dropIfExists('languages');
     }
 };

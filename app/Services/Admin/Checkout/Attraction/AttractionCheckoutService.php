@@ -17,7 +17,7 @@ class AttractionCheckoutService
         $product = Product::with(['schedule', 'images'])
             ->where('id', $requestProduct['product_id'])->first();
 
-        if (!$product) {
+        if (! $product) {
             throw new Exception('Product Not Found');
         }
 
@@ -48,7 +48,7 @@ class AttractionCheckoutService
             ->where('id', $requestProduct['package_id'])
             ->first();
 
-        if (!$package) {
+        if (! $package) {
             throw new Exception('Package Not Found');
         }
 

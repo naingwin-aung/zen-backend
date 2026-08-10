@@ -17,9 +17,16 @@ class AttractionService
         $query = Product::query();
 
         if ($search) {
-            $query = $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($search).'%'])
-                    ->orWhereRaw('LOWER(search_keywords) LIKE ?', ['%'.strtolower($search).'%']);
+            $locale = app()->getLocale();
+            $languageService = app(LanguageService::class);
+            $codes = $languageService->getCodes();
+
+            $query = $query->where(function ($q) use ($search, $locale, $codes) {
+                $q->where('name->'.$locale, 'LIKE', '%'.$search.'%');
+                foreach ($codes as $code) {
+                    $q->orWhere('name->'.$code, 'LIKE', '%'.$search.'%');
+                }
+                $q->orWhereRaw('LOWER(search_keywords) LIKE ?', ['%'.strtolower($search).'%']);
             });
         }
 
@@ -56,11 +63,13 @@ class AttractionService
             'is_active' => $data['is_active'] ?? false,
         ]);
 
-        $noSpaceName = str_replace(' ', '', strtolower($attraction->name));
+        $nameForSlug = is_array($data['name']) ? ($data['name']['en'] ?? (current(array_filter($data['name'])) ?: reset($data['name']))) : $data['name'];
+        $allNamesStr = is_array($data['name']) ? implode(', ', array_filter($data['name'])) : (string) $data['name'];
+        $noSpaceName = str_replace(' ', '', strtolower((string) $allNamesStr));
         $attraction->search_keywords = "{$noSpaceName}, ".($data['search_keywords'] ?? '');
 
         $attraction->update([
-            'slug' => $attraction->id.'-'.Str::slug($attraction->name),
+            'slug' => $attraction->id.'-'.Str::slug((string) $nameForSlug),
             'search_keywords' => $attraction->search_keywords,
         ]);
 
@@ -124,10 +133,12 @@ class AttractionService
     {
         $attraction = $this->find($id);
 
+        $nameForSlug = is_array($data['name']) ? ($data['name']['en'] ?? (current(array_filter($data['name'])) ?: reset($data['name']))) : $data['name'];
+
         $attraction->update([
             'supplier_id' => $data['supplier_id'] ?? null,
             'name' => $data['name'],
-            'slug' => $attraction->id.'-'.Str::slug($data['name']),
+            'slug' => $attraction->id.'-'.Str::slug((string) $nameForSlug),
             'search_keywords' => $data['search_keywords'] ?? $attraction->search_keywords,
             'star_rating' => $data['star_rating'] ?? 0,
             'is_active' => $data['is_active'] ?? false,

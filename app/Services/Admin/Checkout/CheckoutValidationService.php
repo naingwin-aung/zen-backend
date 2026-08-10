@@ -13,11 +13,11 @@ class CheckoutValidationService
      *
      * @return array{0: array<string, string>, 1: array<string, string>}
      */
-    public function validate(Request $request, $confirmMode = false) : array
+    public function validate(Request $request, $confirmMode = false): array
     {
         $rules = [
             'products' => 'required|array',
-            'products.*.service' => 'required|in:' . implode(',', array_column(ServiceEnum::cases(), 'value')),
+            'products.*.service' => 'required|in:'.implode(',', array_column(ServiceEnum::cases(), 'value')),
         ];
 
         // if checkout confirm
@@ -39,7 +39,7 @@ class CheckoutValidationService
 
         if ($request->has('products') && is_array($request->products)) {
             foreach ($request->products as $key => $product) {
-                if (!isset($product['service'])) {
+                if (! isset($product['service'])) {
                     continue;
                 }
 

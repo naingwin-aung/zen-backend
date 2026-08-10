@@ -12,7 +12,7 @@ class BookingAttractionResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         $product = $this->product_snapshot ?? [];
         $package = $this->package_snapshot ?? [];
@@ -28,7 +28,7 @@ class BookingAttractionResource extends JsonResource
                 'service' => data_get($product, 'service'),
                 'star_rating' => data_get($product, 'star_rating'),
                 'price' => data_get($product, 'price'),
-                'images' => collect(data_get($product, 'images', []))->map(fn($image) => [
+                'images' => collect(data_get($product, 'images', []))->map(fn ($image) => [
                     'id' => data_get($image, 'id'),
                     'url' => data_get($image, 'url'),
                 ]),

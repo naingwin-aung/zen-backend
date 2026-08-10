@@ -24,13 +24,13 @@ class TravelPlatformController extends Controller
             ])
                 ->where(function ($query) use ($request) {
                     $query->whereHas('cities', function ($query) use ($request) {
-                        $query->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($request->destination) . "%"]);
+                        $query->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($request->destination).'%']);
                     })
                         ->orWhereHas('countries', function ($query) use ($request) {
-                            $query->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($request->destination) . "%"]);
+                            $query->whereRaw('LOWER(name) LIKE ?', ['%'.strtolower($request->destination).'%']);
                         })
-                        ->orWhereRaw('LOWER(name) LIKE ?', ["%" . strtolower($request->destination) . "%"])
-                        ->orWhereRaw('LOWER(search_keywords) LIKE ?', ["%" . strtolower($request->destination) . "%"]);
+                        ->orWhereRaw('LOWER(name) LIKE ?', ['%'.strtolower($request->destination).'%'])
+                        ->orWhereRaw('LOWER(search_keywords) LIKE ?', ['%'.strtolower($request->destination).'%']);
                 })
                 ->limit(5)
                 ->get();

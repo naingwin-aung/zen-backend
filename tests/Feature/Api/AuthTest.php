@@ -27,7 +27,7 @@ describe('register', function () {
 
         $this->assertDatabaseHas('users', [
             'email' => 'john@example.com',
-            'name' => 'John Doe',
+            'first_name' => 'John Doe',
         ]);
     });
 

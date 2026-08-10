@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\Admin\Booking;
 
-use App\Http\Resources\Admin\Booking\Attraction\BookingAttractionResource;
 use App\Enums\ServiceEnum;
+use App\Http\Resources\Admin\Booking\Attraction\BookingAttractionResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,7 +14,7 @@ class BookingProductResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         $result = [
             'id' => $this->id,
@@ -28,10 +28,10 @@ class BookingProductResource extends JsonResource
         ];
 
         switch ($result['service']) {
-            case ServiceEnum::ATTRACTION->value: {
+            case ServiceEnum::ATTRACTION->value:
                 $result['attraction'] = new BookingAttractionResource($this->whenLoaded('bookingAttraction'));
                 break;
-            }
+
         }
 
         return $result;
@@ -40,7 +40,7 @@ class BookingProductResource extends JsonResource
     /**
      * Resolve the booked service from the loaded service booking.
      */
-    private function service() : ?string
+    private function service(): ?string
     {
         return match (true) {
             $this->relationLoaded('bookingAttraction') && $this->bookingAttraction => ServiceEnum::ATTRACTION->value,

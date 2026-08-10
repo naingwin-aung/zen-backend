@@ -51,6 +51,7 @@ describe('checkout', function () {
             'search_keywords' => 'checkout',
             'star_rating' => 4,
             'price' => 50,
+            'is_active' => true,
         ]);
 
         $attraction->detail()->create([
@@ -58,8 +59,8 @@ describe('checkout', function () {
         ]);
 
         $attraction->schedule()->create([
-            'start_date' => '2026-06-01',
-            'end_date' => '2026-07-01',
+            'start_date' => now()->subMonth()->format('Y-m-d'),
+            'end_date' => now()->addYear()->format('Y-m-d'),
             'closing_type' => null,
             'closing_dates' => [],
             'closing_days' => [],
@@ -88,7 +89,7 @@ describe('checkout', function () {
                         'service' => ServiceEnum::ATTRACTION->value,
                         'product_id' => $attraction->id,
                         'package_id' => $package->id,
-                        'date' => '2026-06-15',
+                        'date' => now()->addDays(5)->format('Y-m-d'),
                         'quantities' => [
                             [
                                 'id' => $price1->id,
@@ -101,7 +102,7 @@ describe('checkout', function () {
 
         $response->assertSuccessful();
 
-        $checkoutData = $response->json('data.checkout.0');
+        $checkoutData = $response->json('data.data.0');
         expect($checkoutData['prices'][0]['quantity'])->toBe(3)
             ->and($checkoutData['prices'][0]['total'])->toBe(150);
     });
@@ -137,6 +138,7 @@ describe('checkout', function () {
             'search_keywords' => 'checkout',
             'star_rating' => 4,
             'price' => 50,
+            'is_active' => true,
         ]);
 
         $attraction->detail()->create([
@@ -144,8 +146,8 @@ describe('checkout', function () {
         ]);
 
         $attraction->schedule()->create([
-            'start_date' => '2026-06-01',
-            'end_date' => '2026-07-01',
+            'start_date' => now()->subMonth()->format('Y-m-d'),
+            'end_date' => now()->addYear()->format('Y-m-d'),
             'closing_type' => null,
             'closing_dates' => [],
             'closing_days' => [],
@@ -173,7 +175,7 @@ describe('checkout', function () {
             'service' => ServiceEnum::ATTRACTION->value,
             'product_id' => $attraction->id,
             'package_id' => $package->id,
-            'date' => '2026-06-15',
+            'date' => now()->addDays(5)->format('Y-m-d'),
             'quantities' => [
                 (object) [
                     'id' => $price1->id,

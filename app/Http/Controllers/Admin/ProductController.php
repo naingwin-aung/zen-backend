@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exceptions\MyException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\Product\ProductDetailResource;
 use App\Http\Resources\Admin\Product\ProductListingResource;

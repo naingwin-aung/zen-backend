@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Exceptions\MyException;
-use Exception;
 use App\Http\Controllers\Controller;
 use App\Services\Api\AuthService;
+use Exception;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller

@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required',
             'supplier_id' => 'required|integer|exists:suppliers,id',
             'star_rating' => 'nullable|numeric|min:0|max:5',
             'is_active' => 'nullable|boolean',
@@ -37,9 +37,9 @@ class UpdateRequest extends FormRequest
             'categories' => 'required|array',
             'categories.*' => 'required|integer|exists:categories,id',
             'search_keywords' => 'nullable|string',
-            'what_to_expect' => 'required|string',
-            'good_to_know' => 'nullable|string',
-            'highlights' => 'nullable|string',
+            'what_to_expect' => 'required',
+            'good_to_know' => 'nullable',
+            'highlights' => 'nullable',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'closing_type' => 'nullable|string|in:closing_days,closing_dates',
@@ -47,8 +47,8 @@ class UpdateRequest extends FormRequest
             'closing_days' => 'required_if:closing_type,closing_days|array',
             'packages' => 'required|array',
             'packages.*.id' => 'nullable|integer',
-            'packages.*.name' => 'required_with:packages|string|max:255',
-            'packages.*.description' => 'nullable|string',
+            'packages.*.name' => 'required_with:packages',
+            'packages.*.description' => 'nullable',
             'packages.*.prices' => 'required_with:packages|array',
             'packages.*.prices.*.id' => 'nullable|integer',
             'packages.*.prices.*.age_group_id' => 'required_with:packages.*.prices|integer|exists:age_groups,id',

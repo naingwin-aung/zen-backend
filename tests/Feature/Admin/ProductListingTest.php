@@ -85,6 +85,7 @@ describe('GET admin/products', function () {
             'slug' => '99-universal-studios-singapore',
             'service' => ServiceEnum::ATTRACTION->value,
             'star_rating' => 4.8,
+            'is_active' => true,
         ]);
 
         $product->categories()->sync([$this->category->id]);
@@ -115,6 +116,7 @@ describe('GET admin/products', function () {
             'service' => ServiceEnum::ATTRACTION->value,
             'search_keywords' => 'desertsafaridubai, desert, safari, dubai',
             'star_rating' => 4.8,
+            'is_active' => true,
         ]);
 
         Product::create([
@@ -123,6 +125,7 @@ describe('GET admin/products', function () {
             'service' => ServiceEnum::ATTRACTION->value,
             'search_keywords' => 'elephantsanctuarythailand, elephant, sanctuary',
             'star_rating' => 4.9,
+            'is_active' => true,
         ]);
 
         $response = $this->actingAs($this->admin, 'sanctum')

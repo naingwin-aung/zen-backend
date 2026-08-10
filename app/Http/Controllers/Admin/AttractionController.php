@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exceptions\MyException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Attraction\StoreRequest;
 use App\Http\Requests\Admin\Attraction\UpdateRequest;

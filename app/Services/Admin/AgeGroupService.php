@@ -13,24 +13,32 @@ class AgeGroupService
         $query = AgeGroup::query();
 
         if ($search) {
-            $query = $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($search) . "%"]);
+            $locale = app()->getLocale();
+            $languageService = app(LanguageService::class);
+            $codes = $languageService->getCodes();
+
+            $query = $query->where(function ($q) use ($search, $locale, $codes) {
+                $q->where('name->'.$locale, 'LIKE', '%'.$search.'%');
+                foreach ($codes as $code) {
+                    $q->orWhere('name->'.$code, 'LIKE', '%'.$search.'%');
+                }
             });
         }
 
-        $data = $query
+        $locale = app()->getLocale();
+
+        return $query
+            ->orderBy('name->'.$locale)
             ->orderBy('id', 'desc')
             ->paginate($limit)
             ->withQueryString();
-
-        return $data;
     }
 
     public function find($id)
     {
         $ageGroup = AgeGroup::find($id);
 
-        if (!$ageGroup) {
+        if (! $ageGroup) {
             throw new Exception('Age group not found.');
         }
 
@@ -39,25 +47,23 @@ class AgeGroupService
 
     public function create($name, $min_age, $max_age)
     {
-        $ageGroup = AgeGroup::create([
-            'name'    => $name,
+        return AgeGroup::create([
+            'name' => $name,
             'min_age' => $min_age ?? null,
             'max_age' => $max_age ?? null,
         ]);
-
-        return $ageGroup;
     }
 
     public function update($id, $name, $min_age, $max_age)
     {
         $ageGroup = AgeGroup::find($id);
 
-        if (!$ageGroup) {
+        if (! $ageGroup) {
             throw new Exception('Age group not found.');
         }
 
         $ageGroup->update([
-            'name'    => $name,
+            'name' => $name,
             'min_age' => $min_age ?? null,
             'max_age' => $max_age ?? null,
         ]);
@@ -69,7 +75,7 @@ class AgeGroupService
     {
         $ageGroup = AgeGroup::find($id);
 
-        if (!$ageGroup) {
+        if (! $ageGroup) {
             throw new Exception('Age group not found.');
         }
 
@@ -80,10 +86,16 @@ class AgeGroupService
 
     public function all()
     {
-        $ageGroups = Cache::rememberForever('age_groups_list', function () {
-            return AgeGroup::select('id', 'name', 'min_age', 'max_age')->orderBy('name')->get()->toArray();
-        });
+        $locale = app()->getLocale();
 
-        return $ageGroups;
+        return Cache::rememberForever('age_groups_list_'.$locale, function () {
+            return AgeGroup::select('id', 'name', 'min_age', 'max_age')
+                ->get()
+                ->sortBy(function ($item) {
+                    return strtolower((string) $item->name);
+                })
+                ->values()
+                ->toArray();
+        });
     }
 }

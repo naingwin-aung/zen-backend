@@ -17,8 +17,8 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'page'   => 'required|integer|min:1',
-            'limit'  => 'required|integer|min:1|max:100',
+            'page' => 'required|integer|min:1',
+            'limit' => 'required|integer|min:1|max:100',
             'search' => 'nullable|string|max:255',
         ]);
 
@@ -26,9 +26,9 @@ class AdminController extends Controller
             $admins = $this->service->listing($request->limit, $request->search);
 
             return success([
-                'total'        => $admins->total(),
+                'total' => $admins->total(),
                 'is_load_more' => $admins->hasMorePages(),
-                'admins'       => $admins->getCollection(),
+                'admins' => $admins->getCollection(),
             ], 'Admins retrieved successfully.');
         } catch (Exception $e) {
             return error($e->getMessage());
@@ -51,10 +51,10 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:admins,email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admins,email',
             'password' => 'required|string|min:8',
-            'profile'  => 'nullable|image|max:2048',
+            'profile' => 'nullable|image|max:2048',
         ]);
 
         try {
@@ -71,10 +71,10 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:admins,email,' . $id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admins,email,'.$id,
             'password' => 'nullable|string|min:8',
-            'profile'  => 'nullable|image|max:2048',
+            'profile' => 'nullable|image|max:2048',
         ]);
 
         try {

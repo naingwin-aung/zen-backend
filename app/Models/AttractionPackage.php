@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class AttractionPackage extends Model
 {
+    use HasTranslations;
+
     protected $table = 'attraction_packages';
+
+    public array $translatable = ['name', 'description'];
 
     protected $fillable = [
         'product_id',
@@ -21,7 +26,7 @@ class AttractionPackage extends Model
 
     public function getMinPriceAttribute()
     {
-        if (!$this->relationLoaded('prices')) {
+        if (! $this->relationLoaded('prices')) {
             return null;
         }
 

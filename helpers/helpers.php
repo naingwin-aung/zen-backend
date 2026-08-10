@@ -3,14 +3,14 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
-if (!function_exists('storeImage')) {
+if (! function_exists('storeImage')) {
     function storeImage(string $folderName, $image, $path = 'public')
     {
         return Storage::put($folderName, $image, $path);
     }
 }
 
-if (!function_exists('generateDatesFromClosingDays')) {
+if (! function_exists('generateDatesFromClosingDays')) {
     function generateDatesFromClosingDays($closingDays, $startDate, $endDate)
     {
         $dates = [];
@@ -33,7 +33,7 @@ if (!function_exists('generateDatesFromClosingDays')) {
                 'Wednesday' => Carbon::WEDNESDAY,
                 'Thursday' => Carbon::THURSDAY,
                 'Friday' => Carbon::FRIDAY,
-                'Saturday' => Carbon::SATURDAY
+                'Saturday' => Carbon::SATURDAY,
             ];
 
             if (isset($dayMapping[$dayName])) {
@@ -54,6 +54,7 @@ if (!function_exists('generateDatesFromClosingDays')) {
         }
 
         sort($dates);
+
         return array_values(array_unique($dates));
     }
 }
