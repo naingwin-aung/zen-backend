@@ -38,6 +38,22 @@ class CountryService
         return $country;
     }
 
+    /**
+     * Build the prefilled payload used to create a copy of an existing country.
+     *
+     * @return array{clone_from: int, name: string, dial_code: ?string}
+     */
+    public function clone($id): array
+    {
+        $country = $this->find($id);
+
+        return [
+            'clone_from' => $country->id,
+            'name' => $country->name,
+            'dial_code' => $country->dial_code,
+        ];
+    }
+
     public function create($name, $dial_code)
     {
         $country = Country::create([

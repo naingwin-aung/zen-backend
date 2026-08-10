@@ -2,11 +2,41 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 if (! function_exists('storeImage')) {
     function storeImage(string $folderName, $image, $path = 'public')
     {
         return Storage::put($folderName, $image, $path);
+    }
+}
+
+if (! function_exists('copyStoredImage')) {
+    /**
+     * Duplicate an already stored image so a cloned record owns its own file.
+     */
+    function copyStoredImage(string $folderName, ?string $sourcePath, string $visibility = 'public'): ?string
+    {
+        if (empty($sourcePath)) {
+            return null;
+        }
+
+        // externally hosted images are referenced by URL, so the copy can share it
+        if (Str::startsWith($sourcePath, 'http')) {
+            return $sourcePath;
+        }
+
+        if (! Storage::exists($sourcePath)) {
+            return null;
+        }
+
+        $extension = pathinfo($sourcePath, PATHINFO_EXTENSION);
+        $newPath = $folderName.'/'.Str::random(40).($extension ? '.'.$extension : '');
+
+        Storage::copy($sourcePath, $newPath);
+        Storage::setVisibility($newPath, $visibility);
+
+        return $newPath;
     }
 }
 

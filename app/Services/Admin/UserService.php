@@ -38,6 +38,27 @@ class UserService
         return $user;
     }
 
+    /**
+     * Build the prefilled payload used to create a copy of an existing user.
+     */
+    public function clone($id): array
+    {
+        $user = $this->find($id);
+
+        return [
+            'clone_from' => $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'title' => $user->title,
+            'email' => null,
+            'country_id' => $user->country_id,
+            'dial_id' => $user->dial_id,
+            'phone_number' => $user->phone_number,
+            'country' => $user->country,
+            'dial' => $user->dial,
+        ];
+    }
+
     public function create(array $data)
     {
         if (isset($data['password'])) {

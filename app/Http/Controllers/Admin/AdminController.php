@@ -48,6 +48,19 @@ class AdminController extends Controller
         }
     }
 
+    public function clone($id)
+    {
+        try {
+            $admin = $this->service->clone($id);
+
+            return success([
+                'admin' => $admin,
+            ], 'Admin clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -55,10 +68,11 @@ class AdminController extends Controller
             'email' => 'required|email|unique:admins,email',
             'password' => 'required|string|min:8',
             'profile' => 'nullable|image|max:2048',
+            'clone_from' => 'nullable|integer|exists:admins,id',
         ]);
 
         try {
-            $admin = $this->service->create($request->name, $request->email, $request->password, $request->profile);
+            $admin = $this->service->create($request->name, $request->email, $request->password, $request->profile, $request->clone_from);
 
             return success([
                 'admin' => $admin,

@@ -48,6 +48,19 @@ class CategoryController extends Controller
         }
     }
 
+    public function clone($id)
+    {
+        try {
+            $category = $this->service->clone($id);
+
+            return success([
+                'category' => $category,
+            ], 'Category clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

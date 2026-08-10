@@ -49,6 +49,19 @@ class CountryController extends Controller
         }
     }
 
+    public function clone($id)
+    {
+        try {
+            $country = $this->service->clone($id);
+
+            return success([
+                'country' => $country,
+            ], 'Country clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -36,11 +36,31 @@ class SupplierService
         return $supplier;
     }
 
-    public function create($name, $email, $password, $profile = null)
+    /**
+     * Build the prefilled payload used to create a copy of an existing supplier.
+     *
+     * @return array{clone_from: int, name: string, email: null, profile: ?string}
+     */
+    public function clone($id): array
+    {
+        $supplier = $this->find($id);
+
+        return [
+            'clone_from' => $supplier->id,
+            'name' => $supplier->name,
+            'email' => null,
+            'profile' => $supplier->profile,
+        ];
+    }
+
+    public function create($name, $email, $password, $profile = null, $cloneFrom = null)
     {
         $image = null;
         if ($profile) {
             $image = storeImage('suppliers', $profile);
+        } elseif ($cloneFrom) {
+            $source = Supplier::find($cloneFrom);
+            $image = $source ? copyStoredImage('suppliers', $source->getRawOriginal('profile')) : null;
         }
 
         $supplier = Supplier::create([

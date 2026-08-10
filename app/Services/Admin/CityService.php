@@ -44,6 +44,21 @@ class CityService
         return $city;
     }
 
+    /**
+     * Build the prefilled payload used to create a copy of an existing city.
+     */
+    public function clone($id): array
+    {
+        $city = $this->find($id);
+
+        return [
+            'clone_from' => $city->id,
+            'name' => $city->name,
+            'country_id' => $city->country_id,
+            'country' => $city->country,
+        ];
+    }
+
     public function create($name, $countryId)
     {
         $city = City::create([

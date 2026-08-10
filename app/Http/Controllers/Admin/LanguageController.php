@@ -48,6 +48,19 @@ class LanguageController extends Controller
         }
     }
 
+    public function clone(int $id)
+    {
+        try {
+            $language = $this->service->clone($id);
+
+            return success([
+                'language' => $language,
+            ], 'Language clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

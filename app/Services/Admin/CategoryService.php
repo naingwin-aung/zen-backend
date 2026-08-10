@@ -45,6 +45,21 @@ class CategoryService
         return $category;
     }
 
+    /**
+     * Build the prefilled payload used to create a copy of an existing category.
+     *
+     * @return array{clone_from: int, name: array<string, string>}
+     */
+    public function clone($id): array
+    {
+        $category = $this->find($id);
+
+        return [
+            'clone_from' => $category->id,
+            'name' => $category->getTranslations('name'),
+        ];
+    }
+
     public function create($name)
     {
         $category = Category::create([

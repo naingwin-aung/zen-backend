@@ -48,6 +48,19 @@ class SupplierController extends Controller
         }
     }
 
+    public function clone($id)
+    {
+        try {
+            $supplier = $this->service->clone($id);
+
+            return success([
+                'supplier' => $supplier,
+            ], 'Supplier clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -55,10 +68,11 @@ class SupplierController extends Controller
             'email' => 'required|email|unique:suppliers,email',
             'password' => 'required|string|min:8',
             'profile' => 'nullable|image|max:2048',
+            'clone_from' => 'nullable|integer|exists:suppliers,id',
         ]);
 
         try {
-            $supplier = $this->service->create($request->name, $request->email, $request->password, $request->profile);
+            $supplier = $this->service->create($request->name, $request->email, $request->password, $request->profile, $request->clone_from);
 
             return success([
                 'supplier' => $supplier,

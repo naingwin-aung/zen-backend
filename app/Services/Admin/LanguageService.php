@@ -14,8 +14,8 @@ class LanguageService
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('code', 'LIKE', '%' . $search . '%');
+                $q->where('name', 'LIKE', '%'.$search.'%')
+                    ->orWhere('code', 'LIKE', '%'.$search.'%');
             });
         }
 
@@ -28,11 +28,27 @@ class LanguageService
     {
         $language = Language::find($id);
 
-        if (!$language) {
+        if (! $language) {
             throw new Exception('Language not found.');
         }
 
         return $language;
+    }
+
+    /**
+     * Build the prefilled payload used to create a copy of an existing language.
+     *
+     * @return array{clone_from: int, name: string, code: null}
+     */
+    public function clone(int $id): array
+    {
+        $language = $this->find($id);
+
+        return [
+            'clone_from' => $language->id,
+            'name' => $language->name,
+            'code' => null,
+        ];
     }
 
     public function create(array $data): Language
@@ -41,7 +57,7 @@ class LanguageService
 
         $existing = Language::where('code', $data['code'])->first();
         if ($existing) {
-            throw new Exception('Language with code "' . $data['code'] . '" already exists.');
+            throw new Exception('Language with code "'.$data['code'].'" already exists.');
         }
 
         return Language::create([
@@ -58,7 +74,7 @@ class LanguageService
             $data['code'] = strtolower(trim($data['code']));
             $existing = Language::where('code', $data['code'])->where('id', '!=', $id)->first();
             if ($existing) {
-                throw new Exception('Language with code "' . $data['code'] . '" already exists.');
+                throw new Exception('Language with code "'.$data['code'].'" already exists.');
             }
         }
 
@@ -88,8 +104,8 @@ class LanguageService
     public function getCodes(): array
     {
         return Cache::rememberForever('active_languages', function () {
-            $codes = Language::pluck('code')->map(fn($c) => strtolower($c))->toArray();
-            if (!in_array('en', $codes, true)) {
+            $codes = Language::pluck('code')->map(fn ($c) => strtolower($c))->toArray();
+            if (! in_array('en', $codes, true)) {
                 $codes[] = 'en';
             }
 

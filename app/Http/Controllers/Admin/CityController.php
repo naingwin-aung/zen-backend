@@ -49,6 +49,19 @@ class CityController extends Controller
         }
     }
 
+    public function clone($id)
+    {
+        try {
+            $city = $this->service->clone($id);
+
+            return success([
+                'city' => $city,
+            ], 'City clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -30,8 +30,12 @@ class StoreRequest extends FormRequest
             'countries.*' => 'required|integer',
             'cities' => 'required|array',
             'cities.*' => 'required|integer',
-            'images' => 'required|array',
+            // a clone reuses the source images, so uploads are only required otherwise
+            'clone_from' => 'nullable|integer|exists:products,id',
+            'images' => 'required_without:clone_from|array',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:2048',
+            'old_images' => 'nullable|array',
+            'old_images.*' => 'integer',
             'categories' => 'required|array',
             'categories.*' => 'required|integer|exists:categories,id',
             'what_to_expect' => 'required',

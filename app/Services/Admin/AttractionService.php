@@ -6,6 +6,7 @@ use App\Enums\ClosingTypeEnum;
 use App\Enums\ServiceEnum;
 use App\Models\AttractionPackage;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -50,6 +51,42 @@ class AttractionService
         }
 
         return $attraction;
+    }
+
+    /**
+     * Build the prefilled payload used to create a copy of an existing attraction.
+     *
+     * Identifiers are stripped so the dashboard submits the payload as a brand new
+     * attraction, while `clone_from` lets the store request copy the source images.
+     */
+    public function clone(int $id): array
+    {
+        $attraction = $this->find($id);
+
+        $data = $attraction->toArray();
+
+        $data['id'] = null;
+        $data['slug'] = null;
+        $data['clone_from'] = $attraction->id;
+
+        $data['attraction_packages'] = collect($data['attraction_packages'] ?? [])
+            ->map(function (array $package) {
+                $package['id'] = null;
+                $package['product_id'] = null;
+                $package['prices'] = collect($package['prices'] ?? [])
+                    ->map(function (array $price) {
+                        $price['id'] = null;
+                        $price['attraction_package_id'] = null;
+
+                        return $price;
+                    })
+                    ->all();
+
+                return $package;
+            })
+            ->all();
+
+        return $data;
     }
 
     public function create(array $data)
@@ -103,6 +140,11 @@ class AttractionService
 
         if (isset($data['images'])) {
             $this->_createImages($attraction, $data['images']);
+        }
+
+        // a cloned attraction gets its own copy of the source images
+        if (! empty($data['clone_from'])) {
+            $this->_copyImagesFrom($attraction, (int) $data['clone_from'], $data['old_images'] ?? []);
         }
 
         // handle package option
@@ -324,6 +366,38 @@ class AttractionService
                 'updated_at' => now(),
             ];
         }
+
+        if (count($imageArray) > 0) {
+            $product->images()->createMany($imageArray);
+        }
+    }
+
+    /**
+     * Duplicate the source attraction images, skipping the ones dropped in the clone form.
+     *
+     * @param  array<int, int|string>  $excludedImageIds
+     */
+    private function _copyImagesFrom(Product $product, int $sourceId, array $excludedImageIds = []): void
+    {
+        $source = Product::with('images')->find($sourceId);
+
+        if (! $source) {
+            return;
+        }
+
+        $excludedImageIds = array_map('intval', $excludedImageIds);
+
+        $imageArray = $source->images
+            ->reject(fn (ProductImage $image) => in_array($image->id, $excludedImageIds, true))
+            ->map(fn (ProductImage $image) => copyStoredImage('attraction_images', $image->getRawOriginal('url')))
+            ->filter()
+            ->map(fn (string $url) => [
+                'url' => $url,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ])
+            ->values()
+            ->all();
 
         if (count($imageArray) > 0) {
             $product->images()->createMany($imageArray);

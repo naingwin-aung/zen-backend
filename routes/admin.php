@@ -24,6 +24,17 @@ Route::middleware('throttle:api')->group(function () {
         Route::get('/user', [AuthController::class, 'user']);
         Route::post('/logout', [AuthController::class, 'logout']);
 
+        // clone data (prefills the create form with a copy of an existing record)
+        Route::get('admins/{id}/clone', [AdminController::class, 'clone']);
+        Route::get('users/{id}/clone', [UserController::class, 'clone']);
+        Route::get('suppliers/{id}/clone', [SupplierController::class, 'clone']);
+        Route::get('countries/{id}/clone', [CountryController::class, 'clone']);
+        Route::get('cities/{id}/clone', [CityController::class, 'clone']);
+        Route::get('categories/{id}/clone', [CategoryController::class, 'clone']);
+        Route::get('age-groups/{id}/clone', [AgeGroupController::class, 'clone']);
+        Route::get('languages/{id}/clone', [LanguageController::class, 'clone']);
+        Route::get('attractions/{id}/clone', [AttractionController::class, 'clone']);
+
         Route::apiResource('admins', AdminController::class);
         Route::apiResource('users', UserController::class);
         Route::apiResource('suppliers', SupplierController::class);

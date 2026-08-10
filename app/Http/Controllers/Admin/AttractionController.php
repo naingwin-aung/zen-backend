@@ -52,6 +52,19 @@ class AttractionController extends Controller
         }
     }
 
+    public function clone(int $id)
+    {
+        try {
+            $attraction = $this->service->clone($id);
+
+            return success([
+                'attraction' => $attraction,
+            ], 'Attraction clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(StoreRequest $request)
     {
         DB::beginTransaction();

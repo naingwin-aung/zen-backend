@@ -38,11 +38,31 @@ class AdminService
         return $admin;
     }
 
-    public function create($name, $email, $password, $profile = null)
+    /**
+     * Build the prefilled payload used to create a copy of an existing admin.
+     *
+     * @return array{clone_from: int, name: string, email: null, profile: ?string}
+     */
+    public function clone($id): array
+    {
+        $admin = $this->find($id);
+
+        return [
+            'clone_from' => $admin->id,
+            'name' => $admin->name,
+            'email' => null,
+            'profile' => $admin->profile,
+        ];
+    }
+
+    public function create($name, $email, $password, $profile = null, $cloneFrom = null)
     {
         $image = null;
         if ($profile) {
             $image = storeImage('admins', $profile);
+        } elseif ($cloneFrom) {
+            $source = Admin::find($cloneFrom);
+            $image = $source ? copyStoredImage('admins', $source->getRawOriginal('profile')) : null;
         }
 
         $admin = Admin::create([

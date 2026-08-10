@@ -48,6 +48,19 @@ class AgeGroupController extends Controller
         }
     }
 
+    public function clone($id)
+    {
+        try {
+            $ageGroup = $this->service->clone($id);
+
+            return success([
+                'age_group' => $ageGroup,
+            ], 'Age group clone data retrieved successfully.');
+        } catch (Exception $e) {
+            return error($e->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -45,6 +45,23 @@ class AgeGroupService
         return $ageGroup;
     }
 
+    /**
+     * Build the prefilled payload used to create a copy of an existing age group.
+     *
+     * @return array{clone_from: int, name: array<string, string>, min_age: ?int, max_age: ?int}
+     */
+    public function clone($id): array
+    {
+        $ageGroup = $this->find($id);
+
+        return [
+            'clone_from' => $ageGroup->id,
+            'name' => $ageGroup->getTranslations('name'),
+            'min_age' => $ageGroup->min_age,
+            'max_age' => $ageGroup->max_age,
+        ];
+    }
+
     public function create($name, $min_age, $max_age)
     {
         return AgeGroup::create([
